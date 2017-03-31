@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { VideoView } from '../view';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
 
 class VideoContainer extends Component {
 	render() {
@@ -21,13 +20,8 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
 
-	}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(VideoContainer);
+export default connect(mapStateToProps)(VideoContainer);
 
 
 

@@ -41771,12 +41771,6 @@ var _view = __webpack_require__(237);
 
 var _reactRedux = __webpack_require__(96);
 
-var _actions = __webpack_require__(243);
-
-var actions = _interopRequireWildcard(_actions);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41817,11 +41811,7 @@ var mapStateToProps = function mapStateToProps(state) {
 	};
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	return {};
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SongContainer);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(SongContainer);
 
 /***/ }),
 /* 248 */
@@ -41843,12 +41833,6 @@ var _react2 = _interopRequireDefault(_react);
 var _view = __webpack_require__(237);
 
 var _reactRedux = __webpack_require__(96);
-
-var _actions = __webpack_require__(243);
-
-var actions = _interopRequireWildcard(_actions);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41890,11 +41874,7 @@ var mapStateToProps = function mapStateToProps(state) {
 	};
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	return {};
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(VideoContainer);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(VideoContainer);
 
 /***/ }),
 /* 249 */
@@ -41959,7 +41939,6 @@ var SearchContainer = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				'Search Media',
 				_react2.default.createElement(_view.SearchView, { onMusicVideoSearch: this.searchMusicVideo.bind(this) })
 			);
 		}
@@ -41967,10 +41946,6 @@ var SearchContainer = function (_Component) {
 
 	return SearchContainer;
 }(_react.Component);
-
-var mapStateToProps = function mapStateToProps(state) {
-	return {};
-};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	return {
@@ -41983,7 +41958,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	};
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchContainer);
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchContainer);
 
 /***/ }),
 /* 250 */
@@ -42012,22 +41987,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Landing = function (_Component) {
-	_inherits(Landing, _Component);
+var LandingLayout = function (_Component) {
+	_inherits(LandingLayout, _Component);
 
-	function Landing() {
-		_classCallCheck(this, Landing);
+	function LandingLayout() {
+		_classCallCheck(this, LandingLayout);
 
-		return _possibleConstructorReturn(this, (Landing.__proto__ || Object.getPrototypeOf(Landing)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (LandingLayout.__proto__ || Object.getPrototypeOf(LandingLayout)).apply(this, arguments));
 	}
 
-	_createClass(Landing, [{
+	_createClass(LandingLayout, [{
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
 				'div',
 				null,
-				'Landing Page',
 				_react2.default.createElement(_container.SearchContainer, null),
 				_react2.default.createElement(_container.SongContainer, null),
 				_react2.default.createElement(_container.VideoContainer, null)
@@ -42035,10 +42009,10 @@ var Landing = function (_Component) {
 		}
 	}]);
 
-	return Landing;
+	return LandingLayout;
 }(_react.Component);
 
-exports.default = Landing;
+exports.default = LandingLayout;
 
 /***/ }),
 /* 251 */

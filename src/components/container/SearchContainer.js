@@ -20,16 +20,9 @@ class SearchContainer extends Component {
 	render() {
 		return (
 			<div>
-				Search Media
 				<SearchView onMusicVideoSearch={this.searchMusicVideo.bind(this)} />
 			</div>
 		)
-	}
-}
-
-const mapStateToProps = (state) => {
-	return {
-
 	}
 }
 
@@ -40,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);
+export default connect(null, mapDispatchToProps)(SearchContainer);
 
 
 

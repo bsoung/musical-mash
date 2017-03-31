@@ -5,7 +5,7 @@ module.exports = {
 	search: function(searchTerm) {
 		return new Promise(function(resolve, reject) {
 			var url = 'https://api.soundcloud.com/tracks?';
-
+			
 			superagent
 				.get(url)
 				.query({

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { SongContainer, VideoContainer, SearchContainer } from '../container';
 
-export default class Landing extends Component {
+class LandingLayout extends Component {
 	render() {
 		return (
 			<div>
-				Landing Page
 				<SearchContainer />
 				<SongContainer />
 				<VideoContainer />
@@ -13,3 +12,5 @@ export default class Landing extends Component {
 		)
 	}
 }
+
+export default LandingLayout;
