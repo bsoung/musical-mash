@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
+import { SongView } from '../view';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-class Song extends Component {
+class SongContainer extends Component {
 	render() {
 		const { songs } = this.props;
-		
+
 		return (
 			<div>
-			  Song Container
-			  <ul>
-					{
-						(songs === null) ? '' : songs.map(song => (
-							<li key={song.id}>
-								{song.title}
-							</li>
-						))
-					}
-			  </ul>
-
+			  <SongView songs={songs} />
 			</div>
 		)
 	}
@@ -36,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Song);
+export default connect(mapStateToProps, mapDispatchToProps)(SongContainer);
 
 
 

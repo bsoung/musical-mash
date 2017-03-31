@@ -1,5 +1,5 @@
-import Landing from './Landing';
+import LandingLayout from './LandingLayout';
 
 export {
-	Landing
+	LandingLayout
 }

@@ -10611,15 +10611,15 @@ exports.connect = _connect2.default;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.Landing = undefined;
+exports.LandingLayout = undefined;
 
-var _Landing = __webpack_require__(235);
+var _LandingLayout = __webpack_require__(250);
 
-var _Landing2 = _interopRequireDefault(_Landing);
+var _LandingLayout2 = _interopRequireDefault(_LandingLayout);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.Landing = _Landing2.default;
+exports.LandingLayout = _LandingLayout2.default;
 
 /***/ }),
 /* 98 */
@@ -41436,94 +41436,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = _react2.default.createElement(
 	_reactRedux.Provider,
 	{ store: _stores2.default.configureStore() },
-	_react2.default.createElement(_layout.Landing, null)
+	_react2.default.createElement(_layout.LandingLayout, null)
 );
 
 _reactDom2.default.render(app, document.getElementById('root'));
 
 /***/ }),
-/* 233 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(14);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(96);
-
-var _actions = __webpack_require__(243);
-
-var actions = _interopRequireWildcard(_actions);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Song = function (_Component) {
-	_inherits(Song, _Component);
-
-	function Song() {
-		_classCallCheck(this, Song);
-
-		return _possibleConstructorReturn(this, (Song.__proto__ || Object.getPrototypeOf(Song)).apply(this, arguments));
-	}
-
-	_createClass(Song, [{
-		key: 'render',
-		value: function render() {
-			var songs = this.props.songs;
-
-
-			return _react2.default.createElement(
-				'div',
-				null,
-				'Song Container',
-				_react2.default.createElement(
-					'ul',
-					null,
-					songs === null ? '' : songs.map(function (song) {
-						return _react2.default.createElement(
-							'li',
-							{ key: song.id },
-							song.title
-						);
-					})
-				)
-			);
-		}
-	}]);
-
-	return Song;
-}(_react.Component);
-
-var mapStateToProps = function mapStateToProps(state) {
-	return {
-		songs: state.songs.allSongs
-	};
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	return {};
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Song);
-
-/***/ }),
+/* 233 */,
 /* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41533,116 +41452,29 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.SearchMedia = exports.Video = exports.Song = undefined;
+exports.SearchContainer = exports.VideoContainer = exports.SongContainer = undefined;
 
-var _Song = __webpack_require__(233);
+var _SongContainer = __webpack_require__(247);
 
-var _Song2 = _interopRequireDefault(_Song);
+var _SongContainer2 = _interopRequireDefault(_SongContainer);
 
-var _Video = __webpack_require__(245);
+var _VideoContainer = __webpack_require__(248);
 
-var _Video2 = _interopRequireDefault(_Video);
+var _VideoContainer2 = _interopRequireDefault(_VideoContainer);
 
-var _SearchMedia = __webpack_require__(246);
+var _SearchContainer = __webpack_require__(249);
 
-var _SearchMedia2 = _interopRequireDefault(_SearchMedia);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.Song = _Song2.default;
-exports.Video = _Video2.default;
-exports.SearchMedia = _SearchMedia2.default;
-
-/***/ }),
-/* 235 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(14);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _container = __webpack_require__(234);
+var _SearchContainer2 = _interopRequireDefault(_SearchContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Landing = function (_Component) {
-	_inherits(Landing, _Component);
-
-	function Landing() {
-		_classCallCheck(this, Landing);
-
-		return _possibleConstructorReturn(this, (Landing.__proto__ || Object.getPrototypeOf(Landing)).apply(this, arguments));
-	}
-
-	_createClass(Landing, [{
-		key: 'render',
-		value: function render() {
-			return _react2.default.createElement(
-				'div',
-				null,
-				'Landing Page',
-				_react2.default.createElement(_container.SearchMedia, null),
-				_react2.default.createElement(_container.Song, null),
-				_react2.default.createElement(_container.Video, null)
-			);
-		}
-	}]);
-
-	return Landing;
-}(_react.Component);
-
-exports.default = Landing;
+exports.SongContainer = _SongContainer2.default;
+exports.VideoContainer = _VideoContainer2.default;
+exports.SearchContainer = _SearchContainer2.default;
 
 /***/ }),
-/* 236 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _react = __webpack_require__(14);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (props) {
-	return _react2.default.createElement(
-		"div",
-		null,
-		_react2.default.createElement(
-			"h3",
-			null,
-			"Music Mash! Powered by Soundcloud and Youtube"
-		),
-		_react2.default.createElement("input", {
-			onKeyDown: props.onMusicVideoSearch.bind(undefined),
-			id: "search_song",
-			type: "text",
-			placeholder: "Search item" })
-	);
-};
-
-/***/ }),
+/* 235 */,
+/* 236 */,
 /* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41652,15 +41484,25 @@ exports.default = function (props) {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.Search = undefined;
+exports.VideoView = exports.SongView = exports.SearchView = undefined;
 
-var _Search = __webpack_require__(236);
+var _SearchView = __webpack_require__(251);
 
-var _Search2 = _interopRequireDefault(_Search);
+var _SearchView2 = _interopRequireDefault(_SearchView);
+
+var _SongView = __webpack_require__(252);
+
+var _SongView2 = _interopRequireDefault(_SongView);
+
+var _VideoView = __webpack_require__(253);
+
+var _VideoView2 = _interopRequireDefault(_VideoView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.Search = _Search2.default;
+exports.SearchView = _SearchView2.default;
+exports.SongView = _SongView2.default;
+exports.VideoView = _VideoView2.default;
 
 /***/ }),
 /* 238 */
@@ -41907,7 +41749,9 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 245 */
+/* 245 */,
+/* 246 */,
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41941,16 +41785,89 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Video = function (_Component) {
-	_inherits(Video, _Component);
+var SongContainer = function (_Component) {
+	_inherits(SongContainer, _Component);
 
-	function Video() {
-		_classCallCheck(this, Video);
+	function SongContainer() {
+		_classCallCheck(this, SongContainer);
 
-		return _possibleConstructorReturn(this, (Video.__proto__ || Object.getPrototypeOf(Video)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (SongContainer.__proto__ || Object.getPrototypeOf(SongContainer)).apply(this, arguments));
 	}
 
-	_createClass(Video, [{
+	_createClass(SongContainer, [{
+		key: 'render',
+		value: function render() {
+			var songs = this.props.songs;
+
+
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(_view.SongView, { songs: songs })
+			);
+		}
+	}]);
+
+	return SongContainer;
+}(_react.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+	return {
+		songs: state.songs.allSongs
+	};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	return {};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SongContainer);
+
+/***/ }),
+/* 248 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(14);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _view = __webpack_require__(237);
+
+var _reactRedux = __webpack_require__(96);
+
+var _actions = __webpack_require__(243);
+
+var actions = _interopRequireWildcard(_actions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var VideoContainer = function (_Component) {
+	_inherits(VideoContainer, _Component);
+
+	function VideoContainer() {
+		_classCallCheck(this, VideoContainer);
+
+		return _possibleConstructorReturn(this, (VideoContainer.__proto__ || Object.getPrototypeOf(VideoContainer)).apply(this, arguments));
+	}
+
+	_createClass(VideoContainer, [{
 		key: 'render',
 		value: function render() {
 			var videos = this.props.videos;
@@ -41959,23 +41876,12 @@ var Video = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				null,
-				'Video Container',
-				_react2.default.createElement(
-					'ul',
-					null,
-					videos === null ? '' : videos.map(function (video) {
-						return _react2.default.createElement(
-							'li',
-							{ key: video.id.videoId },
-							video.snippet.title
-						);
-					})
-				)
+				_react2.default.createElement(_view.VideoView, { videos: videos })
 			);
 		}
 	}]);
 
-	return Video;
+	return VideoContainer;
 }(_react.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -41988,10 +41894,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	return {};
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Video);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(VideoContainer);
 
 /***/ }),
-/* 246 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42025,16 +41931,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SearchMedia = function (_Component) {
-	_inherits(SearchMedia, _Component);
+var SearchContainer = function (_Component) {
+	_inherits(SearchContainer, _Component);
 
-	function SearchMedia() {
-		_classCallCheck(this, SearchMedia);
+	function SearchContainer() {
+		_classCallCheck(this, SearchContainer);
 
-		return _possibleConstructorReturn(this, (SearchMedia.__proto__ || Object.getPrototypeOf(SearchMedia)).apply(this, arguments));
+		return _possibleConstructorReturn(this, (SearchContainer.__proto__ || Object.getPrototypeOf(SearchContainer)).apply(this, arguments));
 	}
 
-	_createClass(SearchMedia, [{
+	_createClass(SearchContainer, [{
 		key: 'searchMusicVideo',
 		value: function searchMusicVideo(e) {
 			// detect if enter is pressed
@@ -42054,12 +41960,12 @@ var SearchMedia = function (_Component) {
 				'div',
 				null,
 				'Search Media',
-				_react2.default.createElement(_view.Search, { onMusicVideoSearch: this.searchMusicVideo.bind(this) })
+				_react2.default.createElement(_view.SearchView, { onMusicVideoSearch: this.searchMusicVideo.bind(this) })
 			);
 		}
 	}]);
 
-	return SearchMedia;
+	return SearchContainer;
 }(_react.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -42077,7 +41983,182 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	};
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchMedia);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchContainer);
+
+/***/ }),
+/* 250 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(14);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _container = __webpack_require__(234);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Landing = function (_Component) {
+	_inherits(Landing, _Component);
+
+	function Landing() {
+		_classCallCheck(this, Landing);
+
+		return _possibleConstructorReturn(this, (Landing.__proto__ || Object.getPrototypeOf(Landing)).apply(this, arguments));
+	}
+
+	_createClass(Landing, [{
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				'Landing Page',
+				_react2.default.createElement(_container.SearchContainer, null),
+				_react2.default.createElement(_container.SongContainer, null),
+				_react2.default.createElement(_container.VideoContainer, null)
+			);
+		}
+	}]);
+
+	return Landing;
+}(_react.Component);
+
+exports.default = Landing;
+
+/***/ }),
+/* 251 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(14);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (props) {
+	return _react2.default.createElement(
+		"div",
+		null,
+		_react2.default.createElement(
+			"h3",
+			null,
+			"Music Mash! Powered by Soundcloud and Youtube"
+		),
+		_react2.default.createElement("input", {
+			onKeyDown: props.onMusicVideoSearch.bind(undefined),
+			id: "search_song",
+			type: "text",
+			placeholder: "Search item" })
+	);
+};
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(14);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (props) {
+	var songs = props.songs;
+
+
+	return _react2.default.createElement(
+		'div',
+		null,
+		_react2.default.createElement(
+			'h3',
+			null,
+			'Song View'
+		),
+		_react2.default.createElement(
+			'ul',
+			null,
+			songs === null ? '' : songs.map(function (song) {
+				return _react2.default.createElement(
+					'li',
+					{ key: song.id },
+					song.title
+				);
+			})
+		)
+	);
+};
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = __webpack_require__(14);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (props) {
+	var videos = props.videos;
+
+
+	return _react2.default.createElement(
+		'div',
+		null,
+		_react2.default.createElement(
+			'h3',
+			null,
+			'Video View'
+		),
+		_react2.default.createElement(
+			'ul',
+			null,
+			videos === null ? '' : videos.map(function (video) {
+				return _react2.default.createElement(
+					'li',
+					{ key: video.id.videoId },
+					video.snippet.title
+				);
+			})
+		)
+	);
+};
 
 /***/ })
 /******/ ]);

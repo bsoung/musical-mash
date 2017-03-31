@@ -1,5 +1,9 @@
-import Search from './Search';
+import SearchView from './SearchView';
+import SongView from './SongView';
+import VideoView from './VideoView';
 
 export {
-	Search
+	SearchView,
+	SongView,
+	VideoView
 }

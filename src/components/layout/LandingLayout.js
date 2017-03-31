@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Song, Video, SearchMedia } from '../container';
+import { SongContainer, VideoContainer, SearchContainer } from '../container';
 
 export default class Landing extends Component {
 	render() {
 		return (
 			<div>
 				Landing Page
-				<SearchMedia />
-				<Song />
-				<Video />
+				<SearchContainer />
+				<SongContainer />
+				<VideoContainer />
 			</div>
 		)
 	}

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Search } from '../view';
+import { SearchView } from '../view';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-class SearchMedia extends Component {
+class SearchContainer extends Component {
 
 	searchMusicVideo(e) {
 		// detect if enter is pressed
@@ -21,7 +21,7 @@ class SearchMedia extends Component {
 		return (
 			<div>
 				Search Media
-				<Search onMusicVideoSearch={this.searchMusicVideo.bind(this)} />
+				<SearchView onMusicVideoSearch={this.searchMusicVideo.bind(this)} />
 			</div>
 		)
 	}
@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchMedia);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);
 
 
 

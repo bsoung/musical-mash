@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
-import { Search } from '../view';
+import { VideoView } from '../view';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-class Video extends Component {
+class VideoContainer extends Component {
 	render() {
 		const { videos } = this.props;
-		
+
 		return (
 			<div>
-				Video Container
-				<ul>
-					{
-						(videos === null) ? '' : videos.map(video => (
-							<li key={video.id.videoId}>
-								{video.snippet.title}
-							</li>
-						))
-					}
-				</ul>
+				<VideoView videos={videos} />
 			</div>
 		)
 	}
@@ -36,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Video);
+export default connect(mapStateToProps, mapDispatchToProps)(VideoContainer);
 
 
 

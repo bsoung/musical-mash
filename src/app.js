@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import store from './stores';
 import { Provider } from 'react-redux';
-import { Landing } from './components/layout';
+import { LandingLayout } from './components/layout';
 
 const app = (
 	<Provider store={ store.configureStore() }>
-		<Landing />
+		<LandingLayout />
 	</Provider>
 )
 

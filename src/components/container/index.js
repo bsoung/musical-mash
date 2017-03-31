@@ -1,9 +1,9 @@
-import Song from './Song';
-import Video from './Video';
-import SearchMedia from './SearchMedia';
+import SongContainer from './SongContainer';
+import VideoContainer from './VideoContainer';
+import SearchContainer from './SearchContainer';
 
 export {
-	Song,
-	Video,
-	SearchMedia
+	SongContainer,
+	VideoContainer,
+	SearchContainer
 }
