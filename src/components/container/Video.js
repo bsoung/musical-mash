@@ -5,9 +5,20 @@ import * as actions from '../../actions';
 
 class Video extends Component {
 	render() {
+		const { videos } = this.props;
+		
 		return (
 			<div>
 				Video Container
+				<ul>
+					{
+						(videos === null) ? '' : videos.map(video => (
+							<li key={video.id.videoId}>
+								{video.snippet.title}
+							</li>
+						))
+					}
+				</ul>
 			</div>
 		)
 	}

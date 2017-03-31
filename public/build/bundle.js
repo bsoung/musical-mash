@@ -41488,6 +41488,7 @@ var Song = function (_Component) {
 		value: function render() {
 			var songs = this.props.songs;
 
+
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -41952,10 +41953,24 @@ var Video = function (_Component) {
 	_createClass(Video, [{
 		key: 'render',
 		value: function render() {
+			var videos = this.props.videos;
+
+
 			return _react2.default.createElement(
 				'div',
 				null,
-				'Video Container'
+				'Video Container',
+				_react2.default.createElement(
+					'ul',
+					null,
+					videos === null ? '' : videos.map(function (video) {
+						return _react2.default.createElement(
+							'li',
+							{ key: video.id.videoId },
+							video.snippet.title
+						);
+					})
+				)
 			);
 		}
 	}]);

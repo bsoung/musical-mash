@@ -5,6 +5,7 @@ import * as actions from '../../actions';
 class Song extends Component {
 	render() {
 		const { songs } = this.props;
+		
 		return (
 			<div>
 			  Song Container
