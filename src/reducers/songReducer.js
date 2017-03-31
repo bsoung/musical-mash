@@ -9,8 +9,12 @@ export default (state = initialState, action = {}) => {
 	let updated = _.merge({}, state);
 
 	switch (action.type) {
+		case constants.SEARCH_SONGS:
+			updated.allSongs = action.payload;
+		
+			return updated;
+
 		default:
-			console.log("redux set")
 			return state;
 	}
 }

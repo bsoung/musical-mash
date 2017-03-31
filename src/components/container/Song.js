@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Search } from '../view';
 import { APIManager } from '../../utils';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
-export default class Song extends Component {
+class Song extends Component {
 	searchMusic(e) {
 		// detect if enter is pressed
 		if (e.keyCode != 13) {
@@ -10,15 +12,18 @@ export default class Song extends Component {
 		}
 
 		const searchTerm = e.target.value;
-		const url = `/search/${searchTerm}`;
 
-		APIManager.get(url, null)
-			.then((response) => {
-				console.log(response, "RESPONSE");
-			})
-			.catch((err) => {
-				console.error(err);
-			})
+		this.props.searchSongs(searchTerm);
+
+		// const url = `/search/${searchTerm}`;
+
+		// APIManager.get(url, null)
+		// 	.then((response) => {
+		// 		console.log(response, "RESPONSE");
+		// 	})
+		// 	.catch((err) => {
+		// 		console.error(err);
+		// 	})
 
 		
 	}
@@ -32,3 +37,28 @@ export default class Song extends Component {
 		)
 	}
 }
+
+const mapStateToProps = (state) => {
+	return {
+		songs: state.songs
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		searchSongs: (song) => dispatch(actions.searchSongs(song))
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Song);
+
+
+
+
+
+
+
+
+
+
+

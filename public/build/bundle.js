@@ -41461,6 +41461,14 @@ var _view = __webpack_require__(237);
 
 var _utils = __webpack_require__(242);
 
+var _reactRedux = __webpack_require__(96);
+
+var _actions = __webpack_require__(243);
+
+var actions = _interopRequireWildcard(_actions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41487,13 +41495,19 @@ var Song = function (_Component) {
 			}
 
 			var searchTerm = e.target.value;
-			var url = '/search/' + searchTerm;
 
-			_utils.APIManager.get(url, null).then(function (response) {
-				console.log(response, "RESPONSE");
-			}).catch(function (err) {
-				console.error(err);
-			});
+			this.props.searchSongs(searchTerm);
+
+			// const url = `/search/${searchTerm}`;
+
+			// APIManager.get(url, null)
+			// 	.then((response) => {
+			// 		console.log(response, "RESPONSE");
+			// 	})
+			// 	.catch((err) => {
+			// 		console.error(err);
+			// 	})
+
 		}
 	}, {
 		key: 'render',
@@ -41510,7 +41524,21 @@ var Song = function (_Component) {
 	return Song;
 }(_react.Component);
 
-exports.default = Song;
+var mapStateToProps = function mapStateToProps(state) {
+	return {
+		songs: state.songs
+	};
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	return {
+		searchSongs: function searchSongs(song) {
+			return dispatch(actions.searchSongs(song));
+		}
+	};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Song);
 
 /***/ }),
 /* 234 */
@@ -41701,8 +41729,12 @@ exports.default = function () {
 	var updated = _lodash2.default.merge({}, state);
 
 	switch (action.type) {
+		case _constants2.default.SEARCH_SONGS:
+			updated.allSongs = action.payload;
+
+			return updated;
+
 		default:
-			console.log("redux set");
 			return state;
 	}
 };
@@ -41767,6 +41799,51 @@ var _APIManager2 = _interopRequireDefault(_APIManager);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.APIManager = _APIManager2.default;
+
+/***/ }),
+/* 243 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.searchSongs = searchSongs;
+
+var _constants = __webpack_require__(238);
+
+var _constants2 = _interopRequireDefault(_constants);
+
+var _utils = __webpack_require__(242);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var getRequest = function getRequest(path, params, actionType) {
+	return function (dispatch) {
+		_utils.APIManager.get(path, params).then(function (data) {
+			var payload = data.response;
+
+			dispatch({
+				type: actionType,
+				payload: payload,
+				params: params
+			});
+
+			return data;
+		}).catch(function (err) {
+			console.error(err.message);
+			alert(err.message);
+		});
+	};
+};
+
+function searchSongs(searchTerm) {
+	return function (dispatch) {
+		return dispatch(getRequest('/search/' + searchTerm, null, _constants2.default.SEARCH_SONGS));
+	};
+}
 
 /***/ })
 /******/ ]);
