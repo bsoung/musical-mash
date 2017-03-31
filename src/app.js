@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import store from './stores';
+import { Provider } from 'react-redux';
 import { Landing } from './components/layout';
 
 const app = (
-	<div>
+	<Provider store={ store.configureStore() }>
 		<Landing />
-	</div>
+	</Provider>
 )
 
 ReactDOM.render(app, document.getElementById('root'));

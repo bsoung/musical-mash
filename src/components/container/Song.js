@@ -9,12 +9,10 @@ export default class Song extends Component {
 			return;
 		}
 
-
-
 		const searchTerm = e.target.value;
 		const url = `/search/${searchTerm}`;
 
-		APIManager.get(url)
+		APIManager.get(url, null)
 			.then((response) => {
 				console.log(response, "RESPONSE");
 			})
@@ -22,7 +20,7 @@ export default class Song extends Component {
 				console.error(err);
 			})
 
-		console.log(searchTerm);
+		
 	}
 
 	render() {
