@@ -1,13 +1,14 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { songReducer } from '../reducers';
+import { songReducer, videoReducer } from '../reducers';
 
 let store = null;
 
 export default {
 	configureStore: () => {
 		const reducers = combineReducers({
-			songs: songReducer
+			songs: songReducer,
+			videos: videoReducer
 		});
 
 		store = createStore(

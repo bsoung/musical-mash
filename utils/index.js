@@ -1,5 +1,7 @@
 var SCManager = require('./SCManager');
+var YTManager = require('./YTManager');
 
 module.exports = {
-	SCManager: SCManager
+	SCManager: SCManager,
+	YTManager: YTManager
 }

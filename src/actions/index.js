@@ -13,7 +13,7 @@ const getRequest = (path, params, actionType) => {
 					payload: payload,
 					params: params
 				});
-				
+
 				return data;
 			})
 			.catch(err => {
@@ -26,7 +26,17 @@ const getRequest = (path, params, actionType) => {
 export function searchSongs(searchTerm) {
 	return (dispatch) => {
 		return dispatch(
-			getRequest(`/search/${searchTerm}`, null, constants.SEARCH_SONGS)
+			getRequest(`/music/${searchTerm}`, null, constants.SEARCH_SONGS)
 		);
 	}
 }
+
+export function searchVideos(searchTerm) {
+	return (dispatch) => {
+		return dispatch(
+			getRequest(`/video/${searchTerm}`, null, constants.SEARCH_VIDEOS)
+		);
+	}
+}
+
+

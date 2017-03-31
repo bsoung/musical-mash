@@ -2,20 +2,17 @@ import constants from '../constants';
 import _ from 'lodash';
 
 let initialState = {
-	allSongs: null
+	allVideos: null
 }
 
 export default (state = initialState, action = {}) => {
 	let updated = _.merge({}, state);
 
 	switch (action.type) {
-		case constants.SEARCH_SONGS:
-			updated.allSongs = action.payload;
+		case constants.SEARCH_VIDEOS:
+			updated.allVideos = action.payload;
 
-			return updated;
-
-		case constants.SET_SEARCH_TERM:
-			updated.searchTerm = action.payload;
+			console.log('SEARCH_VIDEOS', updated);
 
 			return updated;
 

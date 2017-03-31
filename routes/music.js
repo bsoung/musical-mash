@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var utils = require('../utils');
 
-/* Search home page. */
+/* Music route */
 router.get('/:term', function(req, res, next) {
 	var term = req.params.term;
 

@@ -7,7 +7,8 @@ var bodyParser = require('body-parser');
 require('dotenv').config();
 
 var index = require('./routes/index');
-var search = require('./routes/search');
+var music = require('./routes/music');
+var video = require('./routes/video');
 
 var app = express();
 
@@ -24,7 +25,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/search', search);
+app.use('/music', music);
+app.use('/video', video);
 app.use('/*', index);
 
 // catch 404 and forward to error handler
