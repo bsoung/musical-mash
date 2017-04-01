@@ -1,18 +1,14 @@
 import React from 'react';
 
 export default (props) => {
-	const { videos } = props;
+	const { video } = props;
 	
 	return (
 		<div>
 			<h3>Video View</h3>
 			<ul>
 				{
-					(videos === null) ? '' : videos.map(video => (
-						<li key={video.id.videoId}>
-							{video.snippet.title}
-						</li>
-					))
+					(video === null || video === undefined) ? '' : <strong>{video.snippet.title}</strong>
 				}
 			</ul>
 		</div>

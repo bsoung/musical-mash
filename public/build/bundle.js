@@ -10648,7 +10648,8 @@ exports.default = {
 	configureStore: function configureStore() {
 		var reducers = (0, _redux.combineReducers)({
 			songs: _reducers.songReducer,
-			videos: _reducers.videoReducer
+			videos: _reducers.videoReducer,
+			search: _reducers.searchReducer
 		});
 
 		store = (0, _redux.createStore)(reducers, (0, _redux.applyMiddleware)(_reduxThunk2.default));
@@ -41516,7 +41517,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {
 	SEARCH_SONGS: "SEARCH_SONGS",
-	SEARCH_VIDEOS: "SEARCH_VIDEOS"
+	SEARCH_VIDEOS: "SEARCH_VIDEOS",
+	SET_SEARCH_TERM: "SET_SEARCH_TERM",
+	SET_SONG: "SET_SONG",
+	SET_VIDEO: "SET_VIDEO"
 };
 
 /***/ }),
@@ -41529,7 +41533,7 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.videoReducer = exports.songReducer = undefined;
+exports.searchReducer = exports.videoReducer = exports.songReducer = undefined;
 
 var _songReducer = __webpack_require__(240);
 
@@ -41539,10 +41543,15 @@ var _videoReducer = __webpack_require__(244);
 
 var _videoReducer2 = _interopRequireDefault(_videoReducer);
 
+var _searchReducer = __webpack_require__(254);
+
+var _searchReducer2 = _interopRequireDefault(_searchReducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.songReducer = _songReducer2.default;
 exports.videoReducer = _videoReducer2.default;
+exports.searchReducer = _searchReducer2.default;
 
 /***/ }),
 /* 240 */
@@ -41566,7 +41575,8 @@ var _lodash2 = _interopRequireDefault(_lodash);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var initialState = {
-	allSongs: null
+	allSongs: null,
+	songSet: false
 };
 
 exports.default = function () {
@@ -41581,8 +41591,10 @@ exports.default = function () {
 
 			return updated;
 
-		case _constants2.default.SET_SEARCH_TERM:
-			updated.searchTerm = action.payload;
+		case _constants2.default.SET_SONG:
+			updated.songSet = action.payload;
+
+			console.log("Song updated!", updated);
 
 			return updated;
 
@@ -41664,6 +41676,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.searchSongs = searchSongs;
 exports.searchVideos = searchVideos;
+exports.setSearchTerm = setSearchTerm;
+exports.setSong = setSong;
+exports.setVideo = setVideo;
 
 var _constants = __webpack_require__(238);
 
@@ -41704,6 +41719,27 @@ function searchVideos(searchTerm) {
 	};
 }
 
+function setSearchTerm(searchTerm) {
+	return {
+		type: _constants2.default.SET_SEARCH_TERM,
+		payload: searchTerm
+	};
+}
+
+function setSong(bool) {
+	return {
+		type: _constants2.default.SET_SONG,
+		payload: bool
+	};
+}
+
+function setVideo(bool) {
+	return {
+		type: _constants2.default.SET_VIDEO,
+		payload: bool
+	};
+}
+
 /***/ }),
 /* 244 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -41726,7 +41762,8 @@ var _lodash2 = _interopRequireDefault(_lodash);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var initialState = {
-	allVideos: null
+	allVideos: null,
+	videoSet: false
 };
 
 exports.default = function () {
@@ -41739,7 +41776,12 @@ exports.default = function () {
 		case _constants2.default.SEARCH_VIDEOS:
 			updated.allVideos = action.payload;
 
-			console.log('SEARCH_VIDEOS', updated);
+			return updated;
+
+		case _constants2.default.SET_VIDEO:
+			updated.videoSet = action.payload;
+
+			console.log('updated video!', updated);
 
 			return updated;
 
@@ -41795,32 +41837,45 @@ var SongContainer = function (_Component) {
 	}
 
 	_createClass(SongContainer, [{
-		key: 'getRandomNonRepeatIndex',
-		value: function getRandomNonRepeatIndex(songs) {
+		key: 'getNonSequentialRandomSong',
+		value: function getNonSequentialRandomSong(songs) {
 			var randomIndex = null;
 			var randomSong = null;
 
 			randomIndex = _lodash2.default.random(0, songs.length - 1);
 
-			if (PREVIOUS_INDEX !== randomIndex) {
+			if (PREVIOUS_INDEX !== randomIndex && randomSong !== undefined) {
 				PREVIOUS_INDEX = randomIndex;
-				console.log(randomIndex, 'randomIndex');
 				randomSong = songs[randomIndex];
+
 				return randomSong;
 			} else {
-				this.getRandomNonRepeatIndex(songs);
+				this.getNonSequentialRandomSong(songs);
+			}
+		}
+	}, {
+		key: 'setRandomSong',
+		value: function setRandomSong() {
+			var songs = this.props.songs;
+
+			var song = null;
+			var loaded = false;
+
+			if (songs !== null) {
+				while (loaded === false) {
+					if (song !== undefined && song !== null) {
+						loaded = true;
+						return song;
+					}
+
+					song = this.getNonSequentialRandomSong(songs);
+				}
 			}
 		}
 	}, {
 		key: 'render',
 		value: function render() {
-			var songs = this.props.songs;
-
-			var randomSong = null;
-
-			if (songs !== null) {
-				randomSong = this.getRandomNonRepeatIndex(songs);
-			}
+			var randomSong = this.setRandomSong();
 
 			return _react2.default.createElement(
 				'div',
@@ -41870,6 +41925,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var PREVIOUS_INDEX = 0;
+
 var VideoContainer = function (_Component) {
 	_inherits(VideoContainer, _Component);
 
@@ -41880,15 +41937,52 @@ var VideoContainer = function (_Component) {
 	}
 
 	_createClass(VideoContainer, [{
-		key: 'render',
-		value: function render() {
+		key: 'getNonSequentialRandomVideo',
+		value: function getNonSequentialRandomVideo(videos) {
+			var randomIndex = null;
+			var randomVideo = null;
+
+			randomIndex = _.random(0, videos.length - 1);
+
+			if (PREVIOUS_INDEX !== randomIndex && randomVideo !== undefined) {
+				PREVIOUS_INDEX = randomIndex;
+				randomVideo = videos[randomIndex];
+
+				return randomVideo;
+			} else {
+				this.getNonSequentialRandomVideo(videos);
+			}
+		}
+	}, {
+		key: 'setRandomVideo',
+		value: function setRandomVideo() {
 			var videos = this.props.videos;
 
+			var video = null;
+			var loaded = false;
+
+			if (videos !== null) {
+				while (loaded === false) {
+					if (video !== undefined && video !== null) {
+						loaded = true;
+						return video;
+					}
+
+					video = this.getNonSequentialRandomVideo(videos);
+				}
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var randomVideo = this.setRandomVideo();
+
+			console.log("video container rerendering???");
 
 			return _react2.default.createElement(
 				'div',
 				null,
-				_react2.default.createElement(_view.VideoView, { videos: videos })
+				_react2.default.createElement(_view.VideoView, { video: randomVideo })
 			);
 		}
 	}]);
@@ -41956,10 +42050,21 @@ var SearchContainer = function (_Component) {
 				return;
 			}
 
+			var previousSearchTerm = this.props.search.searchTerm;
 			var searchTerm = e.target.value;
 
-			this.props.searchSongs(searchTerm);
-			this.props.searchVideos(searchTerm);
+			// don't make extra api calls on same search
+			if (searchTerm !== previousSearchTerm) {
+
+				this.props.setSearchTerm(searchTerm);
+				this.props.searchSongs(searchTerm);
+				this.props.searchVideos(searchTerm);
+			} else {
+
+				// TODO: rename action creators to 'sameSong', 'sameVideo'
+				this.props.setSong(true);
+				this.props.setVideo(true);
+			}
 		}
 	}, {
 		key: 'render',
@@ -41975,6 +42080,12 @@ var SearchContainer = function (_Component) {
 	return SearchContainer;
 }(_react.Component);
 
+var mapStateToProps = function mapStateToProps(state) {
+	return {
+		search: state.search
+	};
+};
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	return {
 		searchSongs: function searchSongs(song) {
@@ -41982,11 +42093,20 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		},
 		searchVideos: function searchVideos(video) {
 			return dispatch(actions.searchVideos(video));
+		},
+		setSearchTerm: function setSearchTerm(searchTerm) {
+			return dispatch(actions.setSearchTerm(searchTerm));
+		},
+		setSong: function setSong(bool) {
+			return dispatch(actions.setSong(bool));
+		},
+		setVideo: function setVideo(bool) {
+			return dispatch(actions.setVideo(bool));
 		}
 	};
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SearchContainer);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchContainer);
 
 /***/ }),
 /* 250 */
@@ -42135,7 +42255,7 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (props) {
-	var videos = props.videos;
+	var video = props.video;
 
 
 	return _react2.default.createElement(
@@ -42149,15 +42269,57 @@ exports.default = function (props) {
 		_react2.default.createElement(
 			'ul',
 			null,
-			videos === null ? '' : videos.map(function (video) {
-				return _react2.default.createElement(
-					'li',
-					{ key: video.id.videoId },
-					video.snippet.title
-				);
-			})
+			video === null || video === undefined ? '' : _react2.default.createElement(
+				'strong',
+				null,
+				video.snippet.title
+			)
 		)
 	);
+};
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _constants = __webpack_require__(238);
+
+var _constants2 = _interopRequireDefault(_constants);
+
+var _lodash = __webpack_require__(125);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var initialState = {
+	searchTerm: null
+};
+
+exports.default = function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	var updated = _lodash2.default.merge({}, state);
+
+	switch (action.type) {
+		case _constants2.default.SET_SEARCH_TERM:
+			updated.searchTerm = action.payload;
+
+			console.log("Updated search term", updated);
+
+			return updated;
+
+		default:
+			return state;
+	}
 };
 
 /***/ })

@@ -4,17 +4,29 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 class SearchContainer extends Component {
-
 	searchMusicVideo(e) {
 		// detect if enter is pressed
 		if (e.keyCode != 13) {
 			return;
 		}
 
+		const previousSearchTerm = this.props.search.searchTerm;
 		const searchTerm = e.target.value;
 
-		this.props.searchSongs(searchTerm);
-		this.props.searchVideos(searchTerm);
+		// don't make extra api calls on same search
+		if (searchTerm !== previousSearchTerm) {
+
+			this.props.setSearchTerm(searchTerm);
+			this.props.searchSongs(searchTerm);
+			this.props.searchVideos(searchTerm);
+
+		} else {
+
+			// TODO: rename action creators to 'sameSong', 'sameVideo'
+			this.props.setSong(true);
+			this.props.setVideo(true);
+		}
+
 	}
 
 	render() {
@@ -26,14 +38,23 @@ class SearchContainer extends Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
 	return {
-		searchSongs: (song) => dispatch(actions.searchSongs(song)),
-		searchVideos: (video) => dispatch(actions.searchVideos(video))
+		search: state.search
 	}
 }
 
-export default connect(null, mapDispatchToProps)(SearchContainer);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		searchSongs: (song) => dispatch(actions.searchSongs(song)),
+		searchVideos: (video) => dispatch(actions.searchVideos(video)),
+		setSearchTerm: (searchTerm) => dispatch(actions.setSearchTerm(searchTerm)),
+		setSong: (bool) => dispatch(actions.setSong(bool)),
+		setVideo: (bool) => dispatch(actions.setVideo(bool)),
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);
 
 
 

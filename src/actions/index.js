@@ -39,4 +39,38 @@ export function searchVideos(searchTerm) {
 	}
 }
 
+export function setSearchTerm(searchTerm) {
+	return {
+		type: constants.SET_SEARCH_TERM,
+		payload: searchTerm
+	}
+}
+
+export function setSong(bool) {
+	return {
+		type: constants.SET_SONG,
+		payload: bool
+	}
+}
+
+export function setVideo(bool) {
+	return {
+		type: constants.SET_VIDEO,
+		payload: bool
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

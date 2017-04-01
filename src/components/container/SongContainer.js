@@ -7,32 +7,44 @@ let PREVIOUS_INDEX = 0;
 
 class SongContainer extends Component {
 
-	getRandomNonRepeatIndex(songs) {
+	getNonSequentialRandomSong(songs) {
 		let randomIndex = null;
 		let randomSong = null;
 
 		randomIndex = _.random(0, songs.length - 1);
 
-		if (PREVIOUS_INDEX !== randomIndex) {
+		if (PREVIOUS_INDEX !== randomIndex && randomSong !== undefined) {
 			PREVIOUS_INDEX = randomIndex;
-			console.log(randomIndex, 'randomIndex');
 			randomSong = songs[randomIndex];
+
 			return randomSong;
 
 		} else {
-		  this.getRandomNonRepeatIndex(songs);
+		  this.getNonSequentialRandomSong(songs);
 		}
+	}
 
+	setRandomSong() {
+		const { songs } = this.props;
+		let song = null;
+		let loaded = false;
+
+		if (songs !== null) {
+			while (loaded === false) {
+				if (song !== undefined && song !== null) {
+					loaded = true;
+					return song;
+				}
+
+				song = this.getNonSequentialRandomSong(songs);
+				
+			}
+		}
 	}
 
 	render() {
-		const { songs } = this.props;
-		let randomSong = null;
+		let randomSong = this.setRandomSong();
 
-		if (songs !== null) {
-			randomSong = this.getRandomNonRepeatIndex(songs);
-		}
-		
 		return (
 			<div>
 			  <SongView song={randomSong} />
@@ -46,7 +58,6 @@ const mapStateToProps = (state) => {
 		songs: state.songs.allSongs
 	}
 }
-
 
 export default connect(mapStateToProps)(SongContainer);
 
