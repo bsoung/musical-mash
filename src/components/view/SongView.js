@@ -1,18 +1,14 @@
 import React from 'react';
 
 export default (props) => {
-	const { songs } = props;
+	const { song } = props;
 
 	return (
 		<div>
 			<h3>Song View</h3>
 			<ul>
 				{
-					(songs === null) ? '' : songs.map(song => (
-						<li key={song.id}>
-							{song.title}
-						</li>
-					))
+					(song === null || song === undefined) ? '' : <strong>{song.title}</strong>
 				}
 		  </ul>
 		</div>
