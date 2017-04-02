@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 let initialState = {
 	allSongs: null,
-	songSet: false
+	sameSongSearchCount: 0,
+	songDurationSeconds: null
 }
 
 export default (state = initialState, action = {}) => {
@@ -15,8 +16,15 @@ export default (state = initialState, action = {}) => {
 
 			return updated;
 
-		case constants.SET_SONG:
-			updated.songSet = action.payload;
+		case constants.SET_SAME_SONG_COUNT:
+			updated.sameSongSearchCount = action.payload;
+
+			console.log("updated count", updated);
+
+			return updated;
+
+		case constants.SET_SONG_DURATION:
+			updated.songDurationSeconds = action.payload;
 
 			return updated;
 

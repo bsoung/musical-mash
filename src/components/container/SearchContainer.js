@@ -3,30 +3,48 @@ import { SearchView } from '../view';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
+let COUNT = 0;
+
 class SearchContainer extends Component {
+	componentDidUpdate() {
+		const defaultSearchTerm = '';
+
+		if (this.props.search.searchTerm !== defaultSearchTerm) {
+			this.props.setSearchTerm(defaultSearchTerm);
+		}
+
+	}
+
 	searchMusicVideo(e) {
 		const { search } = this.props;
+
 		// detect if enter is pressed
 		if (e.keyCode != 13) {
 			return;
 		}
 
 		const previousSearchTerm = search.searchTerm;
-		const searchTerm = e.target.value;
+		let searchTerm = e.target.value;
 
 		// don't make extra api calls on same search
 		if (searchTerm !== previousSearchTerm) {
 
 			this.props.setSearchTerm(searchTerm);
 
+			// setSameSong
 			this.props.searchSongs(searchTerm);
-
 			this.props.searchVideos(searchTerm);
-		} else {
 
-			// TODO: rename action creators to 'searchedSameSong / Video', 'sameVideo'
-			this.props.setSong(true);
-			this.props.setVideo(true);
+		} else {
+		
+			COUNT++;
+			// TODO: rename to sameSongSet
+			this.props.setSameSongCount(COUNT);
+			this.props.setSameVideoCount(COUNT);
+		}
+
+		if (COUNT >= 10) {
+			COUNT = 0;
 		}
 
 	}
@@ -51,8 +69,8 @@ const mapDispatchToProps = (dispatch) => {
 		searchSongs: (song) => dispatch(actions.searchSongs(song)),
 		searchVideos: (video) => dispatch(actions.searchVideos(video)),
 		setSearchTerm: (searchTerm) => dispatch(actions.setSearchTerm(searchTerm)),
-		setSong: (bool) => dispatch(actions.setSong(bool)),
-		setVideo: (bool) => dispatch(actions.setVideo(bool)),
+		setSameSongCount: (n) => dispatch(actions.setSameSongCount(n)),
+		setSameVideoCount: (n) => dispatch(actions.setSameVideoCount(n)),
 	}
 }
 

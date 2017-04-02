@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 let initialState = {
 	allVideos: null,
-	videoSet: false,
+	sameVideoSearchCount: 0,
 	player: null
 }
 
@@ -16,15 +16,13 @@ export default (state = initialState, action = {}) => {
 
 			return updated;
 
-		case constants.SET_VIDEO:
-			updated.videoSet = action.payload;
+		case constants.SET_SAME_VIDEO_COUNT:
+			updated.sameVideoSearchCount = action.payload;
 
 			return updated;
 
 		case constants.SET_VIDEO_PLAYER:
 			updated.player = action.payload;
-
-			console.log("video player hit our reducer", updated);
 
 			return updated;
 

@@ -4,13 +4,46 @@ import { SoundPlayerContainer } from 'react-soundplayer/addons';
 import secret from '../../secret';
 import MusicPlayerContainer from './MusicPlayerContainer';
 import _ from 'lodash';
+import * as actions from '../../actions'
 
 let PREVIOUS_INDEX = null;
 
 class SongContainer extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			randomSong: null
+		}
+	}
+
+	componentDidUpdate() {
+		console.log(this.props.songs)
+	}
+
+	componentWillUpdate(nextProps) {
+
+		if (nextProps.songs.allSongs !== null) {
+
+			if (this.props.songs.allSongs === null || this.props.search.searchTerm !== nextProps.search.searchTerm) {
+				let songs = nextProps.songs.allSongs;
+				let randomSong = this.setRandomSong(songs);
+				let songDurationInSeconds = randomSong.duration / 1000;
+
+				this.props.setSongDuration(songDurationInSeconds);
+
+				// refactor to redux state
+				if (this.state.randomSong !== randomSong) {
+					this.setState({
+						randomSong: randomSong
+					});
+				}
+			} 
+		}
+
+	}
 
 	getNonSequentialRandomSong(songs) {
-
 		let randomIndex = null;
 		let randomSong = null;
 
@@ -32,15 +65,14 @@ class SongContainer extends Component {
 		}
 	}
 
-	setRandomSong() {
-		const { songs } = this.props;
+	setRandomSong(songs) {
 
 		let song = null;
 		let loaded = false;
 
-		if (songs.allSongs !== null) {
+		if (songs !== null) {
 
-			if (songs.allSongs.length < 1) {
+			if (songs.length < 1) {
 				alert("No songs to set random songs!");
 				return;
 			}
@@ -48,22 +80,28 @@ class SongContainer extends Component {
 			while (loaded === false) {
 				if (song !== undefined && song !== null) {
 					loaded = true;
+
 					return song;
 				}
 
-				song = this.getNonSequentialRandomSong(songs.allSongs);
+				song = this.getNonSequentialRandomSong(songs);
 			}
 		}
 	}
 
 	render() {
-		let randomSong = this.setRandomSong();
 		let resolveUrl = null;
+		let randomSong = null;
 
-		if (randomSong !== undefined) {
+		// console.log(randomSong)
+
+		if (this.state.randomSong !== null) {
+			randomSong = this.state.randomSong;
+
+			// console.log(randomSong);
 			resolveUrl = randomSong.permalink_url;
-		} else {
 
+		} else {
 			return (
 				<div>Waiting for music search...</div>
 			)
@@ -79,11 +117,18 @@ class SongContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		songs: state.songs
+		songs: state.songs,
+		search: state.search
 	}
 }
 
-export default connect(mapStateToProps)(SongContainer);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setSongDuration: (duration) => dispatch(actions.setSongDuration(duration))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SongContainer);
 
 
 

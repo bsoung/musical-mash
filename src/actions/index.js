@@ -18,7 +18,7 @@ const getRequest = (path, params, actionType) => {
 			})
 			.catch(err => {
 				console.error(err.message);
-				alert(err.message);
+				// alert(err.message);
 			});
 	}
 }
@@ -46,17 +46,30 @@ export function setSearchTerm(searchTerm) {
 	}
 }
 
-export function setSong(bool) {
+export function setSameSongCount(n) {
+
+	// reset same song count
+	if (n === 10) {
+		n = 0;
+	}
+
 	return {
-		type: constants.SET_SONG,
-		payload: bool
+		type: constants.SET_SAME_SONG_COUNT,
+		payload: n
 	}
 }
 
-export function setVideo(bool) {
+
+export function setSameVideoCount(n) {
+
+	// reset same video count
+	if (n === 10) {
+		n = 0;
+	}
+
 	return {
-		type: constants.SET_VIDEO,
-		payload: bool
+		type: constants.SET_SAME_VIDEO_COUNT,
+		payload: n
 	}
 }
 
@@ -64,6 +77,13 @@ export function setVideoPlayer(eventTarget) {
 	return {
 		type: constants.SET_VIDEO_PLAYER,
 		payload: eventTarget
+	}
+}
+
+export function setSongDuration(duration) {
+	return {
+		type: constants.SET_SONG_DURATION,
+		payload: duration
 	}
 }
 
