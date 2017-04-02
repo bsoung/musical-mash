@@ -1,10 +1,29 @@
 import React, { Component } from 'react';
-import { VideoView } from '../view';
+// import { VideoView } from '../view';
 import { connect } from 'react-redux';
+import YouTube from 'react-youtube';
 
 let PREVIOUS_INDEX = 0;
 
 class VideoContainer extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			player: null
+		}
+	}
+
+	onReady(event) {
+    this.setState({
+      player: event.target,
+    });
+  }
+
+  onPlayVideo() {
+    this.state.player.playVideo();
+    this.state.player.mute();
+  }
 
 	getNonSequentialRandomVideo(videos) {
 		let randomIndex = null;
@@ -42,12 +61,39 @@ class VideoContainer extends Component {
 
 	render() {
 		let randomVideo = this.setRandomVideo();
+		let videoId = null;
+		const opts = {
+      height: '390',
+      width: '640',
+      playerVars: { // https://developers.google.com/youtube/player_parameters
+        autoplay: 0,
+        controls: 0,
+        disablekb: 1,
+        iv_load_policy: 3,
+        modestbranding: 1,
+        rel: 0,
+        showinfo: 0,
+        end: 5 // TODO: THIS IS KEY FOR SYNCING WITH OUR MUSIC - using the duration info from sc
+      }
+    };
 
-		console.log("video container rerendering???")
+		if (randomVideo !== undefined) {
+			videoId = randomVideo.id.videoId;
 
+		} else {
+			return (
+				<div>...waiting for video</div>
+			)
+		}
+		
 		return (
 			<div>
-				<VideoView video={randomVideo} />
+				<YouTube 
+					opts={opts}
+					videoId={videoId} 
+					onReady={this.onReady.bind(this)} 
+					onPlay={this.onPlayVideo.bind(this)} 
+				/>
 			</div>
 		)
 	}

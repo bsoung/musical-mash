@@ -9,7 +9,6 @@ router.get('/:term', function(req, res, next) {
 	// request youtube search api
 	utils.YTManager.search(term)
 		.then(function(response) {
-			console.log(response);
 			 res.json({
   			confirmation: 'success',
   			response: response
