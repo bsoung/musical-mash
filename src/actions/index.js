@@ -60,6 +60,13 @@ export function setVideo(bool) {
 	}
 }
 
+export function setVideoPlayer(eventTarget) {
+	return {
+		type: constants.SET_VIDEO_PLAYER,
+		payload: eventTarget
+	}
+}
+
 
 
 

@@ -1,5 +1,6 @@
 /node_modules/
 /public/theme
+/src/secret
 *.log
 mongodb
 .env

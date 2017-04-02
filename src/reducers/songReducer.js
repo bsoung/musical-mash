@@ -18,8 +18,6 @@ export default (state = initialState, action = {}) => {
 		case constants.SET_SONG:
 			updated.songSet = action.payload;
 
-			console.log("Song updated!", updated);
-
 			return updated;
 
 		default:

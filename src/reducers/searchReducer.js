@@ -12,8 +12,6 @@ export default (state = initialState, action = {}) => {
 		case constants.SET_SEARCH_TERM:
 			updated.searchTerm = action.payload;
 
-			console.log("Updated search term", updated);
-
 			return updated;
 
 		default:

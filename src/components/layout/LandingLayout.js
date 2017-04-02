@@ -8,6 +8,7 @@ class LandingLayout extends Component {
 				<SearchContainer />
 				<SongContainer />
 				<VideoContainer />
+
 			</div>
 		)
 	}

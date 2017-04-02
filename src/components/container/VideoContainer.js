@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
-// import { VideoView } from '../view';
 import { connect } from 'react-redux';
 import YouTube from 'react-youtube';
+import * as actions from '../../actions';
 
 let PREVIOUS_INDEX = 0;
 
 class VideoContainer extends Component {
-	constructor(props) {
-		super(props);
 
-		this.state = {
-			player: null
-		}
-	}
-
-	onReady(event) {
-    this.setState({
-      player: event.target,
-    });
+	onReady(e) {
+		this.props.setVideoPlayer(e.target);
   }
 
   onPlayVideo() {
-    this.state.player.playVideo();
-    this.state.player.mute();
+  	const { videos } = this.props;
+
+    videos.player.playVideo();
+    videos.player.mute();
   }
 
 	getNonSequentialRandomVideo(videos) {
@@ -38,6 +31,7 @@ class VideoContainer extends Component {
 			return randomVideo;
 
 		} else {
+
 		  this.getNonSequentialRandomVideo(videos);
 		}
 	}
@@ -47,14 +41,14 @@ class VideoContainer extends Component {
 		let video = null;
 		let loaded = false;
 
-		if (videos !== null) {
+		if (videos.allVideos !== null) {
 			while (loaded === false) {
 				if (video !== undefined && video !== null) {
 					loaded = true;
 					return video;
 				}
 
-				video = this.getNonSequentialRandomVideo(videos);
+				video = this.getNonSequentialRandomVideo(videos.allVideos);
 			}
 		}
 	}
@@ -62,18 +56,19 @@ class VideoContainer extends Component {
 	render() {
 		let randomVideo = this.setRandomVideo();
 		let videoId = null;
+
 		const opts = {
       height: '390',
       width: '640',
-      playerVars: { // https://developers.google.com/youtube/player_parameters
+      playerVars: { 
         autoplay: 0,
         controls: 0,
         disablekb: 1,
         iv_load_policy: 3,
         modestbranding: 1,
         rel: 0,
-        showinfo: 0,
-        end: 5 // TODO: THIS IS KEY FOR SYNCING WITH OUR MUSIC - using the duration info from sc
+        showinfo: 0
+        // end: 5 // TODO: THIS IS KEY FOR SYNCING WITH OUR MUSIC - using the duration info from sc
       }
     };
 
@@ -101,12 +96,19 @@ class VideoContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		videos: state.videos.allVideos
+		videos: state.videos
+
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		setVideoPlayer: (eventTarget) => dispatch(actions.setVideoPlayer(eventTarget))
 	}
 }
 
 
-export default connect(mapStateToProps)(VideoContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(VideoContainer);
 
 
 

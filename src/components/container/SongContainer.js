@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { SongView } from '../view';
 import { connect } from 'react-redux';
+import { SoundPlayerContainer } from 'react-soundplayer/addons';
+import secret from '../../secret';
+import MusicPlayerContainer from './MusicPlayerContainer';
 import _ from 'lodash';
 
 let PREVIOUS_INDEX = 0;
@@ -37,18 +39,27 @@ class SongContainer extends Component {
 				}
 
 				song = this.getNonSequentialRandomSong(songs);
-				
 			}
 		}
 	}
 
 	render() {
 		let randomSong = this.setRandomSong();
+		let resolveUrl = null;
+
+		if (randomSong !== undefined) {
+			resolveUrl = randomSong.permalink_url;
+		} else {
+
+			return (
+				<div>Waiting for music search...</div>
+			)
+		}
 
 		return (
-			<div>
-			  <SongView song={randomSong} />
-			</div>
+			<SoundPlayerContainer resolveUrl={resolveUrl} clientId={secret.SC_CLIENT_ID}>
+        <MusicPlayerContainer />
+      </SoundPlayerContainer>
 		)
 	}
 }

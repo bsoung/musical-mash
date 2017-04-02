@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 let initialState = {
 	allVideos: null,
-	videoSet: false
+	videoSet: false,
+	player: null
 }
 
 export default (state = initialState, action = {}) => {
@@ -18,7 +19,12 @@ export default (state = initialState, action = {}) => {
 		case constants.SET_VIDEO:
 			updated.videoSet = action.payload;
 
-			console.log('updated video!', updated);
+			return updated;
+
+		case constants.SET_VIDEO_PLAYER:
+			updated.player = action.payload;
+
+			console.log("video player hit our reducer", updated);
 
 			return updated;
 

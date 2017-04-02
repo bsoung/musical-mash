@@ -14441,7 +14441,8 @@ exports.default = {
 	SEARCH_VIDEOS: "SEARCH_VIDEOS",
 	SET_SEARCH_TERM: "SET_SEARCH_TERM",
 	SET_SONG: "SET_SONG",
-	SET_VIDEO: "SET_VIDEO"
+	SET_VIDEO: "SET_VIDEO",
+	SET_VIDEO_PLAYER: "SET_VIDEO_PLAYER"
 };
 
 /***/ }),
@@ -48479,6 +48480,7 @@ exports.searchVideos = searchVideos;
 exports.setSearchTerm = setSearchTerm;
 exports.setSong = setSong;
 exports.setVideo = setVideo;
+exports.setVideoPlayer = setVideoPlayer;
 
 var _constants = __webpack_require__(52);
 
@@ -48537,6 +48539,13 @@ function setVideo(bool) {
 	return {
 		type: _constants2.default.SET_VIDEO,
 		payload: bool
+	};
+}
+
+function setVideoPlayer(eventTarget) {
+	return {
+		type: _constants2.default.SET_VIDEO_PLAYER,
+		payload: eventTarget
 	};
 }
 
@@ -48700,9 +48709,17 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _view = __webpack_require__(140);
-
 var _reactRedux = __webpack_require__(37);
+
+var _addons = __webpack_require__(380);
+
+var _secret = __webpack_require__(386);
+
+var _secret2 = _interopRequireDefault(_secret);
+
+var _MusicPlayerContainer = __webpack_require__(385);
+
+var _MusicPlayerContainer2 = _interopRequireDefault(_MusicPlayerContainer);
 
 var _lodash = __webpack_require__(45);
 
@@ -48767,11 +48784,23 @@ var SongContainer = function (_Component) {
 		key: 'render',
 		value: function render() {
 			var randomSong = this.setRandomSong();
+			var resolveUrl = null;
+
+			if (randomSong !== undefined) {
+				resolveUrl = randomSong.permalink_url;
+			} else {
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					'Waiting for music search...'
+				);
+			}
 
 			return _react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(_view.SongView, { song: randomSong })
+				_addons.SoundPlayerContainer,
+				{ resolveUrl: resolveUrl, clientId: _secret2.default.SC_CLIENT_ID },
+				_react2.default.createElement(_MusicPlayerContainer2.default, null)
 			);
 		}
 	}]);
@@ -48810,6 +48839,12 @@ var _reactYoutube = __webpack_require__(327);
 
 var _reactYoutube2 = _interopRequireDefault(_reactYoutube);
 
+var _actions = __webpack_require__(364);
+
+var actions = _interopRequireWildcard(_actions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -48817,37 +48852,31 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import { VideoView } from '../view';
-
 
 var PREVIOUS_INDEX = 0;
 
 var VideoContainer = function (_Component) {
 	_inherits(VideoContainer, _Component);
 
-	function VideoContainer(props) {
+	function VideoContainer() {
 		_classCallCheck(this, VideoContainer);
 
-		var _this = _possibleConstructorReturn(this, (VideoContainer.__proto__ || Object.getPrototypeOf(VideoContainer)).call(this, props));
-
-		_this.state = {
-			player: null
-		};
-		return _this;
+		return _possibleConstructorReturn(this, (VideoContainer.__proto__ || Object.getPrototypeOf(VideoContainer)).apply(this, arguments));
 	}
 
 	_createClass(VideoContainer, [{
 		key: 'onReady',
-		value: function onReady(event) {
-			this.setState({
-				player: event.target
-			});
+		value: function onReady(e) {
+			this.props.setVideoPlayer(e.target);
 		}
 	}, {
 		key: 'onPlayVideo',
 		value: function onPlayVideo() {
-			this.state.player.playVideo();
-			this.state.player.mute();
+			var videos = this.props.videos;
+
+
+			videos.player.playVideo();
+			videos.player.mute();
 		}
 	}, {
 		key: 'getNonSequentialRandomVideo',
@@ -48863,6 +48892,7 @@ var VideoContainer = function (_Component) {
 
 				return randomVideo;
 			} else {
+
 				this.getNonSequentialRandomVideo(videos);
 			}
 		}
@@ -48874,14 +48904,14 @@ var VideoContainer = function (_Component) {
 			var video = null;
 			var loaded = false;
 
-			if (videos !== null) {
+			if (videos.allVideos !== null) {
 				while (loaded === false) {
 					if (video !== undefined && video !== null) {
 						loaded = true;
 						return video;
 					}
 
-					video = this.getNonSequentialRandomVideo(videos);
+					video = this.getNonSequentialRandomVideo(videos.allVideos);
 				}
 			}
 		}
@@ -48890,18 +48920,19 @@ var VideoContainer = function (_Component) {
 		value: function render() {
 			var randomVideo = this.setRandomVideo();
 			var videoId = null;
+
 			var opts = {
 				height: '390',
 				width: '640',
-				playerVars: { // https://developers.google.com/youtube/player_parameters
+				playerVars: {
 					autoplay: 0,
 					controls: 0,
 					disablekb: 1,
 					iv_load_policy: 3,
 					modestbranding: 1,
 					rel: 0,
-					showinfo: 0,
-					end: 5 // TODO: THIS IS KEY FOR SYNCING WITH OUR MUSIC - using the duration info from sc
+					showinfo: 0
+					// end: 5 // TODO: THIS IS KEY FOR SYNCING WITH OUR MUSIC - using the duration info from sc
 				}
 			};
 
@@ -48933,11 +48964,20 @@ var VideoContainer = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
 	return {
-		videos: state.videos.allVideos
+		videos: state.videos
+
 	};
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(VideoContainer);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	return {
+		setVideoPlayer: function setVideoPlayer(eventTarget) {
+			return dispatch(actions.setVideoPlayer(eventTarget));
+		}
+	};
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(VideoContainer);
 
 /***/ }),
 /* 369 */
@@ -48949,7 +48989,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(VideoContainer);
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.SearchContainer = exports.VideoContainer = exports.SongContainer = undefined;
+exports.MusicPlayerContainer = exports.SearchContainer = exports.VideoContainer = exports.SongContainer = undefined;
 
 var _SongContainer = __webpack_require__(367);
 
@@ -48963,11 +49003,16 @@ var _SearchContainer = __webpack_require__(366);
 
 var _SearchContainer2 = _interopRequireDefault(_SearchContainer);
 
+var _MusicPlayerContainer = __webpack_require__(385);
+
+var _MusicPlayerContainer2 = _interopRequireDefault(_MusicPlayerContainer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.SongContainer = _SongContainer2.default;
 exports.VideoContainer = _VideoContainer2.default;
 exports.SearchContainer = _SearchContainer2.default;
+exports.MusicPlayerContainer = _MusicPlayerContainer2.default;
 
 /***/ }),
 /* 370 */
@@ -49227,8 +49272,6 @@ exports.default = function () {
 		case _constants2.default.SET_SEARCH_TERM:
 			updated.searchTerm = action.payload;
 
-			console.log("Updated search term", updated);
-
 			return updated;
 
 		default:
@@ -49277,8 +49320,6 @@ exports.default = function () {
 		case _constants2.default.SET_SONG:
 			updated.songSet = action.payload;
 
-			console.log("Song updated!", updated);
-
 			return updated;
 
 		default:
@@ -49309,7 +49350,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var initialState = {
 	allVideos: null,
-	videoSet: false
+	videoSet: false,
+	player: null
 };
 
 exports.default = function () {
@@ -49327,7 +49369,12 @@ exports.default = function () {
 		case _constants2.default.SET_VIDEO:
 			updated.videoSet = action.payload;
 
-			console.log('updated video!', updated);
+			return updated;
+
+		case _constants2.default.SET_VIDEO_PLAYER:
+			updated.player = action.payload;
+
+			console.log("video player hit our reducer", updated);
 
 			return updated;
 
@@ -49375,6 +49422,7 @@ exports.default = {
 			});
 		});
 	}
+
 };
 
 /***/ }),
@@ -49396,6 +49444,673 @@ var _APIManager2 = _interopRequireDefault(_APIManager);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.APIManager = _APIManager2.default;
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(382);
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = function () {
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ('value' in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }return function (Constructor, protoProps, staticProps) {
+        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+    };
+}();
+
+var _get = function get(_x, _x2, _x3) {
+    var _again = true;_function: while (_again) {
+        var object = _x,
+            property = _x2,
+            receiver = _x3;_again = false;if (object === null) object = Function.prototype;var desc = Object.getOwnPropertyDescriptor(object, property);if (desc === undefined) {
+            var parent = Object.getPrototypeOf(object);if (parent === null) {
+                return undefined;
+            } else {
+                _x = parent;_x2 = property;_x3 = receiver;_again = true;desc = parent = undefined;continue _function;
+            }
+        } else if ('value' in desc) {
+            return desc.value;
+        } else {
+            var getter = desc.get;if (getter === undefined) {
+                return undefined;
+            }return getter.call(receiver);
+        }
+    }
+};
+
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { 'default': obj };
+}
+
+function _defineProperty(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+    } else {
+        obj[key] = value;
+    }return obj;
+}
+
+function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError('Cannot call a class as a function');
+    }
+}
+
+function _inherits(subClass, superClass) {
+    if (typeof superClass !== 'function' && superClass !== null) {
+        throw new TypeError('Super expression must either be null or a function, not ' + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+var _react = __webpack_require__(8);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _soundcloudAudio = __webpack_require__(384);
+
+var _soundcloudAudio2 = _interopRequireDefault(_soundcloudAudio);
+
+var _objectAssign = __webpack_require__(4);
+
+var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+var _utilsAudioStoreJs = __webpack_require__(383);
+
+var PropTypes = _react2['default'].PropTypes;
+var Component = _react2['default'].Component;
+
+var SoundPlayerContainer = function (_Component) {
+    _inherits(SoundPlayerContainer, _Component);
+
+    function SoundPlayerContainer(props, context) {
+        _classCallCheck(this, SoundPlayerContainer);
+
+        _get(Object.getPrototypeOf(SoundPlayerContainer.prototype), 'constructor', this).call(this, props, context);
+
+        if (!props.clientId) {
+            throw new Error('You need to get clientId from SoundCloud\n                https://github.com/soundblogs/react-soundplayer#usage');
+        }
+
+        // Don't create a SoundCloudAudio instance
+        // if there is no `window`
+        if ('undefined' !== typeof window) {
+            this.soundCloudAudio = new _soundcloudAudio2['default'](props.clientId);
+        }
+
+        this.state = {
+            duration: 0,
+            currentTime: 0,
+            seeking: false,
+            playing: false
+        };
+        this.wrapChild = this.wrapChild.bind(this);
+    }
+
+    _createClass(SoundPlayerContainer, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this = this;
+
+            var soundCloudAudio = this.soundCloudAudio;
+            var _props = this.props;
+            var resolveUrl = _props.resolveUrl;
+            var streamUrl = _props.streamUrl;
+
+            if (streamUrl) {
+                soundCloudAudio.preload(streamUrl);
+            } else if (resolveUrl) {
+                soundCloudAudio.resolve(resolveUrl, function (data) {
+                    _this.setState(_defineProperty({}, data.tracks ? 'playlist' : 'track', data));
+                });
+            }
+
+            // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
+            soundCloudAudio.on('playing', this.onAudioStarted.bind(this));
+            soundCloudAudio.on('timeupdate', this.getCurrentTime.bind(this));
+            soundCloudAudio.on('loadedmetadata', this.getDuration.bind(this));
+            soundCloudAudio.on('seeking', this.onSeekingTrack.bind(this));
+            soundCloudAudio.on('seeked', this.onSeekedTrack.bind(this));
+            soundCloudAudio.on('pause', this.onAudioPaused.bind(this));
+            soundCloudAudio.on('ended', this.onAudioEnded.bind(this));
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var _this2 = this;
+
+            var soundCloudAudio = this.soundCloudAudio;
+            var _props2 = this.props;
+            var streamUrl = _props2.streamUrl;
+            var resolveUrl = _props2.resolveUrl;
+
+            var playedBefore = this.state.playing;
+
+            function restartIfPlayed() {
+                if (playedBefore) {
+                    soundCloudAudio.play();
+                }
+            }
+
+            if (streamUrl !== nextProps.streamUrl) {
+                soundCloudAudio.stop();
+                soundCloudAudio.preload(nextProps.streamUrl);
+                restartIfPlayed();
+            } else if (resolveUrl !== nextProps.resolveUrl) {
+                soundCloudAudio.stop();
+                soundCloudAudio.resolve(nextProps.resolveUrl, function (data) {
+                    _this2.setState(_defineProperty({}, data.tracks ? 'playlist' : 'track', data));
+                    restartIfPlayed();
+                });
+            }
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            this.soundCloudAudio.unbindAll();
+        }
+    }, {
+        key: 'onSeekingTrack',
+        value: function onSeekingTrack() {
+            this.setState({ seeking: true });
+        }
+    }, {
+        key: 'onSeekedTrack',
+        value: function onSeekedTrack() {
+            this.setState({ seeking: false });
+        }
+    }, {
+        key: 'onAudioStarted',
+        value: function onAudioStarted() {
+            var soundCloudAudio = this.soundCloudAudio;
+            var onStartTrack = this.props.onStartTrack;
+
+            this.setState({ playing: true });
+
+            (0, _utilsAudioStoreJs.stopAllOther)(soundCloudAudio.playing);
+            (0, _utilsAudioStoreJs.addToPlayedStore)(soundCloudAudio);
+
+            onStartTrack && onStartTrack(soundCloudAudio, soundCloudAudio.playing);
+        }
+    }, {
+        key: 'onAudioPaused',
+        value: function onAudioPaused() {
+            var onPauseTrack = this.props.onPauseTrack;
+
+            this.setState({ playing: false });
+
+            onPauseTrack && onPauseTrack(this.soundCloudAudio);
+        }
+    }, {
+        key: 'onAudioEnded',
+        value: function onAudioEnded() {
+            var onStopTrack = this.props.onStopTrack;
+
+            this.setState({ playing: false });
+
+            onStopTrack && onStopTrack(this.soundCloudAudio);
+        }
+    }, {
+        key: 'getCurrentTime',
+        value: function getCurrentTime() {
+            this.setState({ currentTime: this.soundCloudAudio.audio.currentTime });
+        }
+    }, {
+        key: 'getDuration',
+        value: function getDuration() {
+            this.setState({ duration: this.soundCloudAudio.audio.duration });
+        }
+    }, {
+        key: 'wrapChild',
+        value: function wrapChild(child) {
+            var newProps = (0, _objectAssign2['default'])({}, { soundCloudAudio: this.soundCloudAudio }, this.state);
+            return _react2['default'].cloneElement(child, newProps);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var children = this.props.children;
+
+            if (!children) {
+                return null;
+            }
+
+            if (!Array.isArray(children)) {
+                var child = children;
+                return this.wrapChild(child);
+            } else {
+                return _react2['default'].createElement('span', null, _react2['default'].Children.map(children, this.wrapChild));
+            }
+        }
+    }]);
+
+    return SoundPlayerContainer;
+}(Component);
+
+SoundPlayerContainer.propTypes = {
+    streamUrl: PropTypes.string,
+    resolveUrl: PropTypes.string,
+    clientId: PropTypes.string.isRequired,
+    onStartTrack: PropTypes.func,
+    onStopTrack: PropTypes.func,
+    onPauseTrack: PropTypes.func
+};
+
+exports['default'] = SoundPlayerContainer;
+module.exports = exports['default'];
+
+/***/ }),
+/* 382 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { 'default': obj };
+}
+
+var _SoundPlayerContainer2 = __webpack_require__(381);
+
+var _SoundPlayerContainer3 = _interopRequireDefault(_SoundPlayerContainer2);
+
+exports.SoundPlayerContainer = _SoundPlayerContainer3['default'];
+
+/***/ }),
+/* 383 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// handling multiple audio on the page helpers
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.stopAllOther = stopAllOther;
+exports.addToPlayedStore = addToPlayedStore;
+var _playedAudios = [];
+
+function each(arr, cb) {
+    if (arr) {
+        for (var i = 0, len = arr.length; i < len; i++) {
+            if (arr[i] && cb(arr[i], i, arr)) {
+                break;
+            }
+        }
+    }
+}
+
+function stopAllOther(playing) {
+    each(_playedAudios, function (soundCloudAudio) {
+        if (soundCloudAudio.playing && soundCloudAudio.playing !== playing) {
+            soundCloudAudio.stop();
+        }
+    });
+}
+
+function addToPlayedStore(soundCloudAudio) {
+    var isPresent = false;
+
+    each(_playedAudios, function (_soundCloudAudio) {
+        if (_soundCloudAudio.playing === soundCloudAudio.playing) {
+            isPresent = true;
+            return true;
+        }
+    });
+
+    if (!isPresent) {
+        _playedAudios.push(soundCloudAudio);
+    }
+}
+
+/***/ }),
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var anchor;
+var keys = 'protocol hostname host pathname port search hash href'.split(' ');
+function _parseURL(url) {
+    if (!anchor) {
+        anchor = document.createElement('a');
+    }
+    anchor.href = url || '';
+    var result = {};
+    for (var i = 0, len = keys.length; i < len; i++) {
+        var key = keys[i];
+        result[key] = anchor[key];
+    }
+    return result;
+}
+
+function _appendQueryParam(url, param, value) {
+    var U = _parseURL(url);
+    var regex = /\?(?:.*)$/;
+    var chr = regex.test(U.search) ? '&' : '?';
+    var result = U.protocol + '//' + U.host + U.port + U.pathname + U.search + chr + param + '=' + value + U.hash;
+    return result;
+}
+
+function SoundCloud(clientId) {
+    if (!(this instanceof SoundCloud)) {
+        return new SoundCloud(clientId);
+    }
+
+    if (!clientId) {
+        throw new Error('SoundCloud API clientId is required, get it - https://developers.soundcloud.com/');
+    }
+
+    this._events = {};
+
+    this._clientId = clientId;
+    this._baseUrl = 'https://api.soundcloud.com';
+
+    this.playing = false;
+    this.duration = 0;
+
+    this.audio = document.createElement('audio');
+}
+
+SoundCloud.prototype.resolve = function (url, callback) {
+    if (!url) {
+        throw new Error('SoundCloud track or playlist url is required');
+    }
+
+    var resolveUrl = this._baseUrl + '/resolve.json?url=' + encodeURIComponent(url) + '&client_id=' + this._clientId;
+    this._json(resolveUrl, function (data) {
+        this.cleanData();
+
+        if (Array.isArray(data)) {
+            var tracks = data;
+            data = { tracks: tracks };
+            this._playlist = data;
+        } else if (data.tracks) {
+            this._playlist = data;
+        } else {
+            this._track = data;
+
+            // save timings
+            var U = _parseURL(url);
+            this._track.stream_url += U.hash;
+        }
+
+        this.duration = data.duration && !isNaN(data.duration) ? data.duration / 1000 : // convert to seconds
+        0; // no duration is zero
+
+        callback(data);
+    }.bind(this));
+};
+
+// deprecated
+SoundCloud.prototype._jsonp = function (url, callback) {
+    var target = document.getElementsByTagName('script')[0] || document.head;
+    var script = document.createElement('script');
+
+    var id = 'jsonp_callback_' + new Date().valueOf() + Math.floor(Math.random() * 1000);
+    window[id] = function (data) {
+        if (script.parentNode) {
+            script.parentNode.removeChild(script);
+        }
+        window[id] = function () {};
+        callback(data);
+    };
+
+    script.src = _appendQueryParam(url, 'callback', id);
+    target.parentNode.insertBefore(script, target);
+};
+
+SoundCloud.prototype._json = function (url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var resp = {};
+                try {
+                    resp = JSON.parse(xhr.responseText);
+                } catch (err) {
+                    // fail silently
+                }
+                callback(resp);
+            }
+        }
+    };
+    xhr.send(null);
+};
+
+SoundCloud.prototype.on = function (e, fn) {
+    this._events[e] = fn;
+    this.audio.addEventListener(e, fn, false);
+};
+
+SoundCloud.prototype.off = function (e, fn) {
+    this._events[e] = null;
+    this.audio.removeEventListener(e, fn);
+};
+
+SoundCloud.prototype.unbindAll = function () {
+    for (var e in this._events) {
+        var fn = this._events[e];
+        if (fn) {
+            this.off(e, fn);
+        }
+    }
+};
+
+SoundCloud.prototype.preload = function (streamUrl) {
+    this._track = { stream_url: streamUrl };
+    this.audio.src = _appendQueryParam(streamUrl, 'client_id', this._clientId);
+};
+
+SoundCloud.prototype.play = function (options) {
+    options = options || {};
+    var src;
+
+    if (options.streamUrl) {
+        src = options.streamUrl;
+    } else if (this._playlist) {
+        var length = this._playlist.tracks.length;
+        if (length) {
+            this._playlistIndex = options.playlistIndex || 0;
+
+            // be silent if index is out of range
+            if (this._playlistIndex >= length || this._playlistIndex < 0) {
+                this._playlistIndex = 0;
+                return;
+            }
+            src = this._playlist.tracks[this._playlistIndex].stream_url;
+        }
+    } else if (this._track) {
+        src = this._track.stream_url;
+    }
+
+    if (!src) {
+        throw new Error('There is no tracks to play, use `streamUrl` option or `load` method');
+    }
+
+    src = _appendQueryParam(src, 'client_id', this._clientId);
+
+    if (src !== this.audio.src) {
+        this.audio.src = src;
+    }
+
+    this.playing = src;
+    this.audio.play();
+};
+
+SoundCloud.prototype.pause = function () {
+    this.audio.pause();
+    this.playing = false;
+};
+
+SoundCloud.prototype.stop = function () {
+    this.audio.pause();
+    this.audio.currentTime = 0;
+    this.playing = false;
+};
+
+SoundCloud.prototype.next = function () {
+    var tracksLength = this._playlist.tracks.length;
+    if (this._playlistIndex >= tracksLength - 1) {
+        return;
+    }
+    if (this._playlist && tracksLength) {
+        this.play({ playlistIndex: ++this._playlistIndex });
+    }
+};
+
+SoundCloud.prototype.previous = function () {
+    if (this._playlistIndex <= 0) {
+        return;
+    }
+    if (this._playlist && this._playlist.tracks.length) {
+        this.play({ playlistIndex: --this._playlistIndex });
+    }
+};
+
+SoundCloud.prototype.seek = function (e) {
+    if (!this.audio.readyState) {
+        return false;
+    }
+    var percent = e.offsetX / e.target.offsetWidth || (e.layerX - e.target.offsetLeft) / e.target.offsetWidth;
+    this.audio.currentTime = percent * (this.audio.duration || 0);
+};
+
+SoundCloud.prototype.cleanData = function () {
+    this._track = void 0;
+    this._playlist = void 0;
+};
+
+module.exports = SoundCloud;
+
+/***/ }),
+/* 385 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(8);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var MusicPlayerContainer = function (_Component) {
+    _inherits(MusicPlayerContainer, _Component);
+
+    function MusicPlayerContainer() {
+        _classCallCheck(this, MusicPlayerContainer);
+
+        return _possibleConstructorReturn(this, (MusicPlayerContainer.__proto__ || Object.getPrototypeOf(MusicPlayerContainer)).apply(this, arguments));
+    }
+
+    _createClass(MusicPlayerContainer, [{
+        key: 'play',
+        value: function play() {
+            var _props = this.props,
+                soundCloudAudio = _props.soundCloudAudio,
+                playing = _props.playing;
+
+            if (playing) {
+                soundCloudAudio.pause();
+            } else {
+                soundCloudAudio.play();
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _props2 = this.props,
+                track = _props2.track,
+                playing = _props2.playing;
+
+
+            if (!track) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    'Loading...'
+                );
+            }
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h2',
+                    null,
+                    track.title
+                ),
+                _react2.default.createElement(
+                    'h3',
+                    null,
+                    track.user.username
+                ),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this.play.bind(this) },
+                    playing ? 'Pause' : 'Play'
+                )
+            );
+        }
+    }]);
+
+    return MusicPlayerContainer;
+}(_react.Component);
+
+exports.default = MusicPlayerContainer;
+
+/***/ }),
+/* 386 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	SC_CLIENT_ID: "d6i0wruU7ddayTqrhwszluW0i9aNBlb1"
+};
 
 /***/ })
 /******/ ]);
