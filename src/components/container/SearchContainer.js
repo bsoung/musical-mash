@@ -5,24 +5,26 @@ import * as actions from '../../actions';
 
 class SearchContainer extends Component {
 	searchMusicVideo(e) {
+		const { search } = this.props;
 		// detect if enter is pressed
 		if (e.keyCode != 13) {
 			return;
 		}
 
-		const previousSearchTerm = this.props.search.searchTerm;
+		const previousSearchTerm = search.searchTerm;
 		const searchTerm = e.target.value;
 
 		// don't make extra api calls on same search
 		if (searchTerm !== previousSearchTerm) {
 
 			this.props.setSearchTerm(searchTerm);
-			this.props.searchSongs(searchTerm);
-			this.props.searchVideos(searchTerm);
 
+			this.props.searchSongs(searchTerm);
+
+			this.props.searchVideos(searchTerm);
 		} else {
 
-			// TODO: rename action creators to 'sameSong', 'sameVideo'
+			// TODO: rename action creators to 'searchedSameSong / Video', 'sameVideo'
 			this.props.setSong(true);
 			this.props.setVideo(true);
 		}

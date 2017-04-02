@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import YouTube from 'react-youtube';
 import * as actions from '../../actions';
 
-let PREVIOUS_INDEX = 0;
+let PREVIOUS_INDEX = null;
 
 class VideoContainer extends Component {
 
@@ -21,6 +21,11 @@ class VideoContainer extends Component {
 	getNonSequentialRandomVideo(videos) {
 		let randomIndex = null;
 		let randomVideo = null;
+
+		// prevent infinite loop if only one media object
+		if (videos.length === 1) {
+			return videos[0];
+		}
 
 		randomIndex = _.random(0, videos.length - 1);
 
@@ -42,6 +47,12 @@ class VideoContainer extends Component {
 		let loaded = false;
 
 		if (videos.allVideos !== null) {
+
+			if (videos.allVideos.length < 1) {
+				alert("No videos to set random videos!");
+				return;
+			}
+
 			while (loaded === false) {
 				if (video !== undefined && video !== null) {
 					loaded = true;
@@ -54,6 +65,7 @@ class VideoContainer extends Component {
 	}
 
 	render() {
+		const { videos } = this.props;
 		let randomVideo = this.setRandomVideo();
 		let videoId = null;
 
@@ -77,12 +89,12 @@ class VideoContainer extends Component {
 
 		} else {
 			return (
-				<div>...waiting for video</div>
+				<div>waiting for video...</div>
 			)
 		}
 		
 		return (
-			<div>
+			<div>	
 				<YouTube 
 					opts={opts}
 					videoId={videoId} 

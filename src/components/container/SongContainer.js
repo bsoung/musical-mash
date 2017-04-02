@@ -5,13 +5,19 @@ import secret from '../../secret';
 import MusicPlayerContainer from './MusicPlayerContainer';
 import _ from 'lodash';
 
-let PREVIOUS_INDEX = 0;
+let PREVIOUS_INDEX = null;
 
 class SongContainer extends Component {
 
 	getNonSequentialRandomSong(songs) {
+
 		let randomIndex = null;
 		let randomSong = null;
+
+		// prevent infinite loop if only one media object
+		if (songs.length === 1) {
+			return songs[0];
+		}
 
 		randomIndex = _.random(0, songs.length - 1);
 
@@ -28,17 +34,24 @@ class SongContainer extends Component {
 
 	setRandomSong() {
 		const { songs } = this.props;
+
 		let song = null;
 		let loaded = false;
 
-		if (songs !== null) {
+		if (songs.allSongs !== null) {
+
+			if (songs.allSongs.length < 1) {
+				alert("No songs to set random songs!");
+				return;
+			}
+
 			while (loaded === false) {
 				if (song !== undefined && song !== null) {
 					loaded = true;
 					return song;
 				}
 
-				song = this.getNonSequentialRandomSong(songs);
+				song = this.getNonSequentialRandomSong(songs.allSongs);
 			}
 		}
 	}
@@ -66,7 +79,7 @@ class SongContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		songs: state.songs.allSongs
+		songs: state.songs
 	}
 }
 

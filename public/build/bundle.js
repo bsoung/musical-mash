@@ -48629,23 +48629,27 @@ var SearchContainer = function (_Component) {
 	_createClass(SearchContainer, [{
 		key: 'searchMusicVideo',
 		value: function searchMusicVideo(e) {
+			var search = this.props.search;
 			// detect if enter is pressed
+
 			if (e.keyCode != 13) {
 				return;
 			}
 
-			var previousSearchTerm = this.props.search.searchTerm;
+			var previousSearchTerm = search.searchTerm;
 			var searchTerm = e.target.value;
 
 			// don't make extra api calls on same search
 			if (searchTerm !== previousSearchTerm) {
 
 				this.props.setSearchTerm(searchTerm);
+
 				this.props.searchSongs(searchTerm);
+
 				this.props.searchVideos(searchTerm);
 			} else {
 
-				// TODO: rename action creators to 'sameSong', 'sameVideo'
+				// TODO: rename action creators to 'searchedSameSong / Video', 'sameVideo'
 				this.props.setSong(true);
 				this.props.setVideo(true);
 			}
@@ -48733,7 +48737,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PREVIOUS_INDEX = 0;
+var PREVIOUS_INDEX = null;
 
 var SongContainer = function (_Component) {
 	_inherits(SongContainer, _Component);
@@ -48747,8 +48751,14 @@ var SongContainer = function (_Component) {
 	_createClass(SongContainer, [{
 		key: 'getNonSequentialRandomSong',
 		value: function getNonSequentialRandomSong(songs) {
+
 			var randomIndex = null;
 			var randomSong = null;
+
+			// prevent infinite loop if only one media object
+			if (songs.length === 1) {
+				return songs[0];
+			}
 
 			randomIndex = _lodash2.default.random(0, songs.length - 1);
 
@@ -48766,17 +48776,24 @@ var SongContainer = function (_Component) {
 		value: function setRandomSong() {
 			var songs = this.props.songs;
 
+
 			var song = null;
 			var loaded = false;
 
-			if (songs !== null) {
+			if (songs.allSongs !== null) {
+
+				if (songs.allSongs.length < 1) {
+					alert("No songs to set random songs!");
+					return;
+				}
+
 				while (loaded === false) {
 					if (song !== undefined && song !== null) {
 						loaded = true;
 						return song;
 					}
 
-					song = this.getNonSequentialRandomSong(songs);
+					song = this.getNonSequentialRandomSong(songs.allSongs);
 				}
 			}
 		}
@@ -48810,7 +48827,7 @@ var SongContainer = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
 	return {
-		songs: state.songs.allSongs
+		songs: state.songs
 	};
 };
 
@@ -48853,7 +48870,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PREVIOUS_INDEX = 0;
+var PREVIOUS_INDEX = null;
 
 var VideoContainer = function (_Component) {
 	_inherits(VideoContainer, _Component);
@@ -48884,6 +48901,11 @@ var VideoContainer = function (_Component) {
 			var randomIndex = null;
 			var randomVideo = null;
 
+			// prevent infinite loop if only one media object
+			if (videos.length === 1) {
+				return videos[0];
+			}
+
 			randomIndex = _.random(0, videos.length - 1);
 
 			if (PREVIOUS_INDEX !== randomIndex && randomVideo !== undefined) {
@@ -48905,6 +48927,12 @@ var VideoContainer = function (_Component) {
 			var loaded = false;
 
 			if (videos.allVideos !== null) {
+
+				if (videos.allVideos.length < 1) {
+					alert("No videos to set random videos!");
+					return;
+				}
+
 				while (loaded === false) {
 					if (video !== undefined && video !== null) {
 						loaded = true;
@@ -48918,6 +48946,8 @@ var VideoContainer = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
+			var videos = this.props.videos;
+
 			var randomVideo = this.setRandomVideo();
 			var videoId = null;
 
@@ -48942,7 +48972,7 @@ var VideoContainer = function (_Component) {
 				return _react2.default.createElement(
 					'div',
 					null,
-					'...waiting for video'
+					'waiting for video...'
 				);
 			}
 
