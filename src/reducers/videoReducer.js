@@ -3,7 +3,6 @@ import _ from 'lodash';
 
 let initialState = {
 	allVideos: null,
-	sameVideoSearchCount: 0,
 	player: null
 }
 

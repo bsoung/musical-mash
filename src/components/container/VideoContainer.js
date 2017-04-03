@@ -48,7 +48,6 @@ class VideoContainer extends Component {
 		if (videos.allVideos !== null) {
 
 			if (videos.allVideos.length < 1) {
-				alert("No videos to set random videos!");
 				return;
 			}
 
@@ -69,7 +68,6 @@ class VideoContainer extends Component {
 		let videoId = null;
 		let estimatedTime = songs.songDurationSeconds + 5;
 	
-
 		const opts = {
       height: '390',
       width: '640',
@@ -87,6 +85,7 @@ class VideoContainer extends Component {
     };
 
 		if (randomVideo !== undefined) {
+
 			videoId = randomVideo.id.videoId;
 
 		} else {

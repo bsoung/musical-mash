@@ -3,8 +3,6 @@ import { SearchView } from '../view';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-let COUNT = 0;
-
 class SearchContainer extends Component {
 
 	searchMusicVideo(e) {
@@ -22,20 +20,20 @@ class SearchContainer extends Component {
 		if (previousSearchTerm === searchTerm) {
 			if (searchTerm === searchTerm.toLowerCase()) {
 				searchTerm = searchTerm.toUpperCase();
-				console.log(searchTerm);
 			} 
 		}
 
 		// don't make extra api calls on same search
 		if (searchTerm !== previousSearchTerm) {
 
+
 			this.props.setSearchTerm(searchTerm);
+			
 
 			this.props.searchSongs(searchTerm);
 			this.props.searchVideos(searchTerm);
 
 		} 
-
 	}
 
 	render() {

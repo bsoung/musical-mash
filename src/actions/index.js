@@ -18,7 +18,9 @@ const getRequest = (path, params, actionType) => {
 			})
 			.catch(err => {
 				console.error(err.message);
-				// alert(err.message);
+
+				// TODO: find out why dispatch not returning a promise
+				alert("There was a problem while searching, please try another term!");
 			});
 	}
 }

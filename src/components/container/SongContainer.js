@@ -25,14 +25,20 @@ class SongContainer extends Component {
 		let nextSearch = nextProps.search.searchTerm || null;
 
 		if (nextSongs !== null) {
+
+			// re-search if same term is entered
 			if (currentSongs === null || currentSearch !== nextSearch) {
 				this.setRandomSong(nextSongs);
-			} else {
-				// deals with current props not updating correctly to next props
-				if (currentSongs[0].id !== nextSongs[0].id) {
-					this.setRandomSong(nextSongs);
-				} 
-			} 
+
+				// update correctly when searching for a new term
+			} else if (currentSongs.length > 0 && currentSongs[0].id !== nextSongs[0].id) {
+				this.setRandomSong(nextSongs);
+
+				// update correctly when searching for a new term after no results
+			} else if (currentSongs.length < 1 && nextSongs.length > 0) {
+				this.setRandomSong(nextSongs);
+
+			}
 		}
 	}
 
@@ -47,6 +53,7 @@ class SongContainer extends Component {
 
 		randomIndex = _.random(0, songs.length - 1);
 
+		// make sure we don't roll same index twice for random selection
 		if (PREVIOUS_INDEX !== randomIndex && randomSong !== undefined) {
 			PREVIOUS_INDEX = randomIndex;
 			randomSong = songs[randomIndex];
@@ -65,7 +72,6 @@ class SongContainer extends Component {
 		if (songs !== null) {
 
 			if (songs.length < 1) {
-				alert("No songs to set random songs!");
 				return;
 			}
 
@@ -82,7 +88,9 @@ class SongContainer extends Component {
 	}
 
 	setRandomSong(songs) {
-		// let songs = nextSongs;
+		if (songs.length < 1) {
+			return;
+		}
 
 		let randomSong = this.createRandomSong(songs);
 		let songDurationInSeconds = (randomSong.duration / 1000) || 0;

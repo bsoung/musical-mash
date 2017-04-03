@@ -3,7 +3,6 @@ import _ from 'lodash';
 
 let initialState = {
 	allSongs: null,
-	sameSongSearchCount: 0,
 	songDurationSeconds: null
 }
 
