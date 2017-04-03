@@ -4,6 +4,7 @@ import _ from 'lodash';
 let initialState = {
 	allVideos: null,
 	player: null,
+	currentVideo: null,
 	previousVideoIndex: null
 }
 
@@ -21,7 +22,12 @@ export default (state = initialState, action = {}) => {
 
 			return updated;
 
-		case constants.SET_PREVIOUS_INDEX:
+		case constants.SET_RANDOM_VIDEO:
+			updated.currentVideo = action.payload;
+
+			return updated;
+
+		case constants.SET_VIDEO_INDEX:
 			updated.previousVideoIndex = action.payload;
 
 			return updated;

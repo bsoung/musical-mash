@@ -46,7 +46,7 @@ class SongContainer extends Component {
 
 		// make sure we don't roll same index twice for random selection
 		if (previousIndex !== randomIndex && randomSong !== undefined) {
-			this.props.setPreviousIndex(randomIndex);
+			this.props.setSongIndex(randomIndex);
 			randomSong = songs[randomIndex];
 
 			return randomSong;
@@ -121,7 +121,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setSongDuration: (duration) => dispatch(actions.setSongDuration(duration)),
         setRandomSong: (song) => dispatch(actions.setRandomSong(song)),
-        setPreviousIndex: (index) => dispatch(actions.setPreviousIndex(index))
+        setSongIndex: (index) => dispatch(actions.setSongIndex(index))
     }
 }
 

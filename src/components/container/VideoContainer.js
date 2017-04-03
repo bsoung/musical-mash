@@ -4,13 +4,6 @@ import YouTube from 'react-youtube';
 import * as actions from '../../actions';
 
 class VideoContainer extends Component {
-		constructor(props) {
-			super(props);
-
-			this.state = {
-				currentVideo: null
-			}
-		}
 
 		componentWillUpdate(nextProps) {
 			let nextVideos = nextProps.videos.allVideos || null;
@@ -19,23 +12,17 @@ class VideoContainer extends Component {
 			let nextSearch = nextProps.search.searchTerm || null;
 
 			if (nextVideos !== null) {
-				
+
 				// re-search if same term is entered
 				if (currentVideos === null || currentSearch !== nextSearch) {
-					console.log("we reach here? in componentWillUpdate")
 					this.grabRandomVideo(nextVideos);
 
 					// update correctly when searching for a new term
 				} else if (currentVideos.length > 0 &&currentVideos[0].id.videoId !== nextVideos[0].id.videoId) {
-					
-					console.log('DIFFERENT')
-
 					this.grabRandomVideo(nextVideos);
 
 					// update correctly when searching for a new term after no results
 				} else if (currentVideos.length < 1 && nextVideos.length > 0) {
-
-					console.log("fall here?")
 					this.grabRandomVideo(nextVideos);
 
 				} 
@@ -67,7 +54,7 @@ class VideoContainer extends Component {
 		randomIndex = _.random(0, videos.length - 1);
 
 		if (previousIndex !== randomIndex && randomVideo !== undefined) {
-			this.props.setPreviousIndex(randomIndex);
+			this.props.setVideoIndex(randomIndex);
 			randomVideo = videos[randomIndex];
 
 			return randomVideo;
@@ -104,12 +91,8 @@ class VideoContainer extends Component {
 
 		// utilize redux actions here to get more info
 
-		// refactor into redux
 		if (this.props.videos.currentVideo !== randomVideo) {
-
-			this.setState({
-				currentVideo: randomVideo
-			})
+			this.props.setRandomVideo(randomVideo);
 		}
 	}
 
@@ -135,9 +118,9 @@ class VideoContainer extends Component {
       }
     };
 
-		if (this.state.currentVideo !== null) {
+		if (videos.currentVideo !== null) {
 
-			videoId = this.state.currentVideo.id.videoId;
+			videoId = videos.currentVideo.id.videoId;
 
 		} else {
 			return (
@@ -169,7 +152,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		setVideoPlayer: (eventTarget) => dispatch(actions.setVideoPlayer(eventTarget)),
-		setPreviousIndex: (index) => dispatch(actions.setPreviousIndex(index))
+		setRandomVideo: (video) => dispatch(actions.setRandomVideo(video)),
+		setVideoIndex: (index) => dispatch(actions.setVideoIndex(index))
 	}
 }
 

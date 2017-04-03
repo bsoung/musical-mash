@@ -71,6 +71,13 @@ export function setSongDuration(duration) {
 	}
 }
 
+export function setSongIndex(index) {
+	return {
+		type: constants.SET_SONG_INDEX,
+		payload: index
+	}
+}
+
 export function setRandomSong(song) {
 	return {
 		type: constants.SET_RANDOM_SONG,
@@ -89,16 +96,25 @@ export function setVideoPlayer(eventTarget) {
 	}
 }
 
+export function setVideoIndex(index) {
+	return {
+		type: constants.SET_VIDEO_INDEX,
+		payload: index
+	}
+}
+
+export function setRandomVideo(video) {
+	return {
+		type: constants.SET_RANDOM_VIDEO,
+		payload: video
+	}
+}
+
+
 /*
  * Misc actions
  */
 
-export function setPreviousIndex(index) {
-	return {
-		type: constants.SET_PREVIOUS_INDEX,
-		payload: index
-	}
-}
 
 
 

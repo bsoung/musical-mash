@@ -27,7 +27,7 @@ export default (state = initialState, action = {}) => {
 
 			return updated;
 
-		case constants.SET_PREVIOUS_INDEX:
+		case constants.SET_SONG_INDEX:
 			updated.previousSongIndex = action.payload;
 
 			return updated;
