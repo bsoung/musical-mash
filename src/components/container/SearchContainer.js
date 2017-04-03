@@ -6,14 +6,6 @@ import * as actions from '../../actions';
 let COUNT = 0;
 
 class SearchContainer extends Component {
-	componentDidUpdate() {
-		const defaultSearchTerm = '';
-
-		if (this.props.search.searchTerm !== defaultSearchTerm) {
-			this.props.setSearchTerm(defaultSearchTerm);
-		}
-
-	}
 
 	searchMusicVideo(e) {
 		const { search } = this.props;
@@ -26,26 +18,23 @@ class SearchContainer extends Component {
 		const previousSearchTerm = search.searchTerm;
 		let searchTerm = e.target.value;
 
+		// hack to re-render searches even on same term
+		if (previousSearchTerm === searchTerm) {
+			if (searchTerm === searchTerm.toLowerCase()) {
+				searchTerm = searchTerm.toUpperCase();
+				console.log(searchTerm);
+			} 
+		}
+
 		// don't make extra api calls on same search
 		if (searchTerm !== previousSearchTerm) {
 
 			this.props.setSearchTerm(searchTerm);
 
-			// setSameSong
 			this.props.searchSongs(searchTerm);
 			this.props.searchVideos(searchTerm);
 
-		} else {
-		
-			COUNT++;
-			// TODO: rename to sameSongSet
-			this.props.setSameSongCount(COUNT);
-			this.props.setSameVideoCount(COUNT);
-		}
-
-		if (COUNT >= 10) {
-			COUNT = 0;
-		}
+		} 
 
 	}
 
@@ -68,9 +57,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		searchSongs: (song) => dispatch(actions.searchSongs(song)),
 		searchVideos: (video) => dispatch(actions.searchVideos(video)),
-		setSearchTerm: (searchTerm) => dispatch(actions.setSearchTerm(searchTerm)),
-		setSameSongCount: (n) => dispatch(actions.setSameSongCount(n)),
-		setSameVideoCount: (n) => dispatch(actions.setSameVideoCount(n)),
+		setSearchTerm: (searchTerm) => dispatch(actions.setSearchTerm(searchTerm))
 	}
 }
 

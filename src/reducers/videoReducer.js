@@ -16,11 +16,6 @@ export default (state = initialState, action = {}) => {
 
 			return updated;
 
-		case constants.SET_SAME_VIDEO_COUNT:
-			updated.sameVideoSearchCount = action.payload;
-
-			return updated;
-
 		case constants.SET_VIDEO_PLAYER:
 			updated.player = action.payload;
 

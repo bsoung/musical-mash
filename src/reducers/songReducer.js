@@ -16,13 +16,6 @@ export default (state = initialState, action = {}) => {
 
 			return updated;
 
-		case constants.SET_SAME_SONG_COUNT:
-			updated.sameSongSearchCount = action.payload;
-
-			console.log("updated count", updated);
-
-			return updated;
-
 		case constants.SET_SONG_DURATION:
 			updated.songDurationSeconds = action.payload;
 

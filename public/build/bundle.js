@@ -14440,8 +14440,6 @@ exports.default = {
 	SEARCH_SONGS: "SEARCH_SONGS",
 	SEARCH_VIDEOS: "SEARCH_VIDEOS",
 	SET_SEARCH_TERM: "SET_SEARCH_TERM",
-	SET_SAME_SONG_COUNT: "SET_SAME_SONG_COUNT",
-	SET_SAME_VIDEO_COUNT: "SET_SAME_VIDEO_COUNT",
 	SET_VIDEO_PLAYER: "SET_VIDEO_PLAYER",
 	SET_SONG_DURATION: "SET_SONG_DURATION"
 };
@@ -16865,8 +16863,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.searchSongs = searchSongs;
 exports.searchVideos = searchVideos;
 exports.setSearchTerm = setSearchTerm;
-exports.setSameSongCount = setSameSongCount;
-exports.setSameVideoCount = setSameVideoCount;
 exports.setVideoPlayer = setVideoPlayer;
 exports.setSongDuration = setSongDuration;
 
@@ -16913,32 +16909,6 @@ function setSearchTerm(searchTerm) {
 	return {
 		type: _constants2.default.SET_SEARCH_TERM,
 		payload: searchTerm
-	};
-}
-
-function setSameSongCount(n) {
-
-	// reset same song count
-	if (n === 10) {
-		n = 0;
-	}
-
-	return {
-		type: _constants2.default.SET_SAME_SONG_COUNT,
-		payload: n
-	};
-}
-
-function setSameVideoCount(n) {
-
-	// reset same video count
-	if (n === 10) {
-		n = 0;
-	}
-
-	return {
-		type: _constants2.default.SET_SAME_VIDEO_COUNT,
-		payload: n
 	};
 }
 
@@ -21208,52 +21178,6 @@ var MusicPlayerContainer = function (_Component) {
 
     _createClass(MusicPlayerContainer, [{
         key: 'play',
-
-
-        // shouldComponentUpdate(nextProps, nextState) {
-        //     if (this.props.hasOwnProperty('track') === false) {
-        //         console.log("we initially have no track, so need to update");
-        //         return true;
-
-        //      } else if (this.props.track.id !== nextProps.track.id) {
-        //         console.log("we don't have the same next props, so need to update")
-        //         return true;
-
-        //      } else {
-        //         console.log("we have the same props still!!")
-        //         return false;
-        //      }
-
-
-        //     return true;
-
-        // }
-
-        // componentDidUpdate(nextProps) {
-        //     console.log("UPDATED?")
-        //     // when press enter, updates once
-        //     if (nextProps.hasOwnProperty('track')) {
-        //         if (this.props.songs.songDurationSeconds === null) {
-        //             console.log("OUR TRACK IS NULL, setting track");
-        //             this.props.setSongDuration(nextProps.track);
-
-
-        //         } else if (this.props.songs.songDurationSeconds.id !== nextProps.track.id) {
-        //             console.log("NOT EQUAL");
-        //             this.props.setSongDuration(nextProps.track);
-
-
-        //         } else {
-        //             console.log("we are on the same song, no need to update")
-
-        //         }
-        //     }
-        //     // keeps updating every ms the song is being played
-
-
-        //     console.log(nextProps, 'NEXT UPDATE');
-        // }
-
         value: function play() {
             var _props = this.props,
                 soundCloudAudio = _props.soundCloudAudio,
@@ -21261,20 +21185,11 @@ var MusicPlayerContainer = function (_Component) {
 
             var timeLeft = null;
 
-            // if (this.props.duration > 0) {
-            //     timeLeft = this.props.duration - this.props.currentTime;
-            //     this.props.setSongDuration(timeLeft);
-            // }     
-
-            // // set entire track
-            // this.props.setSongDuration(this.props.track);
-
-            // console.log(this.props)
-
-
             if (playing) {
+                console.log("still playing?");
                 soundCloudAudio.pause();
             } else {
+                console.log("paused");
                 soundCloudAudio.play();
             }
         }
@@ -49354,15 +49269,6 @@ var SearchContainer = function (_Component) {
 	}
 
 	_createClass(SearchContainer, [{
-		key: 'componentDidUpdate',
-		value: function componentDidUpdate() {
-			var defaultSearchTerm = '';
-
-			if (this.props.search.searchTerm !== defaultSearchTerm) {
-				this.props.setSearchTerm(defaultSearchTerm);
-			}
-		}
-	}, {
 		key: 'searchMusicVideo',
 		value: function searchMusicVideo(e) {
 			var search = this.props.search;
@@ -49376,24 +49282,21 @@ var SearchContainer = function (_Component) {
 			var previousSearchTerm = search.searchTerm;
 			var searchTerm = e.target.value;
 
+			// hack to re-render searches even on same term
+			if (previousSearchTerm === searchTerm) {
+				if (searchTerm === searchTerm.toLowerCase()) {
+					searchTerm = searchTerm.toUpperCase();
+					console.log(searchTerm);
+				}
+			}
+
 			// don't make extra api calls on same search
 			if (searchTerm !== previousSearchTerm) {
 
 				this.props.setSearchTerm(searchTerm);
 
-				// setSameSong
 				this.props.searchSongs(searchTerm);
 				this.props.searchVideos(searchTerm);
-			} else {
-
-				COUNT++;
-				// TODO: rename to sameSongSet
-				this.props.setSameSongCount(COUNT);
-				this.props.setSameVideoCount(COUNT);
-			}
-
-			if (COUNT >= 10) {
-				COUNT = 0;
 			}
 		}
 	}, {
@@ -49426,12 +49329,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		},
 		setSearchTerm: function setSearchTerm(searchTerm) {
 			return dispatch(actions.setSearchTerm(searchTerm));
-		},
-		setSameSongCount: function setSameSongCount(n) {
-			return dispatch(actions.setSameSongCount(n));
-		},
-		setSameVideoCount: function setSameVideoCount(n) {
-			return dispatch(actions.setSameVideoCount(n));
 		}
 	};
 };
@@ -49493,6 +49390,7 @@ var SongContainer = function (_Component) {
 	function SongContainer(props) {
 		_classCallCheck(this, SongContainer);
 
+		// refactor to redux state later
 		var _this = _possibleConstructorReturn(this, (SongContainer.__proto__ || Object.getPrototypeOf(SongContainer)).call(this, props));
 
 		_this.state = {
@@ -49502,28 +49400,20 @@ var SongContainer = function (_Component) {
 	}
 
 	_createClass(SongContainer, [{
-		key: 'componentDidUpdate',
-		value: function componentDidUpdate() {
-			console.log(this.props.songs);
-		}
-	}, {
 		key: 'componentWillUpdate',
 		value: function componentWillUpdate(nextProps) {
+			var nextSongs = nextProps.songs.allSongs || null;
+			var currentSongs = this.props.songs.allSongs || null;
+			var currentSearch = this.props.search.searchTerm || null;
+			var nextSearch = nextProps.search.searchTerm || null;
 
-			if (nextProps.songs.allSongs !== null) {
-
-				if (this.props.songs.allSongs === null || this.props.search.searchTerm !== nextProps.search.searchTerm) {
-					var songs = nextProps.songs.allSongs;
-					var randomSong = this.setRandomSong(songs);
-					var songDurationInSeconds = randomSong.duration / 1000;
-
-					this.props.setSongDuration(songDurationInSeconds);
-
-					// refactor to redux state
-					if (this.state.randomSong !== randomSong) {
-						this.setState({
-							randomSong: randomSong
-						});
+			if (nextSongs !== null) {
+				if (currentSongs === null || currentSearch !== nextSearch) {
+					this.setRandomSong(nextSongs);
+				} else {
+					// deals with current props not updating correctly to next props
+					if (currentSongs[0].id !== nextSongs[0].id) {
+						this.setRandomSong(nextSongs);
 					}
 				}
 			}
@@ -49551,9 +49441,8 @@ var SongContainer = function (_Component) {
 			}
 		}
 	}, {
-		key: 'setRandomSong',
-		value: function setRandomSong(songs) {
-
+		key: 'createRandomSong',
+		value: function createRandomSong(songs) {
 			var song = null;
 			var loaded = false;
 
@@ -49576,17 +49465,31 @@ var SongContainer = function (_Component) {
 			}
 		}
 	}, {
+		key: 'setRandomSong',
+		value: function setRandomSong(songs) {
+			// let songs = nextSongs;
+
+			var randomSong = this.createRandomSong(songs);
+			var songDurationInSeconds = randomSong.duration / 1000 || 0;
+
+			this.props.setSongDuration(songDurationInSeconds);
+
+			// refactor to redux state
+			if (this.state.randomSong !== randomSong) {
+				this.setState({
+					randomSong: randomSong
+				});
+			}
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			var resolveUrl = null;
 			var randomSong = null;
 
-			// console.log(randomSong)
-
 			if (this.state.randomSong !== null) {
 				randomSong = this.state.randomSong;
 
-				// console.log(randomSong);
 				resolveUrl = randomSong.permalink_url;
 			} else {
 				return _react2.default.createElement(
@@ -49737,10 +49640,13 @@ var VideoContainer = function (_Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-			var videos = this.props.videos;
+			var _props = this.props,
+			    videos = _props.videos,
+			    songs = _props.songs;
 
 			var randomVideo = this.setRandomVideo();
 			var videoId = null;
+			var estimatedTime = songs.songDurationSeconds + 5;
 
 			var opts = {
 				height: '390',
@@ -49752,8 +49658,9 @@ var VideoContainer = function (_Component) {
 					iv_load_policy: 3,
 					modestbranding: 1,
 					rel: 0,
-					showinfo: 0
-					// end: 5 // TODO: THIS IS KEY FOR SYNCING WITH OUR MUSIC - using the duration info from sc
+					showinfo: 0,
+					loop: 1,
+					end: estimatedTime
 				}
 			};
 
@@ -49763,7 +49670,7 @@ var VideoContainer = function (_Component) {
 				return _react2.default.createElement(
 					'div',
 					null,
-					'waiting for video...'
+					'Waiting for video...'
 				);
 			}
 
@@ -49785,8 +49692,8 @@ var VideoContainer = function (_Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
 	return {
-		videos: state.videos
-
+		videos: state.videos,
+		songs: state.songs
 	};
 };
 
@@ -50167,13 +50074,6 @@ exports.default = function () {
 
 			return updated;
 
-		case _constants2.default.SET_SAME_SONG_COUNT:
-			updated.sameSongSearchCount = action.payload;
-
-			console.log("updated count", updated);
-
-			return updated;
-
 		case _constants2.default.SET_SONG_DURATION:
 			updated.songDurationSeconds = action.payload;
 
@@ -50220,11 +50120,6 @@ exports.default = function () {
 	switch (action.type) {
 		case _constants2.default.SEARCH_VIDEOS:
 			updated.allVideos = action.payload;
-
-			return updated;
-
-		case _constants2.default.SET_SAME_VIDEO_COUNT:
-			updated.sameVideoSearchCount = action.payload;
 
 			return updated;
 

@@ -6,7 +6,6 @@ import * as actions from '../../actions';
 let PREVIOUS_INDEX = null;
 
 class VideoContainer extends Component {
-
 	onReady(e) {
 		this.props.setVideoPlayer(e.target);
   }
@@ -65,22 +64,25 @@ class VideoContainer extends Component {
 	}
 
 	render() {
-		const { videos } = this.props;
+		const { videos, songs } = this.props;
 		let randomVideo = this.setRandomVideo();
 		let videoId = null;
+		let estimatedTime = songs.songDurationSeconds + 5;
+	
 
 		const opts = {
       height: '390',
       width: '640',
       playerVars: { 
-        autoplay: 0,
+        autoplay: 0, 
         controls: 0,
         disablekb: 1,
         iv_load_policy: 3,
         modestbranding: 1,
         rel: 0,
-        showinfo: 0
-        // end: 5 // TODO: THIS IS KEY FOR SYNCING WITH OUR MUSIC - using the duration info from sc
+        showinfo: 0,
+        loop: 1,
+        end: estimatedTime 
       }
     };
 
@@ -89,7 +91,7 @@ class VideoContainer extends Component {
 
 		} else {
 			return (
-				<div>waiting for video...</div>
+				<div>Waiting for video...</div>
 			)
 		}
 		
@@ -108,8 +110,8 @@ class VideoContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		videos: state.videos
-
+		videos: state.videos,
+		songs: state.songs
 	}
 }
 

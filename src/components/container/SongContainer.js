@@ -12,35 +12,28 @@ class SongContainer extends Component {
 	constructor(props) {
 		super(props);
 
+		// refactor to redux state later
 		this.state = {
 			randomSong: null
 		}
 	}
 
-	componentDidUpdate() {
-		console.log(this.props.songs)
-	}
-
 	componentWillUpdate(nextProps) {
+		let nextSongs = nextProps.songs.allSongs || null;
+		let currentSongs = this.props.songs.allSongs || null;
+		let currentSearch = this.props.search.searchTerm || null;
+		let nextSearch = nextProps.search.searchTerm || null;
 
-		if (nextProps.songs.allSongs !== null) {
-
-			if (this.props.songs.allSongs === null || this.props.search.searchTerm !== nextProps.search.searchTerm) {
-				let songs = nextProps.songs.allSongs;
-				let randomSong = this.setRandomSong(songs);
-				let songDurationInSeconds = randomSong.duration / 1000;
-
-				this.props.setSongDuration(songDurationInSeconds);
-
-				// refactor to redux state
-				if (this.state.randomSong !== randomSong) {
-					this.setState({
-						randomSong: randomSong
-					});
-				}
+		if (nextSongs !== null) {
+			if (currentSongs === null || currentSearch !== nextSearch) {
+				this.setRandomSong(nextSongs);
+			} else {
+				// deals with current props not updating correctly to next props
+				if (currentSongs[0].id !== nextSongs[0].id) {
+					this.setRandomSong(nextSongs);
+				} 
 			} 
 		}
-
 	}
 
 	getNonSequentialRandomSong(songs) {
@@ -65,8 +58,7 @@ class SongContainer extends Component {
 		}
 	}
 
-	setRandomSong(songs) {
-
+	createRandomSong(songs) {
 		let song = null;
 		let loaded = false;
 
@@ -89,16 +81,29 @@ class SongContainer extends Component {
 		}
 	}
 
+	setRandomSong(songs) {
+		// let songs = nextSongs;
+
+		let randomSong = this.createRandomSong(songs);
+		let songDurationInSeconds = (randomSong.duration / 1000) || 0;
+
+		this.props.setSongDuration(songDurationInSeconds);
+
+		// refactor to redux state
+		if (this.state.randomSong !== randomSong) {
+			this.setState({
+				randomSong: randomSong
+			});
+		} 
+	}
+
 	render() {
 		let resolveUrl = null;
 		let randomSong = null;
 
-		// console.log(randomSong)
-
 		if (this.state.randomSong !== null) {
 			randomSong = this.state.randomSong;
 
-			// console.log(randomSong);
 			resolveUrl = randomSong.permalink_url;
 
 		} else {

@@ -46,33 +46,6 @@ export function setSearchTerm(searchTerm) {
 	}
 }
 
-export function setSameSongCount(n) {
-
-	// reset same song count
-	if (n === 10) {
-		n = 0;
-	}
-
-	return {
-		type: constants.SET_SAME_SONG_COUNT,
-		payload: n
-	}
-}
-
-
-export function setSameVideoCount(n) {
-
-	// reset same video count
-	if (n === 10) {
-		n = 0;
-	}
-
-	return {
-		type: constants.SET_SAME_VIDEO_COUNT,
-		payload: n
-	}
-}
-
 export function setVideoPlayer(eventTarget) {
 	return {
 		type: constants.SET_VIDEO_PLAYER,
