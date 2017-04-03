@@ -3,9 +3,46 @@ import { connect } from 'react-redux';
 import YouTube from 'react-youtube';
 import * as actions from '../../actions';
 
-let PREVIOUS_INDEX = null;
-
 class VideoContainer extends Component {
+		constructor(props) {
+			super(props);
+
+			this.state = {
+				currentVideo: null
+			}
+		}
+
+		componentWillUpdate(nextProps) {
+			let nextVideos = nextProps.videos.allVideos || null;
+			let currentVideos = this.props.videos.allVideos || null;
+			let currentSearch = this.props.search.searchTerm || null;
+			let nextSearch = nextProps.search.searchTerm || null;
+
+			if (nextVideos !== null) {
+				
+				// re-search if same term is entered
+				if (currentVideos === null || currentSearch !== nextSearch) {
+					console.log("we reach here? in componentWillUpdate")
+					this.grabRandomVideo(nextVideos);
+
+					// update correctly when searching for a new term
+				} else if (currentVideos.length > 0 &&currentVideos[0].id.videoId !== nextVideos[0].id.videoId) {
+					
+					console.log('DIFFERENT')
+
+					this.grabRandomVideo(nextVideos);
+
+					// update correctly when searching for a new term after no results
+				} else if (currentVideos.length < 1 && nextVideos.length > 0) {
+
+					console.log("fall here?")
+					this.grabRandomVideo(nextVideos);
+
+				} 
+
+			}
+	}
+
 	onReady(e) {
 		this.props.setVideoPlayer(e.target);
   }
@@ -18,6 +55,7 @@ class VideoContainer extends Component {
   }
 
 	getNonSequentialRandomVideo(videos) {
+		let previousIndex = this.props.videos.previousVideoIndex;
 		let randomIndex = null;
 		let randomVideo = null;
 
@@ -28,8 +66,8 @@ class VideoContainer extends Component {
 
 		randomIndex = _.random(0, videos.length - 1);
 
-		if (PREVIOUS_INDEX !== randomIndex && randomVideo !== undefined) {
-			PREVIOUS_INDEX = randomIndex;
+		if (previousIndex !== randomIndex && randomVideo !== undefined) {
+			this.props.setPreviousIndex(randomIndex);
 			randomVideo = videos[randomIndex];
 
 			return randomVideo;
@@ -40,16 +78,11 @@ class VideoContainer extends Component {
 		}
 	}
 
-	setRandomVideo() {
-		const { videos } = this.props;
+	createRandomVideo(videos) {
 		let video = null;
 		let loaded = false;
 
 		if (videos.allVideos !== null) {
-
-			if (videos.allVideos.length < 1) {
-				return;
-			}
 
 			while (loaded === false) {
 				if (video !== undefined && video !== null) {
@@ -57,16 +90,34 @@ class VideoContainer extends Component {
 					return video;
 				}
 
-				video = this.getNonSequentialRandomVideo(videos.allVideos);
+				video = this.getNonSequentialRandomVideo(videos);
 			}
+		}
+	}
+
+	grabRandomVideo(videos) {
+		if (videos.length < 1) {
+			return;
+		}
+
+		let randomVideo = this.createRandomVideo(videos);
+
+		// utilize redux actions here to get more info
+
+		// refactor into redux
+		if (this.props.videos.currentVideo !== randomVideo) {
+
+			this.setState({
+				currentVideo: randomVideo
+			})
 		}
 	}
 
 	render() {
 		const { videos, songs } = this.props;
-		let randomVideo = this.setRandomVideo();
+
 		let videoId = null;
-		let estimatedTime = songs.songDurationSeconds + 5;
+		let estimatedTime = songs.songDurationSeconds + 2;
 	
 		const opts = {
       height: '390',
@@ -84,9 +135,9 @@ class VideoContainer extends Component {
       }
     };
 
-		if (randomVideo !== undefined) {
+		if (this.state.currentVideo !== null) {
 
-			videoId = randomVideo.id.videoId;
+			videoId = this.state.currentVideo.id.videoId;
 
 		} else {
 			return (
@@ -110,13 +161,15 @@ class VideoContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		videos: state.videos,
-		songs: state.songs
+		songs: state.songs,
+		search: state.search
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		setVideoPlayer: (eventTarget) => dispatch(actions.setVideoPlayer(eventTarget))
+		setVideoPlayer: (eventTarget) => dispatch(actions.setVideoPlayer(eventTarget)),
+		setPreviousIndex: (index) => dispatch(actions.setPreviousIndex(index))
 	}
 }
 

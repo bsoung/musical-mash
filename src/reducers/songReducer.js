@@ -3,7 +3,9 @@ import _ from 'lodash';
 
 let initialState = {
 	allSongs: null,
-	songDurationSeconds: null
+	songDurationSeconds: null,
+	currentSong: null,
+	previousSongIndex: null
 }
 
 export default (state = initialState, action = {}) => {
@@ -17,6 +19,16 @@ export default (state = initialState, action = {}) => {
 
 		case constants.SET_SONG_DURATION:
 			updated.songDurationSeconds = action.payload;
+
+			return updated;
+
+		case constants.SET_RANDOM_SONG:
+			updated.currentSong = action.payload;
+
+			return updated;
+
+		case constants.SET_PREVIOUS_INDEX:
+			updated.previousSongIndex = action.payload;
 
 			return updated;
 

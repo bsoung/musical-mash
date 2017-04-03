@@ -1,6 +1,10 @@
 import constants from '../constants';
 import { APIManager } from '../utils';
 
+/*
+ * Async action methods
+ */
+
 const getRequest = (path, params, actionType) => {
 	return (dispatch) => {
 		APIManager
@@ -20,8 +24,20 @@ const getRequest = (path, params, actionType) => {
 				console.error(err.message);
 
 				// TODO: find out why dispatch not returning a promise
-				alert("There was a problem while searching, please try another term!");
+				// alert("There was a problem while searching, please try another term!");
 			});
+	}
+}
+
+/*
+ * Async Search actions
+ */
+
+export function searchVideos(searchTerm) {
+	return (dispatch) => {
+		return dispatch(
+			getRequest(`/video/${searchTerm}`, null, constants.SEARCH_VIDEOS)
+		);
 	}
 }
 
@@ -33,13 +49,9 @@ export function searchSongs(searchTerm) {
 	}
 }
 
-export function searchVideos(searchTerm) {
-	return (dispatch) => {
-		return dispatch(
-			getRequest(`/video/${searchTerm}`, null, constants.SEARCH_VIDEOS)
-		);
-	}
-}
+/*
+ * Search actions
+ */
 
 export function setSearchTerm(searchTerm) {
 	return {
@@ -48,6 +60,28 @@ export function setSearchTerm(searchTerm) {
 	}
 }
 
+/*
+ * Song actions
+ */
+
+export function setSongDuration(duration) {
+	return {
+		type: constants.SET_SONG_DURATION,
+		payload: duration
+	}
+}
+
+export function setRandomSong(song) {
+	return {
+		type: constants.SET_RANDOM_SONG,
+		payload: song
+	}
+}
+
+/*
+ * Video actions
+ */
+
 export function setVideoPlayer(eventTarget) {
 	return {
 		type: constants.SET_VIDEO_PLAYER,
@@ -55,10 +89,14 @@ export function setVideoPlayer(eventTarget) {
 	}
 }
 
-export function setSongDuration(duration) {
+/*
+ * Misc actions
+ */
+
+export function setPreviousIndex(index) {
 	return {
-		type: constants.SET_SONG_DURATION,
-		payload: duration
+		type: constants.SET_PREVIOUS_INDEX,
+		payload: index
 	}
 }
 

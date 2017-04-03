@@ -6,17 +6,7 @@ import MusicPlayerContainer from './MusicPlayerContainer';
 import _ from 'lodash';
 import * as actions from '../../actions'
 
-let PREVIOUS_INDEX = null;
-
 class SongContainer extends Component {
-	constructor(props) {
-		super(props);
-
-		// refactor to redux state later
-		this.state = {
-			randomSong: null
-		}
-	}
 
 	componentWillUpdate(nextProps) {
 		let nextSongs = nextProps.songs.allSongs || null;
@@ -28,21 +18,22 @@ class SongContainer extends Component {
 
 			// re-search if same term is entered
 			if (currentSongs === null || currentSearch !== nextSearch) {
-				this.setRandomSong(nextSongs);
+				this.grabRandomSong(nextSongs);
 
 				// update correctly when searching for a new term
 			} else if (currentSongs.length > 0 && currentSongs[0].id !== nextSongs[0].id) {
-				this.setRandomSong(nextSongs);
+				this.grabRandomSong(nextSongs);
 
 				// update correctly when searching for a new term after no results
 			} else if (currentSongs.length < 1 && nextSongs.length > 0) {
-				this.setRandomSong(nextSongs);
+				this.grabRandomSong(nextSongs);
 
 			}
 		}
 	}
 
 	getNonSequentialRandomSong(songs) {
+		let previousIndex = this.props.songs.previousSongIndex;
 		let randomIndex = null;
 		let randomSong = null;
 
@@ -54,8 +45,8 @@ class SongContainer extends Component {
 		randomIndex = _.random(0, songs.length - 1);
 
 		// make sure we don't roll same index twice for random selection
-		if (PREVIOUS_INDEX !== randomIndex && randomSong !== undefined) {
-			PREVIOUS_INDEX = randomIndex;
+		if (previousIndex !== randomIndex && randomSong !== undefined) {
+			this.props.setPreviousIndex(randomIndex);
 			randomSong = songs[randomIndex];
 
 			return randomSong;
@@ -71,10 +62,6 @@ class SongContainer extends Component {
 
 		if (songs !== null) {
 
-			if (songs.length < 1) {
-				return;
-			}
-
 			while (loaded === false) {
 				if (song !== undefined && song !== null) {
 					loaded = true;
@@ -87,7 +74,7 @@ class SongContainer extends Component {
 		}
 	}
 
-	setRandomSong(songs) {
+	grabRandomSong(songs) {
 		if (songs.length < 1) {
 			return;
 		}
@@ -97,22 +84,17 @@ class SongContainer extends Component {
 
 		this.props.setSongDuration(songDurationInSeconds);
 
-		// refactor to redux state
-		if (this.state.randomSong !== randomSong) {
-			this.setState({
-				randomSong: randomSong
-			});
-		} 
+		if (this.props.songs.currentSong !== randomSong) {
+			this.props.setRandomSong(randomSong);
+		}
 	}
 
 	render() {
+		const { songs } = this.props;
 		let resolveUrl = null;
-		let randomSong = null;
 
-		if (this.state.randomSong !== null) {
-			randomSong = this.state.randomSong;
-
-			resolveUrl = randomSong.permalink_url;
+		if (songs.currentSong !== null) {
+			resolveUrl = songs.currentSong.permalink_url;
 
 		} else {
 			return (
@@ -137,7 +119,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSongDuration: (duration) => dispatch(actions.setSongDuration(duration))
+        setSongDuration: (duration) => dispatch(actions.setSongDuration(duration)),
+        setRandomSong: (song) => dispatch(actions.setRandomSong(song)),
+        setPreviousIndex: (index) => dispatch(actions.setPreviousIndex(index))
     }
 }
 

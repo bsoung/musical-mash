@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 let initialState = {
 	allVideos: null,
-	player: null
+	player: null,
+	previousVideoIndex: null
 }
 
 export default (state = initialState, action = {}) => {
@@ -17,6 +18,11 @@ export default (state = initialState, action = {}) => {
 
 		case constants.SET_VIDEO_PLAYER:
 			updated.player = action.payload;
+
+			return updated;
+
+		case constants.SET_PREVIOUS_INDEX:
+			updated.previousVideoIndex = action.payload;
 
 			return updated;
 
