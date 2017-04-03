@@ -16,7 +16,7 @@ class SongContainer extends Component {
 
 		if (nextSongs !== null) {
 
-			// re-search if same term is entered
+			// re-search if same term is entered (every other term is in all caps)
 			if (currentSongs === null || currentSearch !== nextSearch) {
 				this.grabRandomSong(nextSongs);
 
@@ -62,6 +62,7 @@ class SongContainer extends Component {
 
 		if (songs !== null) {
 
+			// keep rolling song until we get an actual song
 			while (loaded === false) {
 				if (song !== undefined && song !== null) {
 					loaded = true;
@@ -97,15 +98,19 @@ class SongContainer extends Component {
 			resolveUrl = songs.currentSong.permalink_url;
 
 		} else {
+
 			return (
-				<div>Waiting for music search...</div>
+		   	<div className="mt3 mb3 border p2 rounded b2">
+          <h2 className="m0">Waiting for song name...</h2>
+          <h3 className="mt0">Waiting for author name...</h3>
+        </div>
 			)
 		}
 
 		return (
-			<SoundPlayerContainer resolveUrl={resolveUrl} clientId={secret.SC_CLIENT_ID}>
-        <MusicPlayerContainer />
-      </SoundPlayerContainer>
+				<SoundPlayerContainer resolveUrl={resolveUrl} clientId={secret.SC_CLIENT_ID}>
+	        <MusicPlayerContainer />
+	      </SoundPlayerContainer>
 		)
 	}
 }

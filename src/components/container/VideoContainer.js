@@ -13,7 +13,7 @@ class VideoContainer extends Component {
 
 			if (nextVideos !== null) {
 
-				// re-search if same term is entered
+				// re-search if same term is entered (every other term is in all caps)
 				if (currentVideos === null || currentSearch !== nextSearch) {
 					this.grabRandomVideo(nextVideos);
 
@@ -26,7 +26,6 @@ class VideoContainer extends Component {
 					this.grabRandomVideo(nextVideos);
 
 				} 
-
 			}
 	}
 
@@ -90,7 +89,7 @@ class VideoContainer extends Component {
 		let randomVideo = this.createRandomVideo(videos);
 
 		// utilize redux actions here to get more info
-
+		
 		if (this.props.videos.currentVideo !== randomVideo) {
 			this.props.setRandomVideo(randomVideo);
 		}
@@ -100,7 +99,7 @@ class VideoContainer extends Component {
 		const { videos, songs } = this.props;
 
 		let videoId = null;
-		let estimatedTime = songs.songDurationSeconds + 2;
+		let estimatedTime = songs.songDurationSeconds;
 	
 		const opts = {
       height: '390',
@@ -123,13 +122,16 @@ class VideoContainer extends Component {
 			videoId = videos.currentVideo.id.videoId;
 
 		} else {
+
 			return (
-				<div>Waiting for video...</div>
+				<div className="video-container mt3 mb3 border p2 rounded b2 mx-auto">
+					<h3 className="mg0">Waiting for video...</h3>
+				</div>
 			)
 		}
 		
 		return (
-			<div>	
+			<div className="video-container mt3 mb3 border p2 rounded b2 mx-auto">	
 				<YouTube 
 					opts={opts}
 					videoId={videoId} 

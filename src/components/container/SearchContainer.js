@@ -16,21 +16,20 @@ class SearchContainer extends Component {
 		const previousSearchTerm = search.searchTerm;
 		let searchTerm = e.target.value;
 
-		// hack to re-render searches even on same term
+		// hack to re-render searches on same term (every other same term is in all caps)
 		if (previousSearchTerm === searchTerm) {
 			if (searchTerm === searchTerm.toLowerCase()) {
 				searchTerm = searchTerm.toUpperCase();
 			} 
 		}
 
-		// don't make extra api calls on same search
+		// don't make extra api calls on same search 
 		if (searchTerm !== previousSearchTerm) {
 
 			this.props.setSearchTerm(searchTerm);
 			
 			this.props.searchSongs(searchTerm);
 			this.props.searchVideos(searchTerm);
-
 		} 
 	}
 
