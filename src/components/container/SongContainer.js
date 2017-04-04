@@ -9,6 +9,7 @@ import * as actions from '../../actions'
 class SongContainer extends Component {
 
 	componentWillUpdate(nextProps) {
+
 		let nextSongs = nextProps.songs.allSongs || null;
 		let currentSongs = this.props.songs.allSongs || null;
 		let currentSearch = this.props.search.searchTerm || null;

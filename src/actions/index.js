@@ -85,6 +85,13 @@ export function setRandomSong(song) {
 	}
 }
 
+export function setSongState(bool) {
+	return {
+		type: constants.SET_SONG_STATE,
+		payload: bool
+	}
+}
+
 /*
  * Video actions
  */

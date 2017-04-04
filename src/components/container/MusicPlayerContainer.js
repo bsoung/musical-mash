@@ -3,15 +3,37 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 class MusicPlayerContainer extends Component {
+
+    componentWillReceiveProps(nextProps) {
+        let currentPlaying = this.props.playing;
+        let nextPlaying = nextProps.playing;
+
+        // perhaps send play/pause state to redux? 
+        // then have video container pick it up and react accordingly?
+
+        // if we pressed pause
+        if (currentPlaying && currentPlaying !== nextPlaying) {
+            this.props.setSongState(false);
+        }
+
+        // if we pressed play
+        if (!currentPlaying && currentPlaying !== nextPlaying) {
+            this.props.setSongState(true);
+        }
+
+    }
+
     play() {
-        let { soundCloudAudio, playing } = this.props;
+        let { soundCloudAudio, playing, songs } = this.props;
         let timeLeft = null;
 
+        // still playing
         if (playing) {
-            console.log("still playing?")
+
             soundCloudAudio.pause();
+
+        // paused
         } else {
-            console.log("paused")
             soundCloudAudio.play();
         }
     }
@@ -35,16 +57,24 @@ class MusicPlayerContainer extends Component {
     }
 }
 
+
+// for pause/play bug, under componentWillMount, maybe check to see what nextProps search term is, if it's not the same, set to pause
+
+// 1. for syncing play/pause on both, have a flag in redux - when song playing, set flag playingAcknolwedged to true
+// then in video, set flag back to false, set video to play. same deal when not playing.
+// 2. when playing, componentWillUpdate check for redux flag isSongPlaying, if not true, set to true
+// in video, check redux state for isSongPlaying, if true, set isVideoPlaying to true
+// same pattern for pausing
+
 const mapStateToProps = (state) => {
     return {
         songs: state.songs
     }
 }
 
-
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSongDuration: (duration) => dispatch(actions.setSongDuration(duration))
+        setSongState: (bool) => dispatch(actions.setSongState(bool))
     }
 }
 

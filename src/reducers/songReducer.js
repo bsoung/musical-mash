@@ -5,7 +5,8 @@ let initialState = {
 	allSongs: null,
 	songDurationSeconds: null,
 	currentSong: null,
-	previousSongIndex: null
+	previousSongIndex: null,
+	isSongPlaying: false
 }
 
 export default (state = initialState, action = {}) => {
@@ -29,6 +30,13 @@ export default (state = initialState, action = {}) => {
 
 		case constants.SET_SONG_INDEX:
 			updated.previousSongIndex = action.payload;
+
+			return updated;
+
+		case constants.SET_SONG_STATE:
+			updated.isSongPlaying = action.payload;
+
+			console.log("state set!", updated.isSongPlaying)
 
 			return updated;
 

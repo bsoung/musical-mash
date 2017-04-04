@@ -6,6 +6,7 @@ import * as actions from '../../actions';
 class VideoContainer extends Component {
 
 		componentWillUpdate(nextProps) {
+
 			let nextVideos = nextProps.videos.allVideos || null;
 			let currentVideos = this.props.videos.allVideos || null;
 			let currentSearch = this.props.search.searchTerm || null;
@@ -99,6 +100,8 @@ class VideoContainer extends Component {
 		const { videos, songs } = this.props;
 
 		let videoId = null;
+
+		// end video when song ends, others put video on loop (focus is on song)
 		let estimatedTime = songs.songDurationSeconds;
 	
 		const opts = {
