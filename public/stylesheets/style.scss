@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  // font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -80,6 +80,13 @@ input:focus {outline:none;}
 	width: 100%;
 }
 
+.play-button-center {
+  padding-left: 40%;
+}
+
+.pause-button-center {
+  padding-left: 36%;
+}
 
 
 

@@ -8,9 +8,6 @@ class MusicPlayerContainer extends Component {
         let currentPlaying = this.props.playing;
         let nextPlaying = nextProps.playing;
 
-        // perhaps send play/pause state to redux? 
-        // then have video container pick it up and react accordingly?
-
         // if we pressed pause
         if (currentPlaying && currentPlaying !== nextPlaying) {
             this.props.setSongState(false);
@@ -20,16 +17,14 @@ class MusicPlayerContainer extends Component {
         if (!currentPlaying && currentPlaying !== nextPlaying) {
             this.props.setSongState(true);
         }
-
     }
 
     play() {
         let { soundCloudAudio, playing, songs } = this.props;
-        let timeLeft = null;
+        console.log(this.props);
 
         // still playing
         if (playing) {
-
             soundCloudAudio.pause();
 
         // paused
@@ -39,11 +34,15 @@ class MusicPlayerContainer extends Component {
     }
 
     render() {
-        let { track, playing } = this.props;
+        let { track, playing, songs } = this.props;
 
         if (!track) {
             return <div>Loading...</div>;
         }
+
+        // ((portion/total) * 100).toFixed(2) for percentage
+        let trackDurationPercent = (songs.songDurationSeconds);
+        console.log(trackDurationPercent);
 
         return (
             <div className="mt3 mb3 border p2 rounded b2">
@@ -60,15 +59,11 @@ class MusicPlayerContainer extends Component {
 
 // for pause/play bug, under componentWillMount, maybe check to see what nextProps search term is, if it's not the same, set to pause
 
-// 1. for syncing play/pause on both, have a flag in redux - when song playing, set flag playingAcknolwedged to true
-// then in video, set flag back to false, set video to play. same deal when not playing.
-// 2. when playing, componentWillUpdate check for redux flag isSongPlaying, if not true, set to true
-// in video, check redux state for isSongPlaying, if true, set isVideoPlaying to true
-// same pattern for pausing
 
 const mapStateToProps = (state) => {
     return {
-        songs: state.songs
+        songs: state.songs,
+        search: state.search
     }
 }
 
@@ -79,6 +74,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps , mapDispatchToProps)(MusicPlayerContainer);
+
 
 
 

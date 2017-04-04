@@ -36,8 +36,6 @@ export default (state = initialState, action = {}) => {
 		case constants.SET_SONG_STATE:
 			updated.isSongPlaying = action.payload;
 
-			console.log("state set!", updated.isSongPlaying)
-
 			return updated;
 
 		default:

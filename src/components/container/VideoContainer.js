@@ -5,40 +5,50 @@ import * as actions from '../../actions';
 
 class VideoContainer extends Component {
 
-		componentWillUpdate(nextProps) {
+	componentWillUpdate(nextProps) {
+		const { search, videos } = this.props;
 
-			let nextVideos = nextProps.videos.allVideos || null;
-			let currentVideos = this.props.videos.allVideos || null;
-			let currentSearch = this.props.search.searchTerm || null;
-			let nextSearch = nextProps.search.searchTerm || null;
+		let nextVideos = nextProps.videos.allVideos || null;
+		let currentVideos = videos.allVideos || null;
+		let currentSearch = search.searchTerm || null;
+		let nextSearch = nextProps.search.searchTerm || null;
 
-			if (nextVideos !== null) {
+		if (nextVideos !== null) {
 
-				// re-search if same term is entered (every other term is in all caps)
-				if (currentVideos === null || currentSearch !== nextSearch) {
-					this.grabRandomVideo(nextVideos);
+			// re-search if same term is entered (every other term is in all caps)
+			if (currentVideos === null || currentSearch !== nextSearch) {
+				this.grabRandomVideo(nextVideos);
 
-					// update correctly when searching for a new term
-				} else if (currentVideos.length > 0 &&currentVideos[0].id.videoId !== nextVideos[0].id.videoId) {
-					this.grabRandomVideo(nextVideos);
+				// update correctly when searching for a new term
+			} else if (currentVideos.length > 0 &&currentVideos[0].id.videoId !== nextVideos[0].id.videoId) {
+				this.grabRandomVideo(nextVideos);
 
-					// update correctly when searching for a new term after no results
-				} else if (currentVideos.length < 1 && nextVideos.length > 0) {
-					this.grabRandomVideo(nextVideos);
+				// update correctly when searching for a new term after no results
+			} else if (currentVideos.length < 1 && nextVideos.length > 0) {
+				this.grabRandomVideo(nextVideos);
 
-				} 
+			} 
+		}
+	}
+
+	componentDidUpdate() {
+		const { songs } = this.props;
+
+		if (this.props.videos.player !== null) {
+			if (songs.isSongPlaying) {
+
+				this.props.videos.player.playVideo();
+				this.props.videos.player.mute();
+
+			} else {
+
+				this.props.videos.player.pauseVideo();
 			}
+		}
 	}
 
 	onReady(e) {
 		this.props.setVideoPlayer(e.target);
-  }
-
-  onPlayVideo() {
-  	const { videos } = this.props;
-
-    videos.player.playVideo();
-    videos.player.mute();
   }
 
 	getNonSequentialRandomVideo(videos) {
@@ -99,6 +109,7 @@ class VideoContainer extends Component {
 	render() {
 		const { videos, songs } = this.props;
 
+
 		let videoId = null;
 
 		// end video when song ends, others put video on loop (focus is on song)
@@ -121,11 +132,9 @@ class VideoContainer extends Component {
     };
 
 		if (videos.currentVideo !== null) {
-
 			videoId = videos.currentVideo.id.videoId;
 
 		} else {
-
 			return (
 				<div className="video-container mt3 mb3 border p2 rounded b2 mx-auto">
 					<h3 className="mg0">Waiting for video...</h3>
@@ -139,7 +148,6 @@ class VideoContainer extends Component {
 					opts={opts}
 					videoId={videoId} 
 					onReady={this.onReady.bind(this)} 
-					onPlay={this.onPlayVideo.bind(this)} 
 				/>
 			</div>
 		)
@@ -161,7 +169,6 @@ const mapDispatchToProps = (dispatch) => {
 		setVideoIndex: (index) => dispatch(actions.setVideoIndex(index))
 	}
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoContainer);
 
