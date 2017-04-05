@@ -5,7 +5,8 @@ let initialState = {
 	allVideos: null,
 	player: null,
 	currentVideo: null,
-	previousVideoIndex: null
+	previousVideoIndex: null,
+	isVideoPlaying: false
 }
 
 export default (state = initialState, action = {}) => {
@@ -29,6 +30,11 @@ export default (state = initialState, action = {}) => {
 
 		case constants.SET_VIDEO_INDEX:
 			updated.previousVideoIndex = action.payload;
+
+			return updated;
+
+		case constants.SET_VIDEO_STATE:
+			updated.isVideoPlaying = action.payload;
 
 			return updated;
 

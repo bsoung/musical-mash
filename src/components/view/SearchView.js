@@ -2,7 +2,7 @@ import React from 'react';
 
 export default (props) => (
 	<div>
-		<h3>Music Mash! Powered by Soundcloud and Youtube</h3>
+		<h3>Audio Story - Powered by Soundcloud and Youtube</h3>
 		<input 
 			autoFocus
 			onKeyDown={props.onMusicVideoSearch.bind(this)} 

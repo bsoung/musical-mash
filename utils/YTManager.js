@@ -11,6 +11,8 @@ module.exports = {
         .query({
           q: searchTerm,
           part: 'snippet',
+          maxResults: 50,
+          safeSearch: 'strict',
           type: 'video',
           key: process.env.YT_API_KEY
         })

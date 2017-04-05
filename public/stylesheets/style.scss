@@ -72,6 +72,7 @@ input:focus {outline:none;}
 }
 
 .video-container {
+  pointer-events: none;
   height: 390px;
   width: 640px;
 }

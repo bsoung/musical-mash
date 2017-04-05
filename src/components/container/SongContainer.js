@@ -11,20 +11,24 @@ class SongContainer extends Component {
 	componentWillUpdate(nextProps) {
 		const { search, songs } = this.props;
 
-		const nextSongs = nextProps.songs.allSongs || null;
-		const currentSongs = songs.allSongs || null;
-		const currentSearch = search.searchTerm || null;
-		const nextSearch = nextProps.search.searchTerm || null;
+		const nextSongs = nextProps.songs.allSongs;
+		const currentSongs = songs.allSongs;
+
+		const currentSearch = search.newTermSearched;
+		const nextSearch = nextProps.search.newTermSearched;
 
 		if (nextSongs !== null) {
 
-			// re-search if same term is entered (every other term is in all caps)
+			// re-search if same term is entered or first time searching
 			if (currentSongs === null || currentSearch !== nextSearch) {
 				this.grabRandomSong(nextSongs);
 
 				// update correctly when executing a new search
-			} else if (currentSongs.length > 0 && currentSongs[0].id !== nextSongs[0].id) {
-				this.grabRandomSong(nextSongs);
+			} else if (currentSongs.length > 0 && nextSongs.length > 0) {
+
+				if (currentSongs[0].id !== nextSongs[0].id) {
+					this.grabRandomSong(nextSongs);
+				}
 
 				// update correctly when executing a new search after a previous search returned no results
 			} else if (currentSongs.length < 1 && nextSongs.length > 0) {

@@ -10,7 +10,8 @@ module.exports = {
 				.get(url)
 				.query({
 					q: searchTerm,
-					license: 'cc-by-sa',
+					limit: 50,
+					// license: 'cc-by-sa',
 					client_id: process.env.SC_CLIENT_ID
 				})
 				.set('Accept', 'application/json')

@@ -24,7 +24,6 @@ const getRequest = (path, params, actionType) => {
 				console.error(err.message);
 
 				// TODO: find out why dispatch not returning a promise
-				// alert("There was a problem while searching, please try another term!");
 			});
 	}
 }
@@ -117,11 +116,23 @@ export function setRandomVideo(video) {
 	}
 }
 
+export function setVideoState(bool) {
+	return {
+		type: constants.SET_VIDEO_STATE,
+		payload: bool
+	}
+}
+
 
 /*
- * Misc actions
+ * Media actions
  */
 
+export function newMediaSearched() {
+	return {
+		type: constants.NEW_MEDIA_SEARCHED
+	}
+}
 
 
 
