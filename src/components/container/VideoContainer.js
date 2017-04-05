@@ -34,7 +34,7 @@ class VideoContainer extends Component {
 	componentDidUpdate() {
 		const { songs, videos } = this.props;
 
-		// sync our music play state with our video play state
+		// if we play/pause our music, our video plays/pauses as well
 		if (videos.player !== null) {
 			if (songs.isSongPlaying) {
 
@@ -49,30 +49,34 @@ class VideoContainer extends Component {
 	}
 
 	onReady(e) {
-		this.props.setVideoPlayer(e.target);
+		const { setVideoPlayer } = this.props;
+
+		setVideoPlayer(e.target);
   }
 
-	getNonSequentialRandomVideo(videos) {
-		const previousIndex = this.props.videos.previousVideoIndex;
+	getNonSequentialRandomVideo(currentVideos) {
+		const { videos, setVideoIndex } = this.props;
+
+		const previousIndex = videos.previousVideoIndex;
 		let randomIndex = null;
 		let randomVideo = null;
 
 		// prevent infinite loop if only one media object
-		if (videos.length === 1) {
-			return videos[0];
+		if (currentVideos.length === 1) {
+			return currentVideos[0];
 		}
 
-		randomIndex = _.random(0, videos.length - 1);
+		randomIndex = _.random(0, currentVideos.length - 1);
 
 		if (previousIndex !== randomIndex && randomVideo !== undefined) {
-			this.props.setVideoIndex(randomIndex);
-			randomVideo = videos[randomIndex];
+			setVideoIndex(randomIndex);
+			randomVideo = currentVideos[randomIndex];
 
 			return randomVideo;
 
 		} else {
 
-		  this.getNonSequentialRandomVideo(videos);
+		  this.getNonSequentialRandomVideo(currentVideos);
 		}
 	}
 
@@ -93,22 +97,25 @@ class VideoContainer extends Component {
 		}
 	}
 
-	grabRandomVideo(videos) {
-		if (videos.length < 1) {
+	grabRandomVideo(currentVideos) {
+		const { videos, setRandomVideo } = this.props;
+
+		if (currentVideos.length < 1) {
 			return;
 		}
 
-		const randomVideo = this.createRandomVideo(videos);
+		const randomVideo = this.createRandomVideo(currentVideos);
 
 		// utilize redux actions here to get more info
 		
-		if (this.props.videos.currentVideo !== randomVideo) {
-			this.props.setRandomVideo(randomVideo);
+		if (videos.currentVideo !== randomVideo) {
+			setRandomVideo(randomVideo);
 		}
 	}
 
 	render() {
 		const { videos, songs } = this.props;
+
 		let estimatedTime = songs.songDurationSeconds;
 
 		let videoId = null;

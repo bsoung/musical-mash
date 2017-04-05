@@ -34,28 +34,30 @@ class SongContainer extends Component {
 		}
 	}
 
-	getNonSequentialRandomSong(songs) {
+	getNonSequentialRandomSong(currentSongs) {
+		const { setSongIndex, songs } = this.props;
+
 		const previousIndex = songs.previousSongIndex;
 
 		let randomIndex = null;
 		let randomSong = null;
 
 		// prevent infinite loop if only one media object
-		if (songs.length === 1) {
-			return songs[0];
+		if (currentSongs.length === 1) {
+			return currentSongs[0];
 		}
 
-		randomIndex = _.random(0, songs.length - 1);
+		randomIndex = _.random(0, currentSongs.length - 1);
 
 		// make sure we don't roll same index twice for random selection
 		if (previousIndex !== randomIndex && randomSong !== undefined) {
-			this.props.setSongIndex(randomIndex);
-			randomSong = songs[randomIndex];
+			setSongIndex(randomIndex);
+			randomSong = currentSongs[randomIndex];
 
 			return randomSong;
 
 		} else {
-		  this.getNonSequentialRandomSong(songs);
+		  this.getNonSequentialRandomSong(currentSongs);
 		}
 	}
 
@@ -78,18 +80,20 @@ class SongContainer extends Component {
 		}
 	}
 
-	grabRandomSong(songs) {
-		if (songs.length < 1) {
+	grabRandomSong(currentSongs) {
+		const { songs, setSongDuration, setRandomSong } = this.props;
+
+		if (currentSongs.length < 1) {
 			return;
 		}
 
-		const randomSong = this.createRandomSong(songs);
+		const randomSong = this.createRandomSong(currentSongs);
 		let songDurationInSeconds = (randomSong.duration / 1000) || 0;
 
-		this.props.setSongDuration(songDurationInSeconds);
+		setSongDuration(songDurationInSeconds);
 
-		if (this.props.songs.currentSong !== randomSong) {
-			this.props.setRandomSong(randomSong);
+		if (songs.currentSong !== randomSong) {
+			setRandomSong(randomSong);
 		}
 	}
 
