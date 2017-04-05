@@ -9,10 +9,11 @@ import * as actions from '../../actions'
 class SongContainer extends Component {
 
 	componentWillUpdate(nextProps) {
+		const { search, songs } = this.props;
 
 		let nextSongs = nextProps.songs.allSongs || null;
-		let currentSongs = this.props.songs.allSongs || null;
-		let currentSearch = this.props.search.searchTerm || null;
+		let currentSongs = songs.allSongs || null;
+		let currentSearch = search.searchTerm || null;
 		let nextSearch = nextProps.search.searchTerm || null;
 
 		if (nextSongs !== null) {
@@ -21,11 +22,11 @@ class SongContainer extends Component {
 			if (currentSongs === null || currentSearch !== nextSearch) {
 				this.grabRandomSong(nextSongs);
 
-				// update correctly when searching for a new term
+				// update correctly when executing a new search
 			} else if (currentSongs.length > 0 && currentSongs[0].id !== nextSongs[0].id) {
 				this.grabRandomSong(nextSongs);
 
-				// update correctly when searching for a new term after no results
+				// update correctly when executing a new search after a previous search returned no results
 			} else if (currentSongs.length < 1 && nextSongs.length > 0) {
 				this.grabRandomSong(nextSongs);
 

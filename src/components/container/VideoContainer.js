@@ -19,11 +19,11 @@ class VideoContainer extends Component {
 			if (currentVideos === null || currentSearch !== nextSearch) {
 				this.grabRandomVideo(nextVideos);
 
-				// update correctly when searching for a new term
-			} else if (currentVideos.length > 0 &&currentVideos[0].id.videoId !== nextVideos[0].id.videoId) {
+				// update correctly when executing a new search
+			} else if (currentVideos.length > 0 && currentVideos[0].id.videoId !== nextVideos[0].id.videoId) {
 				this.grabRandomVideo(nextVideos);
 
-				// update correctly when searching for a new term after no results
+				// update correctly when executing a new search after a previous search returned no results
 			} else if (currentVideos.length < 1 && nextVideos.length > 0) {
 				this.grabRandomVideo(nextVideos);
 
@@ -32,17 +32,18 @@ class VideoContainer extends Component {
 	}
 
 	componentDidUpdate() {
-		const { songs } = this.props;
+		const { songs, videos } = this.props;
 
-		if (this.props.videos.player !== null) {
+		// sync our music play state with our video play state
+		if (videos.player !== null) {
 			if (songs.isSongPlaying) {
 
-				this.props.videos.player.playVideo();
-				this.props.videos.player.mute();
+				videos.player.playVideo();
+				videos.player.mute();
 
 			} else {
 
-				this.props.videos.player.pauseVideo();
+				videos.player.pauseVideo();
 			}
 		}
 	}
@@ -108,31 +109,36 @@ class VideoContainer extends Component {
 
 	render() {
 		const { videos, songs } = this.props;
-
-
 		let videoId = null;
 
-		// end video when song ends, others put video on loop (focus is on song)
+		// end video when song ends, otherwise put video on loop (focus is on song)
 		let estimatedTime = songs.songDurationSeconds;
-	
-		const opts = {
-      height: '390',
-      width: '640',
-      playerVars: { 
-        autoplay: 0, 
-        controls: 0,
-        disablekb: 1,
-        iv_load_policy: 3,
-        modestbranding: 1,
-        rel: 0,
-        showinfo: 0,
-        loop: 1,
-        end: estimatedTime 
-      }
-    };
 
+		let opts = null;
+	
 		if (videos.currentVideo !== null) {
 			videoId = videos.currentVideo.id.videoId;
+
+			opts = {
+	      height: '390',
+	      width: '640',
+	      playerVars: 
+	      { 
+	        autoplay: 0, 
+	        controls: 0,
+	        disablekb: 1,
+	        iv_load_policy: 3,
+	        cc_load_policy: 0,
+	        modestbranding: 1,
+	        rel: 0,
+	        showinfo: 0,
+	        loop: 1,
+	        playlist: videoId,
+	        end: estimatedTime 
+	      }
+	    };
+
+	    console.log(videoId);
 
 		} else {
 			return (

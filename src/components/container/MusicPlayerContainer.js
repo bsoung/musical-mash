@@ -21,7 +21,6 @@ class MusicPlayerContainer extends Component {
 
     play() {
         let { soundCloudAudio, playing, songs } = this.props;
-        console.log(this.props);
 
         // still playing
         if (playing) {
@@ -41,16 +40,20 @@ class MusicPlayerContainer extends Component {
         }
 
         // ((portion/total) * 100).toFixed(2) for percentage
-        let trackDurationPercent = (songs.songDurationSeconds);
+        let trackDurationPercent = ((this.props.currentTime / songs.songDurationSeconds) * 100).toFixed(2);
         console.log(trackDurationPercent);
 
         return (
             <div className="mt3 mb3 border p2 rounded b2">
-                <h2 className="m0">{track.title}</h2>
-                <h3 className="mt0">{track.user.username}</h3>
-                <button className="btn bg-teal c-white" onClick={this.play.bind(this)}>
+                <button className="btn btn-play bg-teal c-white" onClick={this.play.bind(this)}>
                     {playing ? 'Pause' : 'Play'}
                 </button>
+                <div className="ui-bar">
+                    <h2 className="m0 title-text">{track.title}</h2>
+                    <h2 className="user-text">{track.user.username}</h2>
+                    <div className="progress-bar" style={{width: `${trackDurationPercent}%`}}></div>
+                </div>
+
             </div>
         );
     }

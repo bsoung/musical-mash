@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  // font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -84,8 +84,36 @@ input:focus {outline:none;}
   padding-left: 40%;
 }
 
+.btn-play {
+  margin-top: 10px;
+  border-radius: 999px;
+  float: left;
+}
+
 .pause-button-center {
   padding-left: 36%;
+}
+
+.title-text {
+  font-size: 1em;
+  float: left;
+}
+
+.user-text {
+  font-size: 1em;
+}
+
+.progress-bar {
+  width: 0%;
+  background-color: orange;
+  height: 2px;
+}
+
+.ui-bar {
+  box-sizing: border-box;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 

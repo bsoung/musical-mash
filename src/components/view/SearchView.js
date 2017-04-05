@@ -4,6 +4,7 @@ export default (props) => (
 	<div>
 		<h3>Music Mash! Powered by Soundcloud and Youtube</h3>
 		<input 
+			autoFocus
 			onKeyDown={props.onMusicVideoSearch.bind(this)} 
 			className="input input-width border-none h2"
 			id="search_song" 
