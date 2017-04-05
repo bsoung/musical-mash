@@ -11,10 +11,10 @@ class SongContainer extends Component {
 	componentWillUpdate(nextProps) {
 		const { search, songs } = this.props;
 
-		let nextSongs = nextProps.songs.allSongs || null;
-		let currentSongs = songs.allSongs || null;
-		let currentSearch = search.searchTerm || null;
-		let nextSearch = nextProps.search.searchTerm || null;
+		const nextSongs = nextProps.songs.allSongs || null;
+		const currentSongs = songs.allSongs || null;
+		const currentSearch = search.searchTerm || null;
+		const nextSearch = nextProps.search.searchTerm || null;
 
 		if (nextSongs !== null) {
 
@@ -35,7 +35,8 @@ class SongContainer extends Component {
 	}
 
 	getNonSequentialRandomSong(songs) {
-		let previousIndex = this.props.songs.previousSongIndex;
+		const previousIndex = songs.previousSongIndex;
+
 		let randomIndex = null;
 		let randomSong = null;
 
@@ -82,7 +83,7 @@ class SongContainer extends Component {
 			return;
 		}
 
-		let randomSong = this.createRandomSong(songs);
+		const randomSong = this.createRandomSong(songs);
 		let songDurationInSeconds = (randomSong.duration / 1000) || 0;
 
 		this.props.setSongDuration(songDurationInSeconds);

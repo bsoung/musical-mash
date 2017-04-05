@@ -5,8 +5,8 @@ import * as actions from '../../actions';
 class MusicPlayerContainer extends Component {
 
     componentWillReceiveProps(nextProps) {
-        let currentPlaying = this.props.playing;
-        let nextPlaying = nextProps.playing;
+        const currentPlaying = this.props.playing;
+        const nextPlaying = nextProps.playing;
 
         // if we pressed pause
         if (currentPlaying && currentPlaying !== nextPlaying) {
@@ -20,7 +20,7 @@ class MusicPlayerContainer extends Component {
     }
 
     play() {
-        let { soundCloudAudio, playing, songs } = this.props;
+        const { soundCloudAudio, playing, songs } = this.props;
 
         // still playing
         if (playing) {
@@ -33,7 +33,7 @@ class MusicPlayerContainer extends Component {
     }
 
     render() {
-        let { track, playing, songs } = this.props;
+        const { track, playing, songs } = this.props;
 
         if (!track) {
             return <div>Loading...</div>;
@@ -41,7 +41,6 @@ class MusicPlayerContainer extends Component {
 
         // ((portion/total) * 100).toFixed(2) for percentage
         let trackDurationPercent = ((this.props.currentTime / songs.songDurationSeconds) * 100).toFixed(2);
-        console.log(trackDurationPercent);
 
         return (
             <div className="mt3 mb3 border p2 rounded b2">

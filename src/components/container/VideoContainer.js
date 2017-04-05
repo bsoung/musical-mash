@@ -8,10 +8,10 @@ class VideoContainer extends Component {
 	componentWillUpdate(nextProps) {
 		const { search, videos } = this.props;
 
-		let nextVideos = nextProps.videos.allVideos || null;
-		let currentVideos = videos.allVideos || null;
-		let currentSearch = search.searchTerm || null;
-		let nextSearch = nextProps.search.searchTerm || null;
+		const nextVideos = nextProps.videos.allVideos || null;
+		const currentVideos = videos.allVideos || null;
+		const currentSearch = search.searchTerm || null;
+		const nextSearch = nextProps.search.searchTerm || null;
 
 		if (nextVideos !== null) {
 
@@ -53,7 +53,7 @@ class VideoContainer extends Component {
   }
 
 	getNonSequentialRandomVideo(videos) {
-		let previousIndex = this.props.videos.previousVideoIndex;
+		const previousIndex = this.props.videos.previousVideoIndex;
 		let randomIndex = null;
 		let randomVideo = null;
 
@@ -98,7 +98,7 @@ class VideoContainer extends Component {
 			return;
 		}
 
-		let randomVideo = this.createRandomVideo(videos);
+		const randomVideo = this.createRandomVideo(videos);
 
 		// utilize redux actions here to get more info
 		
@@ -109,17 +109,10 @@ class VideoContainer extends Component {
 
 	render() {
 		const { videos, songs } = this.props;
-		let videoId = null;
-
-		// end video when song ends, otherwise put video on loop (focus is on song)
 		let estimatedTime = songs.songDurationSeconds;
 
-		let opts = null;
-	
-		if (videos.currentVideo !== null) {
-			videoId = videos.currentVideo.id.videoId;
-
-			opts = {
+		let videoId = null;
+		let opts = {
 	      height: '390',
 	      width: '640',
 	      playerVars: 
@@ -136,9 +129,10 @@ class VideoContainer extends Component {
 	        playlist: videoId,
 	        end: estimatedTime 
 	      }
-	    };
+	    };;
 
-	    console.log(videoId);
+		if (videos.currentVideo !== null) {
+			videoId = videos.currentVideo.id.videoId;
 
 		} else {
 			return (
