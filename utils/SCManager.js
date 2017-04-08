@@ -1,5 +1,4 @@
 var superagent = require('superagent');
-var Promise = require("bluebird");
 
 module.exports = {
 	search: function(searchTerm) {

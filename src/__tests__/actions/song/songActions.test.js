@@ -1,5 +1,5 @@
-import * as actions from '../../actions';
-import constants from '../../constants';
+import * as actions from '../../../actions';
+import constants from '../../../constants';
 
 describe('SONG ACTIONS', () => {
   describe('#setSongDuration()', () => {
@@ -46,6 +46,8 @@ describe('SONG ACTIONS', () => {
     });
   });
 });
+
+
 
 
 

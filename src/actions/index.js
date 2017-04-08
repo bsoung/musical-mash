@@ -6,27 +6,25 @@ import { APIManager } from '../utils';
  */
 
 const getRequest = (path, params, actionType) => {
-	return (dispatch) => {
-		// TODO: dispatch type of get request - show loading screen
-		APIManager
-			.get(path, params)
-			.then(data => {
-				const payload = data.response;
+	// no curly brackets after arrow func auto returns dispatch
+	return (dispatch) => 
+					APIManager
+						.get(path, params)
+						.then(data => {
+							const payload = data.response;
 
-				dispatch({
-					type: actionType,
-					payload: payload,
-					params: params
-				});
+							dispatch({
+								type: actionType,
+								payload: payload,
+								params: params
+							});
 
-				// TODO: dispatch success action
-				return data;
-			})
-			.catch(err => {
-				console.error(err.message);
-				// TODO: dispatch error action
-			});
-	}
+							return data;
+						})
+						.catch(err => {
+							console.error(err.message);
+							throw err;
+						});
 }
 
 /*

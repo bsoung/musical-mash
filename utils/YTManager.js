@@ -1,5 +1,4 @@
 var superagent = require('superagent');
-var Promise = require("bluebird");
 
 module.exports = {
   search: function(searchTerm) {
@@ -12,8 +11,9 @@ module.exports = {
           q: searchTerm,
           part: 'snippet',
           maxResults: 50,
-          safeSearch: 'moderate',  // strict, moderate, or remove entirely
+          safeSearch: 'moderate',  // strict, moderate, or none
           type: 'video',
+          videoSyndicated: true,
           key: process.env.YT_API_KEY
         })
         .set('Accept', 'application/json')

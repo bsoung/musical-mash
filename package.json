@@ -48,6 +48,8 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-sass": "^3.1.0",
     "jest": "^19.0.2",
-    "react-addons-test-utils": "^15.4.2"
+    "nock": "^9.0.11",
+    "react-addons-test-utils": "^15.4.2",
+    "redux-mock-store": "^1.2.2"
   }
 }
