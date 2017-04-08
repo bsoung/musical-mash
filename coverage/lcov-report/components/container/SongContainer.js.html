@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for components/container/SongContainer.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">components/container</a> SongContainer.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.96% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>7/54</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.78% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>1/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">10% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.96% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>7/54</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { SoundPlayerContainer } from 'react-soundplayer/addons';
+import secret from '../../secret';
+import MusicPlayerContainer from './MusicPlayerContainer';
+import _ from 'lodash';
+import * as actions from '../../actions'
+&nbsp;
+export class SongContainer extends Component {
+&nbsp;
+<span class="fstat-no" title="function not covered" >	co</span>mponentWillUpdate(nextProps) {
+		const { search, songs } = <span class="cstat-no" title="statement not covered" >this.props;</span>
+&nbsp;
+		const nextSongs = <span class="cstat-no" title="statement not covered" >nextProps.songs.allSongs;</span>
+		const currentSongs = <span class="cstat-no" title="statement not covered" >songs.allSongs;</span>
+&nbsp;
+		const currentSearch = <span class="cstat-no" title="statement not covered" >search.newTermSearched;</span>
+		const nextSearch = <span class="cstat-no" title="statement not covered" >nextProps.search.newTermSearched;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		if (nextSongs !== null) {</span>
+&nbsp;
+			// re-search if same term is entered or first time searching
+<span class="cstat-no" title="statement not covered" >			if (currentSongs === null || currentSearch !== nextSearch) {</span>
+<span class="cstat-no" title="statement not covered" >				this.grabRandomSong(nextSongs);</span>
+&nbsp;
+				// update correctly when executing a new search
+			} else <span class="cstat-no" title="statement not covered" >if (currentSongs.length &gt; 0 &amp;&amp; nextSongs.length &gt; 0) {</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >				if (currentSongs[0].id !== nextSongs[0].id) {</span>
+<span class="cstat-no" title="statement not covered" >					this.grabRandomSong(nextSongs);</span>
+				}
+&nbsp;
+				// update correctly when executing a new search after a previous search returned no results
+			} else <span class="cstat-no" title="statement not covered" >if (currentSongs.length &lt; 1 &amp;&amp; nextSongs.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >				this.grabRandomSong(nextSongs);</span>
+&nbsp;
+			}
+		}
+	}
+&nbsp;
+<span class="fstat-no" title="function not covered" >	ge</span>tNonSequentialRandomSong(currentSongs) {
+		const { setSongIndex, songs } = <span class="cstat-no" title="statement not covered" >this.props;</span>
+&nbsp;
+		const previousIndex = <span class="cstat-no" title="statement not covered" >songs.previousSongIndex;</span>
+&nbsp;
+		let randomIndex = <span class="cstat-no" title="statement not covered" >null;</span>
+		let randomSong = <span class="cstat-no" title="statement not covered" >null;</span>
+&nbsp;
+		// prevent infinite loop if only one media object
+<span class="cstat-no" title="statement not covered" >		if (currentSongs.length === 1) {</span>
+<span class="cstat-no" title="statement not covered" >			return currentSongs[0];</span>
+		}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		randomIndex = _.random(0, currentSongs.length - 1);</span>
+&nbsp;
+		// make sure we don't roll same index twice for random selection
+<span class="cstat-no" title="statement not covered" >		if (previousIndex !== randomIndex &amp;&amp; randomSong !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >			setSongIndex(randomIndex);</span>
+<span class="cstat-no" title="statement not covered" >			randomSong = currentSongs[randomIndex];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			return randomSong;</span>
+&nbsp;
+		} else {
+<span class="cstat-no" title="statement not covered" >		  this.getNonSequentialRandomSong(currentSongs);</span>
+		}
+	}
+&nbsp;
+<span class="fstat-no" title="function not covered" >	cr</span>eateRandomSong(songs) {
+		let song = <span class="cstat-no" title="statement not covered" >null;</span>
+		let loaded = <span class="cstat-no" title="statement not covered" >false;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		if (songs !== null) {</span>
+&nbsp;
+			// keep rolling song until we get an actual song
+<span class="cstat-no" title="statement not covered" >			while (loaded === false) {</span>
+<span class="cstat-no" title="statement not covered" >				if (song !== undefined &amp;&amp; song !== null) {</span>
+<span class="cstat-no" title="statement not covered" >					loaded = true;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >					return song;</span>
+				}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >				song = this.getNonSequentialRandomSong(songs);</span>
+			}
+		}
+	}
+&nbsp;
+<span class="fstat-no" title="function not covered" >	gr</span>abRandomSong(currentSongs) {
+		const { songs, setSongDuration, setRandomSong } = <span class="cstat-no" title="statement not covered" >this.props;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		if (currentSongs.length &lt; 1) {</span>
+<span class="cstat-no" title="statement not covered" >			return;</span>
+		}
+&nbsp;
+		const randomSong = <span class="cstat-no" title="statement not covered" >this.createRandomSong(currentSongs);</span>
+		let songDurationInSeconds = <span class="cstat-no" title="statement not covered" >(randomSong.duration / 1000) || 0;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		setSongDuration(songDurationInSeconds);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >		if (songs.currentSong !== randomSong) {</span>
+<span class="cstat-no" title="statement not covered" >			setRandomSong(randomSong);</span>
+		}
+	}
+&nbsp;
+	render() {
+		const { songs } = this.props;
+		let resolveUrl = null;
+&nbsp;
+		<span class="missing-if-branch" title="else path not taken" >E</span>if (songs.currentSong !== null) {
+			resolveUrl = songs.currentSong.permalink_url;
+&nbsp;
+		} else {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >			return (</span>
+		   	&lt;div className="mt3 mb3 border p2 rounded b2"&gt;
+          &lt;h2 className="m0"&gt;Waiting for song name...&lt;/h2&gt;
+          &lt;h3 className="mt0"&gt;Waiting for author name...&lt;/h3&gt;
+        &lt;/div&gt;
+			)
+		}
+&nbsp;
+		return (
+				&lt;SoundPlayerContainer resolveUrl={resolveUrl} clientId={secret.SC_CLIENT_ID}&gt;
+	        &lt;MusicPlayerContainer /&gt;
+	      &lt;/SoundPlayerContainer&gt;
+		)
+	}
+}
+&nbsp;
+const mapStateToProps = <span class="fstat-no" title="function not covered" >(s</span>tate) =&gt; {
+<span class="cstat-no" title="statement not covered" >	return {</span>
+		songs: state.songs,
+		search: state.search
+	}
+}
+&nbsp;
+const mapDispatchToProps = <span class="fstat-no" title="function not covered" >(d</span>ispatch) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return {</span>
+        setSongDuration: <span class="fstat-no" title="function not covered" >(d</span>uration) =&gt; <span class="cstat-no" title="statement not covered" >dispatch(actions.setSongDuration(duration)),</span>
+        setRandomSong: <span class="fstat-no" title="function not covered" >(s</span>ong) =&gt; <span class="cstat-no" title="statement not covered" >dispatch(actions.setRandomSong(song)),</span>
+        setSongIndex: <span class="fstat-no" title="function not covered" >(i</span>ndex) =&gt; <span class="cstat-no" title="statement not covered" >dispatch(actions.setSongIndex(index))</span>
+    }
+}
+&nbsp;
+export default connect(mapStateToProps, mapDispatchToProps)(SongContainer);
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Apr 07 2017 20:23:02 GMT-0400 (EDT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

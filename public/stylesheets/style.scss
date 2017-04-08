@@ -1,5 +1,10 @@
+html, body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 body {
-  padding: 50px;
+  padding: 2px 20px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -115,6 +120,10 @@ input:focus {outline:none;}
   padding-left: 20px;
   display: flex;
   flex-direction: column;
+}
+
+.landing-container {
+  margin: 0 auto;
 }
 
 

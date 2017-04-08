@@ -3,7 +3,7 @@ import { SearchView } from '../view';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
-class SearchContainer extends Component {
+export class SearchContainer extends Component {
 
 	searchMusicVideo(e) {
 		const { search, setSearchTerm, searchSongs, searchVideos, sameMediaSearched } = this.props;
@@ -22,7 +22,6 @@ class SearchContainer extends Component {
 			
 			searchSongs(searchTerm);
 			searchVideos(searchTerm);
-
 		} else {
 			this.props.newMediaSearched();
 		}

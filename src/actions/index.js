@@ -7,6 +7,8 @@ import { APIManager } from '../utils';
 
 const getRequest = (path, params, actionType) => {
 	return (dispatch) => {
+		// dispatch type of get request - show loading screen
+	
 		APIManager
 			.get(path, params)
 			.then(data => {
@@ -18,10 +20,13 @@ const getRequest = (path, params, actionType) => {
 					params: params
 				});
 
+				// dispatch success action
 				return data;
 			})
 			.catch(err => {
 				console.error(err.message);
+
+				// dispatch error action
 
 				// TODO: find out why dispatch not returning a promise
 			});

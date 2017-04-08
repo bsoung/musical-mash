@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "test": "jest --coverage || true",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "babel-core": "^6.24.0",
@@ -34,10 +36,14 @@
     "webpack": "^2.3.2"
   },
   "devDependencies": {
+    "babel-jest": "^19.0.0",
     "babel-preset-stage-0": "^6.22.0",
+    "enzyme": "^2.8.0",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-concat": "^2.6.1",
     "gulp-minify-css": "^1.2.4",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "jest": "^19.0.2",
+    "react-addons-test-utils": "^15.4.2"
   }
 }

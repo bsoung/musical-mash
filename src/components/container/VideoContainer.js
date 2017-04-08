@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import YouTube from 'react-youtube';
 import * as actions from '../../actions';
 
-class VideoContainer extends Component {
+export class VideoContainer extends Component {
 
 	componentWillUpdate(nextProps) {
 		const { search, videos } = this.props;
@@ -37,19 +37,24 @@ class VideoContainer extends Component {
 
 	componentDidUpdate() {
 		const { songs, videos, setVideoState } = this.props;
+		const player = videos.player;
 
 		// if we play/pause our music, our video plays/pauses as well
-		if (videos.player !== null) {
+		if (player !== null) {
+
+			if (player.getPlayerState() === 0) {
+				console.log("video ended!")
+				player.playVideo();
+			}
+
 			if (songs.isSongPlaying) {
 
-				videos.player.playVideo();
-				videos.player.setLoop(true);
-
-				videos.player.mute();
+				player.playVideo();
+				player.mute();
 
 			} else {
 
-				videos.player.pauseVideo();
+				player.pauseVideo();
 			}
 		}
 	}
@@ -135,7 +140,6 @@ class VideoContainer extends Component {
 	        controls: 0,
 	        disablekb: 1,
 	        iv_load_policy: 3,
-	        cc_load_policy: 0,
 	        modestbranding: 1,
 	        rel: 0,
 	        showinfo: 0,
@@ -161,9 +165,6 @@ class VideoContainer extends Component {
 				</div>
 			)
 		}
-
-		
-
 	}
 }
 

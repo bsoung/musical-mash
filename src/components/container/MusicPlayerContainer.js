@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
 import * as actions from '../../actions';
 
-class MusicPlayerContainer extends Component {
+export class MusicPlayerContainer extends Component {
 
     componentWillReceiveProps(nextProps) {
         const { soundCloudAudio, setSongState, playing } = this.props;
@@ -51,7 +51,7 @@ class MusicPlayerContainer extends Component {
         let trackDurationPercent = ((currentTime / songs.songDurationSeconds) * 100).toFixed(2);
 
         return (
-            <div className="mt3 mb3 border p2 rounded b2">
+            <div className="musicplayer-container mt3 mb3 border p2 rounded b2">
                 <button className="btn btn-play bg-teal c-white" onClick={this.play.bind(this)}>
                     {playing ? 'Pause' : 'Play'}
                 </button>
