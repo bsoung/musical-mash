@@ -30,6 +30,7 @@ module.exports = {
 				test: /\.jsx?$/,
 				exclude: /(node_modules!bower_components)/,
 				loader: 'babel-loader',
+				exclude: path.resolve(__dirname, 'node_modules/'),
 				query: {
 					presets: ['react', 'es2015', 'stage-0']
 				}

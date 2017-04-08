@@ -50,26 +50,25 @@ export class MusicPlayerContainer extends Component {
 
         if (!track) {
             return (
-                <div className="mt3 mb3 border p2 rounded b2">
-                  <h2 className="m0">Loading song name...</h2>
-                  <h3 className="mt0">Loading author name...</h3>
+                <div className="song-container animated zoomIn loading-bg">
                 </div>
             )
         }
 
         let trackDurationPercent = ((currentTime / songs.songDurationSeconds) * 100).toFixed(2);
+        console.log(trackDurationPercent);
 
         return (
-            <div className="musicplayer-container mt3 mb3 border p2 rounded b2">
-                <button className="btn btn-play bg-teal c-white" onClick={this.play.bind(this)}>
-                    {playing ? 'Pause' : 'Play'}
-                </button>
-                <div className="ui-bar">
-                    <h2 className="m0 title-text">{track.title}</h2>
-                    <h2 className="user-text">{track.user.username}</h2>
-                    <div className="progress-bar" style={{width: `${trackDurationPercent}%`}}></div>
-                </div>
+            <div className="song-container animated zoomIn loading-bg">
+                    <button className="btn striped-shadow white" onClick={this.play.bind(this)}>
+                        <span>{playing ? 'Paws' : 'Play'}</span>
+                    </button>
 
+                    <div className="ui-bar">
+                        <div className="title-text ellipsis">{track.title}</div>
+                        <div className="user-text ellipsis">{track.user.username}</div>
+                        <div className="progress-bar" style={{width: `${trackDurationPercent}%`}}></div>
+                    </div>
             </div>
         );
     }

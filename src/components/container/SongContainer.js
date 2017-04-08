@@ -52,7 +52,7 @@ export class SongContainer extends Component {
 		randomIndex = _.random(0, currentSongs.length - 1);
 
 		// make sure we don't roll same index twice for random selection
-		if (previousIndex !== randomIndex && randomSong !== undefined) {
+		if (previousIndex !== randomIndex) {
 			setSongIndex(randomIndex);
 			randomSong = currentSongs[randomIndex];
 
@@ -63,7 +63,7 @@ export class SongContainer extends Component {
 		}
 	}
 
-	createRandomSong(songs) {
+	chooseRandomSong(songs) {
 		let song = null;
 		let loaded = false;
 
@@ -89,7 +89,7 @@ export class SongContainer extends Component {
 			return;
 		}
 
-		const randomSong = this.createRandomSong(currentSongs);
+		const randomSong = this.chooseRandomSong(currentSongs);
 		let songDurationInSeconds = (randomSong.duration / 1000) || 0;
 
 		setSongDuration(songDurationInSeconds);
@@ -109,9 +109,7 @@ export class SongContainer extends Component {
 		} else {
 
 			return (
-		   	<div className="mt3 mb3 border p2 rounded b2">
-          <h2 className="m0">Waiting for song name...</h2>
-          <h3 className="mt0">Waiting for author name...</h3>
+		   	<div className="song-container animated bounceIn loading-bg">
         </div>
 			)
 		}

@@ -14,6 +14,8 @@ module.exports = {
           safeSearch: 'strict',  // strict, moderate, or none 
           type: 'video',
           videoSyndicated: true,
+          videoEmbeddable: true,
+          videoCaption: 'none',
           key: process.env.YT_API_KEY
         })
         .set('Accept', 'application/json')

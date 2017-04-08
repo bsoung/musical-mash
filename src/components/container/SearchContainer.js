@@ -29,8 +29,7 @@ export class SearchContainer extends Component {
 			
 			searchSongs(searchTerm)
 				.then(data => {
-					const songs = data.response;
-					this.doesMediaExist(songs, 'songs');
+					this.doesMediaExist(data.response, 'songs');
 				})
 				.catch(err => {
 					alert("One moment while we catch our breathe! Try refreshing the page.");
@@ -38,8 +37,7 @@ export class SearchContainer extends Component {
 
 			searchVideos(searchTerm)
 				.then(data => {
-					const videos = data.response;
-					this.doesMediaExist(videos, 'videos');
+					this.doesMediaExist(data.response, 'videos');
 				})
 				.catch(err => {
 					alert("One moment while we catch our breathe! Try refreshing the page.");
@@ -52,7 +50,7 @@ export class SearchContainer extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="search-container">
 				<SearchView onMusicVideoSearch={this.searchMusicVideo.bind(this)} />
 			</div>
 		)

@@ -68,7 +68,7 @@ export class VideoContainer extends Component {
 
 		randomIndex = _.random(0, currentVideos.length - 1);
 
-		if (previousIndex !== randomIndex && randomVideo !== undefined) {
+		if (previousIndex !== randomIndex) {
 			setVideoIndex(randomIndex);
 			randomVideo = currentVideos[randomIndex];
 
@@ -80,7 +80,7 @@ export class VideoContainer extends Component {
 		}
 	}
 
-	createRandomVideo(videos) {
+	chooseRandomVideo(videos) {
 		let video = null;
 		let loaded = false;
 
@@ -104,9 +104,7 @@ export class VideoContainer extends Component {
 			return;
 		}
 
-		const randomVideo = this.createRandomVideo(currentVideos);
-
-		// utilize redux actions here to get more info
+		const randomVideo = this.chooseRandomVideo(currentVideos);
 		
 		if (videos.currentVideo !== randomVideo) {
 			setRandomVideo(randomVideo);
@@ -137,20 +135,31 @@ export class VideoContainer extends Component {
 	   	};
 
 			return (
-				<div className="video-container mt3 mb3 border p2 rounded b2 mx-auto">	
-					<YouTube
-						opts={opts}
-						videoId={videoId} 
-						onReady={this.onReady.bind(this)}
-					/>
+				<div className="video-container animated zoomIn">	
+					<div className="inner-video-border">
+						<YouTube
+							opts={opts}
+							videoId={videoId} 
+							onReady={this.onReady.bind(this)}
+						/>
+					</div>
 				</div>
 			)
 
 		} else {
-
 			return (
-				<div className="video-container mt3 mb3 border p2 rounded b2 mx-auto">
-					<h3 className="mg0">Waiting for video...</h3>
+				<div className="video-container animated bounceIn loading-bg">
+					<div className="inner-video-border">
+						<div className="loader">
+						  <div className="line"></div>
+						  <div className="line"></div>
+						  <div className="line"></div>
+						  <div className="line"></div>
+						  <div className="wait-text">Waiting...</div>
+						</div>
+					</div>
+
+
 				</div>
 			)
 		}

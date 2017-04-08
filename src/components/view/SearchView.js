@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class SearchView extends Component {
 	render() {
 		return (
-			<div className="search-container">
+			<div>
 				<input 
 					autoFocus
 					onKeyDown={this.props.onMusicVideoSearch} 
