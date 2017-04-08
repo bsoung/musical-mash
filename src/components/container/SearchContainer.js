@@ -4,16 +4,15 @@ import { connect } from 'react-redux';
 import * as searchActions from '../../actions/search_actions';
 
 export class SearchContainer extends Component {
-	doesMediaExist(media, mediaName) {
-		if (media.length === 0) {
-
-			// sweet alert here
-			alert(`No ${mediaName} found!`);
-		}
-	}
-
 	searchMusicVideo(e) {
-		const { search, setSearchTerm, searchSongs, searchVideos, sameMediaSearched } = this.props;
+		const { 
+			search, 
+			videos, 
+			songs, 
+			setSearchTerm, 
+			searchSongs, 
+			searchVideos, 
+			sameSearchTriggered } = this.props;
 
 		// detect if enter is pressed
 		if (e.keyCode != 13) {
@@ -26,25 +25,23 @@ export class SearchContainer extends Component {
 		// only get from api on a different search word
 		if (searchTerm !== previousSearchTerm) {
 			setSearchTerm(searchTerm);
-			
+
 			searchSongs(searchTerm)
 				.then(data => {
-					this.doesMediaExist(data.response, 'songs');
-				})
-				.catch(err => {
-					alert("One moment while we catch our breathe! Try refreshing the page.");
+					if (data.response.length === 0) {
+						swal({
+						  title: ":(",
+						  text: "Aww - No results were found! Please try again!",
+						  imageUrl: "../../images/sadpanda.jpg"
+						});
+					}
 				});
 
 			searchVideos(searchTerm)
-				.then(data => {
-					this.doesMediaExist(data.response, 'videos');
-				})
-				.catch(err => {
-					alert("One moment while we catch our breathe! Try refreshing the page.");
-				});
+				
 
 		} else {
-			this.props.sameSearchTriggered();
+			sameSearchTriggered();
 		}
 	}
 
@@ -60,7 +57,8 @@ export class SearchContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		search: state.search,
-		songs: state.songs
+		songs: state.songs,
+		videos: state.videos
 	}
 }
 
