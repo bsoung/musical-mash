@@ -1,4 +1,5 @@
-import constants from '../constants';
+import videoConstants from '../constants/video_constants';
+import searchConstants from '../constants/search_constants';
 import _ from 'lodash';
 
 let initialState = {
@@ -13,27 +14,27 @@ export default (state = initialState, action = {}) => {
 	let updated = _.merge({}, state);
 
 	switch (action.type) {
-		case constants.SEARCH_VIDEOS:
+		case searchConstants.SEARCH_VIDEOS:
 			updated.allVideos = action.payload;
 
 			return updated;
 
-		case constants.SET_VIDEO_PLAYER:
+		case videoConstants.SET_VIDEO_PLAYER:
 			updated.player = action.payload;
 
 			return updated;
 
-		case constants.SET_RANDOM_VIDEO:
+		case videoConstants.SET_RANDOM_VIDEO:
 			updated.currentVideo = action.payload;
 
 			return updated;
 
-		case constants.SET_VIDEO_INDEX:
+		case videoConstants.SET_VIDEO_INDEX:
 			updated.previousVideoIndex = action.payload;
 
 			return updated;
 
-		case constants.SET_VIDEO_STATE:
+		case videoConstants.SET_VIDEO_STATE:
 			updated.isVideoPlaying = action.payload;
 
 			return updated;

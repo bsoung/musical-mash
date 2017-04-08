@@ -1,4 +1,4 @@
-import * as actions from '../../actions';
+import * as videoActions from '../../actions/video_actions';
 import { videoReducer } from '../../reducers';
 
 // TODO: Async actions on reducer
@@ -21,7 +21,7 @@ describe('SEARCH REDUCER', () => {
 			isVideoPlaying: false
 		}
 
-    expect(videoReducer(INITIAL_STATE, actions.setVideoPlayer(player)))
+    expect(videoReducer(INITIAL_STATE, videoActions.setVideoPlayer(player)))
       .toEqual(expectedReducer);
   });
 
@@ -35,7 +35,7 @@ describe('SEARCH REDUCER', () => {
 			isVideoPlaying: false
 		}
 
-    expect(videoReducer(INITIAL_STATE, actions.setRandomVideo(video)))
+    expect(videoReducer(INITIAL_STATE, videoActions.setRandomVideo(video)))
       .toEqual(expectedReducer);
   });
 
@@ -49,7 +49,7 @@ describe('SEARCH REDUCER', () => {
 			isVideoPlaying: false
 		}
 
-    expect(videoReducer(INITIAL_STATE, actions.setVideoIndex(video)))
+    expect(videoReducer(INITIAL_STATE, videoActions.setVideoIndex(video)))
       .toEqual(expectedReducer);
   });
 
@@ -63,7 +63,7 @@ describe('SEARCH REDUCER', () => {
 			isVideoPlaying: true
 		}
 
-    expect(videoReducer(INITIAL_STATE, actions.setVideoState(isVideoPlaying)))
+    expect(videoReducer(INITIAL_STATE, videoActions.setVideoState(isVideoPlaying)))
       .toEqual(expectedReducer);
   });
 });

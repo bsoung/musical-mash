@@ -1,10 +1,10 @@
 import { AsyncManager } from '../../utils';
-import constants from '../../constants';
+import searchConstants from '../../constants/search_constants';
 
 export function searchVideos(searchTerm) {
 	return (dispatch) => {
 		return dispatch(
-			AsyncManager.getRequest(`/video/${searchTerm}`, null, constants.SEARCH_VIDEOS)
+			AsyncManager.getRequest(`/video/${searchTerm}`, null, searchConstants.SEARCH_VIDEOS)
 		);
 	}
 }
@@ -12,20 +12,20 @@ export function searchVideos(searchTerm) {
 export function searchSongs(searchTerm) {
 	return (dispatch) => {
 		return dispatch(
-			AsyncManager.getRequest(`/music/${searchTerm}`, null, constants.SEARCH_SONGS)
+			AsyncManager.getRequest(`/music/${searchTerm}`, null, searchConstants.SEARCH_SONGS)
 		);
 	}
 }
 
 export function setSearchTerm(searchTerm) {
 	return {
-		type: constants.SET_SEARCH_TERM,
+		type: searchConstants.SET_SEARCH_TERM,
 		payload: searchTerm
 	}
 }
 
 export function sameSearchTriggered() {
 	return {
-		type: constants.SAME_SEARCH_TRIGGERED
+		type: searchConstants.SAME_SEARCH_TRIGGERED
 	}
 }

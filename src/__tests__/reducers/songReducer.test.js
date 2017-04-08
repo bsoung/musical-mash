@@ -1,4 +1,4 @@
-import * as actions from '../../actions';
+import * as songActions from '../../actions/song_actions';
 import { songReducer } from '../../reducers';
 
 // TODO: Async actions on reducer
@@ -21,7 +21,7 @@ describe('SEARCH REDUCER', () => {
       isSongPlaying: false
     };
 
-    expect(songReducer(INITIAL_STATE, actions.setSongDuration(duration)))
+    expect(songReducer(INITIAL_STATE, songActions.setSongDuration(duration)))
       .toEqual(expectedReducer);
   });
 
@@ -35,7 +35,7 @@ describe('SEARCH REDUCER', () => {
       isSongPlaying: false
     };
 
-    expect(songReducer(INITIAL_STATE, actions.setRandomSong(song)))
+    expect(songReducer(INITIAL_STATE, songActions.setRandomSong(song)))
       .toEqual(expectedReducer);
   });
 
@@ -49,7 +49,7 @@ describe('SEARCH REDUCER', () => {
       isSongPlaying: false
     };
 
-    expect(songReducer(INITIAL_STATE, actions.setSongIndex(song)))
+    expect(songReducer(INITIAL_STATE, songActions.setSongIndex(song)))
       .toEqual(expectedReducer);
   });
 
@@ -63,7 +63,7 @@ describe('SEARCH REDUCER', () => {
       isSongPlaying: true
     };
 
-    expect(songReducer(INITIAL_STATE, actions.setSongState(isSongPlaying)))
+    expect(songReducer(INITIAL_STATE, songActions.setSongState(isSongPlaying)))
       .toEqual(expectedReducer);
   });
 });

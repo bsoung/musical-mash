@@ -15,6 +15,8 @@ export default {
 									params: params
 								});
 
+								console.log(data, "data?")
+
 								return data;
 							})
 							.catch(err => {
