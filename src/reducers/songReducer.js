@@ -1,7 +1,7 @@
 import constants from '../constants';
 import _ from 'lodash';
 
-let initialState = {
+const initialState = {
 	allSongs: null,
 	songDurationSeconds: null,
 	currentSong: null,

@@ -71,11 +71,11 @@ export class SongContainer extends Component {
 
 		if (songs !== null) {
 
-			// keep rolling song until we get an actual song
+			// keep rolling a song until we get an actual song
 			while (loaded === false) {
 				if (song !== undefined && song !== null) {
 					loaded = true;
-
+					
 					return song;
 				}
 

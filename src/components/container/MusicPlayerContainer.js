@@ -10,14 +10,15 @@ export class MusicPlayerContainer extends Component {
         const currentPlaying = playing;
         const nextPlaying = nextProps.playing;
 
-        // we pressed pause
+        // user pressed pause
         if (currentPlaying && currentPlaying !== nextPlaying) {
+            // pause the song if new search is initiated while current song is still playing
             soundCloudAudio.pause();
 
             setSongState(false);
         }
 
-        // we pressed play
+        // user pressed play
         if (!currentPlaying && currentPlaying !== nextPlaying) {
             setSongState(true);
         }
@@ -25,12 +26,10 @@ export class MusicPlayerContainer extends Component {
 
     play() {
         const { soundCloudAudio, playing } = this.props;
-
-        // still playing
+        
         if (!playing) {
             soundCloudAudio.play();
 
-        // paused
         } else {
             soundCloudAudio.pause();
         }
@@ -66,10 +65,6 @@ export class MusicPlayerContainer extends Component {
     }
 }
 
-
-// for pause/play bug, under componentWillMount, maybe check to see what nextProps search term is, if it's not the same, set to pause
-
-
 const mapStateToProps = (state) => {
     return {
         songs: state.songs,
@@ -83,7 +78,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps , mapDispatchToProps)(MusicPlayerContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MusicPlayerContainer);
 
 
 

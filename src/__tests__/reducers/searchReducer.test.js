@@ -4,9 +4,8 @@ import { searchReducer } from '../../reducers';
 describe('SEARCH REDUCER', () => {
   const INITIAL_STATE = {
       searchTerm: null,
-			sameSearchTrigger: 0
+  		sameSearchTrigger: 0
     }
-
 
   it('should update the search term when a new search is initiated', () => {
     const searchTerm = 'pokemon';

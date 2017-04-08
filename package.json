@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start:watch": "nodemon ./bin/www",
-    "build": "webpack -w",
-    "package": "gulp --watch",
-    "dev": "concurrently --kill-others \"npm run start:watch\" \"npm run build\" \"npm run package\"",
+    "webpack:watch": "webpack -w",
+    "gulp:watch": "gulp --watch",
+    "dev": "concurrently --kill-others \"npm run start:watch\" \"npm run webpack:watch\" \"npm run gulp:watch\"",
     "test": "jest --coverage || true",
     "test:watch": "jest --watch"
   },
