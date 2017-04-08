@@ -23,7 +23,7 @@ export class SearchContainer extends Component {
 			searchSongs(searchTerm);
 			searchVideos(searchTerm);
 		} else {
-			this.props.newMediaSearched();
+			this.props.sameSearchTriggered();
 		}
 	}
 
@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch) => {
 		searchSongs: (song) => dispatch(actions.searchSongs(song)),
 		searchVideos: (video) => dispatch(actions.searchVideos(video)),
 		setSearchTerm: (searchTerm) => dispatch(actions.setSearchTerm(searchTerm)),
-		newMediaSearched: () => dispatch(actions.newMediaSearched())
+		sameSearchTriggered: () => dispatch(actions.sameSearchTriggered())
 	}
 }
 

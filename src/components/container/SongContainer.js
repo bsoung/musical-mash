@@ -14,8 +14,8 @@ export class SongContainer extends Component {
 		const nextSongs = nextProps.songs.allSongs;
 		const currentSongs = songs.allSongs;
 
-		const currentSearch = search.newTermSearched;
-		const nextSearch = nextProps.search.newTermSearched;
+		const currentSearch = search.sameSearchTrigger;
+		const nextSearch = nextProps.search.sameSearchTrigger;
 
 		if (nextSongs !== null) {
 

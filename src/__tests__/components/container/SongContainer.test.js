@@ -4,6 +4,8 @@ import ConnectedSongContainer, { SongContainer } from '../../../components/conta
 import Song from '../../mocks/Song.json';
 
 function setup() {
+
+  // create dummy props from what our redux state *would* contain when app is running
 	const props = {
     songs: {
       currentSong: Song
@@ -22,8 +24,7 @@ describe('SongContainer', () => {
   it('should render self and subcomponents', () => {
     const { enzymeWrapper } = setup();
     
-    // console.log(enzymeWrapper);
-    console.log(ConnectedSongContainer, "conencted component");
+    console.log(ConnectedSongContainer, "connected component");
 
     // expect(enzymeWrapper.children().props('onMusicVideoSearch')).toBeDefined();
     expect(enzymeWrapper.length).toEqual(1);

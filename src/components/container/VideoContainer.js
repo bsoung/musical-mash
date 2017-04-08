@@ -11,8 +11,8 @@ export class VideoContainer extends Component {
 		const nextVideos = nextProps.videos.allVideos;
 		const currentVideos = videos.allVideos;
 
-		const currentSearch = search.newTermSearched;
-		const nextSearch = nextProps.search.newTermSearched;
+		const currentSearch = search.sameSearchTrigger;
+		const nextSearch = nextProps.search.sameSearchTrigger;
 
 		if (nextVideos !== null) {
 

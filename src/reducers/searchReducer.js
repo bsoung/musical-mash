@@ -1,9 +1,9 @@
 import constants from '../constants';
 import _ from 'lodash';
 
-let initialState = {
+const initialState = {
 	searchTerm: null,
-	newTermSearched: 0
+	sameSearchTrigger: 0
 }
 
 export default (state = initialState, action = {}) => {
@@ -15,11 +15,11 @@ export default (state = initialState, action = {}) => {
 
 			return updated;
 
-		case constants.NEW_MEDIA_SEARCHED:
-			updated.newTermSearched++;
+		case constants.SAME_SEARCH_TRIGGERED:
+			updated.sameSearchTrigger++;
 
-			if (updated.newTermSearched > 1) {
-				updated.newTermSearched = 0;
+			if (updated.sameSearchTrigger > 1) {
+				updated.sameSearchTrigger = 0;
 			}
 
 			return updated;

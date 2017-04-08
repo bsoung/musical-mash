@@ -64,6 +64,12 @@ export function setSearchTerm(searchTerm) {
 	}
 }
 
+export function sameSearchTriggered() {
+	return {
+		type: constants.SAME_SEARCH_TRIGGERED
+	}
+}
+
 /*
  * Song actions
  */
@@ -129,15 +135,6 @@ export function setVideoState(bool) {
 }
 
 
-/*
- * Media actions
- */
-
-export function newMediaSearched() {
-	return {
-		type: constants.NEW_MEDIA_SEARCHED
-	}
-}
 
 
 

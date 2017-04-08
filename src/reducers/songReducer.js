@@ -26,8 +26,6 @@ export default (state = initialState, action = {}) => {
 		case constants.SET_RANDOM_SONG:
 			updated.currentSong = action.payload;
 
-			console.log(JSON.stringify(action.payload), 'set song');
-
 			return updated;
 
 		case constants.SET_SONG_INDEX:
