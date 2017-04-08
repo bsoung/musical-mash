@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import YouTube from 'react-youtube';
-import * as actions from '../../actions';
+import * as videoActions from '../../actions/video_actions';
 
 export class VideoContainer extends Component {
 	componentWillUpdate(nextProps) {
@@ -168,10 +168,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		setVideoPlayer: (eventTarget) => dispatch(actions.setVideoPlayer(eventTarget)),
-		setRandomVideo: (video) => dispatch(actions.setRandomVideo(video)),
-		setVideoIndex: (index) => dispatch(actions.setVideoIndex(index)),
-		setVideoState: (bool) => dispatch(actions.setVideoState(bool))
+		setVideoPlayer: (eventTarget) => dispatch(videoActions.setVideoPlayer(eventTarget)),
+		setRandomVideo: (video) => dispatch(videoActions.setRandomVideo(video)),
+		setVideoIndex: (index) => dispatch(videoActions.setVideoIndex(index)),
+		setVideoState: (bool) => dispatch(videoActions.setVideoState(bool))
 	}
 }
 

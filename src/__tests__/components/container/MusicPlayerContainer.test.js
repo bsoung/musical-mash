@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { MusicPlayerContainer } from '../../../components/container/MusicPlayerContainer';
+import ConnectedMusicPlayerContainer, { MusicPlayerContainer } from '../../../components/container/MusicPlayerContainer';
 
 function setup() {
 	const props = {};

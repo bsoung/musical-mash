@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { SearchContainer } from '../../../components/container/SearchContainer';
+import ConnectedSearchContainer, { SearchContainer } from '../../../components/container/SearchContainer';
 
 function setup() {
 	const props = {};

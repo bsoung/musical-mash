@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { SearchView } from '../view';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import * as searchActions from '../../actions/search_actions';
 
 export class SearchContainer extends Component {
 	doesMediaExist(media, mediaName) {
@@ -73,10 +73,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		searchSongs: (song) => dispatch(actions.searchSongs(song)),
-		searchVideos: (video) => dispatch(actions.searchVideos(video)),
-		setSearchTerm: (searchTerm) => dispatch(actions.setSearchTerm(searchTerm)),
-		sameSearchTriggered: () => dispatch(actions.sameSearchTriggered())
+		searchSongs: (song) => dispatch(searchActions.searchSongs(song)),
+		searchVideos: (video) => dispatch(searchActions.searchVideos(video)),
+		setSearchTerm: (searchTerm) => dispatch(searchActions.setSearchTerm(searchTerm)),
+		sameSearchTriggered: () => dispatch(searchActions.sameSearchTriggered())
 	}
 }
 

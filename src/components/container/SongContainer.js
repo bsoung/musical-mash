@@ -4,7 +4,7 @@ import { SoundPlayerContainer } from 'react-soundplayer/addons';
 import secret from '../../secret';
 import MusicPlayerContainer from './MusicPlayerContainer';
 import _ from 'lodash';
-import * as actions from '../../actions'
+import * as songActions from '../../actions/song_actions';
 
 export class SongContainer extends Component {
 	componentWillUpdate(nextProps) {
@@ -134,9 +134,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSongDuration: (duration) => dispatch(actions.setSongDuration(duration)),
-        setRandomSong: (song) => dispatch(actions.setRandomSong(song)),
-        setSongIndex: (index) => dispatch(actions.setSongIndex(index))
+        setSongDuration: (duration) => dispatch(songActions.setSongDuration(duration)),
+        setRandomSong: (song) => dispatch(songActions.setRandomSong(song)),
+        setSongIndex: (index) => dispatch(songActions.setSongIndex(index))
     }
 }
 

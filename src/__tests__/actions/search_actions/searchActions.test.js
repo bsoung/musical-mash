@@ -1,4 +1,4 @@
-import * as actions from '../../../actions';
+import * as searchActions from '../../../actions/search_actions';
 import constants from '../../../constants';
 
 describe('SEARCH ACTIONS', () => {
@@ -9,7 +9,7 @@ describe('SEARCH ACTIONS', () => {
         type: constants.SET_SEARCH_TERM,
         payload: payload
       }
-      expect(actions.setSearchTerm(payload)).toEqual(expectedAction);
+      expect(searchActions.setSearchTerm(payload)).toEqual(expectedAction);
     });
   });
 
@@ -18,7 +18,7 @@ describe('SEARCH ACTIONS', () => {
       const expectedAction = {
         type: constants.SAME_SEARCH_TRIGGERED
       }
-      expect(actions.sameSearchTriggered()).toEqual(expectedAction);
+      expect(searchActions.sameSearchTriggered()).toEqual(expectedAction);
     });
   });
 });

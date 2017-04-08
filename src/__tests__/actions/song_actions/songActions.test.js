@@ -1,4 +1,4 @@
-import * as actions from '../../../actions';
+import * as songActions from '../../../actions/song_actions';
 import constants from '../../../constants';
 
 describe('SONG ACTIONS', () => {
@@ -9,7 +9,7 @@ describe('SONG ACTIONS', () => {
         type: constants.SET_SONG_DURATION,
         payload: payload
       }
-      expect(actions.setSongDuration(payload)).toEqual(expectedAction);
+      expect(songActions.setSongDuration(payload)).toEqual(expectedAction);
     });
   });
 
@@ -20,7 +20,7 @@ describe('SONG ACTIONS', () => {
         type: constants.SET_SONG_INDEX,
         payload: payload
       }
-      expect(actions.setSongIndex(payload)).toEqual(expectedAction);
+      expect(songActions.setSongIndex(payload)).toEqual(expectedAction);
     });
   });
 
@@ -31,7 +31,7 @@ describe('SONG ACTIONS', () => {
         type: constants.SET_RANDOM_SONG,
         payload: payload
       }
-      expect(actions.setRandomSong(payload)).toEqual(expectedAction);
+      expect(songActions.setRandomSong(payload)).toEqual(expectedAction);
     });
   });
 
@@ -42,7 +42,7 @@ describe('SONG ACTIONS', () => {
         type: constants.SET_SONG_STATE,
         payload: payload
       }
-      expect(actions.setSongState(payload)).toEqual(expectedAction);
+      expect(songActions.setSongState(payload)).toEqual(expectedAction);
     });
   });
 });

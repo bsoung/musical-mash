@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; 
-import * as actions from '../../actions';
+import * as songActions from '../../actions/song_actions';
 
 export class MusicPlayerContainer extends Component {
     componentWillReceiveProps(nextProps) {
@@ -85,7 +85,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setSongState: (bool) => dispatch(actions.setSongState(bool))
+        setSongState: (bool) => dispatch(songActions.setSongState(bool))
     }
 }
 

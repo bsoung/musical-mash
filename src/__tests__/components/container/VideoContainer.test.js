@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ConnectedSongContainer, { SongContainer } from '../../../components/container/SongContainer';
+import ConnectedVideoContainer, { VideoContainer } from '../../../components/container/VideoContainer';
 import Song from '../../mocks/Song.json';
+import Video from '../../mocks/Video.json';
 
 function setup() {
 
@@ -9,10 +10,13 @@ function setup() {
 	const props = {
     songs: {
       currentSong: Song
+    },
+    videos: {
+      currentVideo: Video
     }
   };
 
-  const enzymeWrapper = shallow(<SongContainer {...props} />)
+  const enzymeWrapper = shallow(<VideoContainer {...props} />)
 
   return {
     props,
@@ -23,8 +27,6 @@ function setup() {
 describe('SongContainer', () => {
   it('should render self and subcomponents', () => {
     const { enzymeWrapper } = setup();
-    
-    // console.log(ConnectedSongContainer, "connected component");
 
     // expect(enzymeWrapper.children().props('onMusicVideoSearch')).toBeDefined();
     expect(enzymeWrapper.length).toEqual(1);

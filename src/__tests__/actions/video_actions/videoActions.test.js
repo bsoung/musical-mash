@@ -1,4 +1,4 @@
-import * as actions from '../../../actions';
+import * as videoActions from '../../../actions/video_actions';
 import constants from '../../../constants';
 
 describe('VIDEO ACTIONS', () => {
@@ -9,7 +9,7 @@ describe('VIDEO ACTIONS', () => {
         type: constants.SET_VIDEO_PLAYER,
         payload: payload
       }
-      expect(actions.setVideoPlayer(payload)).toEqual(expectedAction);
+      expect(videoActions.setVideoPlayer(payload)).toEqual(expectedAction);
     });
   });
 
@@ -20,7 +20,7 @@ describe('VIDEO ACTIONS', () => {
         type: constants.SET_RANDOM_VIDEO,
         payload: payload
       }
-      expect(actions.setRandomVideo(payload)).toEqual(expectedAction);
+      expect(videoActions.setRandomVideo(payload)).toEqual(expectedAction);
     });
   });
 
@@ -31,7 +31,7 @@ describe('VIDEO ACTIONS', () => {
         type: constants.SET_VIDEO_INDEX,
         payload: payload
       }
-      expect(actions.setVideoIndex(payload)).toEqual(expectedAction);
+      expect(videoActions.setVideoIndex(payload)).toEqual(expectedAction);
     });
   });
 
@@ -42,7 +42,7 @@ describe('VIDEO ACTIONS', () => {
         type: constants.SET_VIDEO_STATE,
         payload: payload
       }
-      expect(actions.setVideoState(payload)).toEqual(expectedAction);
+      expect(videoActions.setVideoState(payload)).toEqual(expectedAction);
     });
   });
 });
