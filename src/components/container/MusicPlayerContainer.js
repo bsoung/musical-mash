@@ -7,7 +7,10 @@ export class MusicPlayerContainer extends Component {
         const { soundCloudAudio, setSongState, playing, videos } = this.props;
         const player = videos.player;
 
+        // returns true if song is playing
         const currentPlaying = playing;
+
+        // returns true if song is paused
         const nextPlaying = nextProps.playing;
 
         // user paused song

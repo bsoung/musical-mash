@@ -23,17 +23,14 @@ export class SearchContainer extends Component {
 		const previousSearchTerm = search.searchTerm;
 		let searchTerm = e.target.value;
 
-		// don't make extra api calls on same search 
+		// only get from api on a different search word
 		if (searchTerm !== previousSearchTerm) {
 			setSearchTerm(searchTerm);
 			
 			searchSongs(searchTerm)
 				.then(data => {
 					const songs = data.response;
-
 					this.doesMediaExist(songs, 'songs');
-
-					
 				})
 				.catch(err => {
 					alert("One moment while we catch our breathe!");
@@ -42,9 +39,7 @@ export class SearchContainer extends Component {
 			searchVideos(searchTerm)
 				.then(data => {
 					const videos = data.response;
-
 					this.doesMediaExist(videos, 'videos');
-
 				})
 				.catch(err => {
 					alert("One moment while we catch our breathe!");

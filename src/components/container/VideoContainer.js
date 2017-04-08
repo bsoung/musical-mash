@@ -10,13 +10,12 @@ export class VideoContainer extends Component {
 		const nextVideos = nextProps.videos.allVideos;
 		const currentVideos = videos.allVideos;
 
-		const currentSearch = search.sameSearchTrigger;
-		const nextSearch = nextProps.search.sameSearchTrigger;
+		const sameSearchHappened = search.sameSearchTrigger !== nextProps.search.sameSearchTrigger;
 
 		if (nextVideos !== null) {
 
 			// search if first-time searching or triggering the same search 
-			if (currentVideos === null || currentSearch !== nextSearch) {
+			if (currentVideos === null || sameSearchHappened) {
 				this.grabRandomVideo(nextVideos);
 
 				// update correctly when executing a new search

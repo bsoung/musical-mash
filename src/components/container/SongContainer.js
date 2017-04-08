@@ -13,16 +13,15 @@ export class SongContainer extends Component {
 		const nextSongs = nextProps.songs.allSongs;
 		const currentSongs = songs.allSongs;
 
-		const currentSearch = search.sameSearchTrigger;
-		const nextSearch = nextProps.search.sameSearchTrigger;
+		const sameSearchHappened = search.sameSearchTrigger !== nextProps.search.sameSearchTrigger;
 
 		if (nextSongs !== null) {
 
 			// search if first-time searching or triggering the same search
-			if (currentSongs === null || currentSearch !== nextSearch) {
+			if (currentSongs === null || sameSearchHappened) {
 				this.grabRandomSong(nextSongs);
 
-				// update correctly when executing a new search
+				// update correctly when executing a different search
 			} else if (currentSongs.length > 0 && nextSongs.length > 0) {
 
 				if (currentSongs[0].id !== nextSongs[0].id) {
