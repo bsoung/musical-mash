@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 export class SearchContainer extends Component {
-
 	searchMusicVideo(e) {
 		const { search, setSearchTerm, searchSongs, searchVideos, sameMediaSearched } = this.props;
 
@@ -22,7 +21,7 @@ export class SearchContainer extends Component {
 			
 			searchSongs(searchTerm);
 			searchVideos(searchTerm);
-			
+
 		} else {
 			this.props.sameSearchTriggered();
 		}

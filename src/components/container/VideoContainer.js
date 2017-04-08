@@ -4,7 +4,6 @@ import YouTube from 'react-youtube';
 import * as actions from '../../actions';
 
 export class VideoContainer extends Component {
-
 	componentWillUpdate(nextProps) {
 		const { search, videos } = this.props;
 		
@@ -37,7 +36,6 @@ export class VideoContainer extends Component {
 	componentDidUpdate() {
 		const { songs, videos, setVideoState } = this.props;
 		const player = videos.player;
-
 		
 		if (player !== null) {
 			// if we play/pause our music, our video plays/pauses as well

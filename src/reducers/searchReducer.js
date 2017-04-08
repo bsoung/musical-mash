@@ -18,6 +18,7 @@ export default (state = initialState, action = {}) => {
 		case constants.SAME_SEARCH_TRIGGERED:
 			updated.sameSearchTrigger++;
 
+			// rotate our same search trigger so we can compare before/after values later
 			if (updated.sameSearchTrigger > 1) {
 				updated.sameSearchTrigger = 0;
 			}

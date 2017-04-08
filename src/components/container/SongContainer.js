@@ -7,7 +7,6 @@ import _ from 'lodash';
 import * as actions from '../../actions'
 
 export class SongContainer extends Component {
-
 	componentWillUpdate(nextProps) {
 		const { search, songs } = this.props;
 

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 export class MusicPlayerContainer extends Component {
-
     componentWillReceiveProps(nextProps) {
         const { soundCloudAudio, setSongState, playing, videos } = this.props;
         const player = videos.player;
@@ -11,14 +10,12 @@ export class MusicPlayerContainer extends Component {
         const currentPlaying = playing;
         const nextPlaying = nextProps.playing;
 
-        // user pressed pause
+        // user paused song
         if (currentPlaying && currentPlaying !== nextPlaying) {
-            // pause the song if new search is initiated while current song is still playing
-            soundCloudAudio.pause();
             setSongState(false);
         }
 
-        // user pressed play
+        // user plays song
         if (!currentPlaying && currentPlaying !== nextPlaying) {
             setSongState(true);
         }
@@ -26,7 +23,7 @@ export class MusicPlayerContainer extends Component {
         if (player !== null) {
             // stop video loop if song is finished playing
             if (player.getPlayerState() === 1 && !currentPlaying) {
-                player.stopVideo();
+                player.pauseVideo();
             }
 
             // loop video if video finishes before the song

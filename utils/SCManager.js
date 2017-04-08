@@ -11,8 +11,8 @@ module.exports = {
 				.query({
 					q: searchTerm,
 					limit: 50,
-					// license: 'cc-by-sa',
-					client_id: process.env.SC_CLIENT_ID
+					client_id: process.env.SC_CLIENT_ID,
+					order: 'hotness'
 				})
 				.set('Accept', 'application/json')
 				.end(function(err, res) {

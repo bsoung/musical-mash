@@ -12,7 +12,7 @@ module.exports = {
           q: searchTerm,
           part: 'snippet',
           maxResults: 50,
-          safeSearch: 'moderate',  // strict, moderate, or none
+          safeSearch: 'moderate',  // strict, moderate, or remove entirely
           type: 'video',
           key: process.env.YT_API_KEY
         })
