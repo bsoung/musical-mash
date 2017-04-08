@@ -7,30 +7,27 @@ export class MusicPlayerContainer extends Component {
         const { soundCloudAudio, setSongState, playing, videos } = this.props;
         const player = videos.player;
 
-        // returns true if song is playing
-        const currentPlaying = playing;
-
-        // returns true if song is paused
-        const nextPlaying = nextProps.playing;
+        const nextPlayState = nextProps.playing;
+        const playStateHasChanged = playing !== nextPlayState;
 
         // user paused song
-        if (currentPlaying && currentPlaying !== nextPlaying) {
+        if (playing && playStateHasChanged) {
             setSongState(false);
         }
 
         // user plays song
-        if (!currentPlaying && currentPlaying !== nextPlaying) {
+        if (!playing && playStateHasChanged) {
             setSongState(true);
         }
 
         if (player !== null) {
             // stop video loop if song is finished playing
-            if (player.getPlayerState() === 1 && !currentPlaying) {
+            if (player.getPlayerState() === 1 && !playing) {
                 player.pauseVideo();
             }
 
             // loop video if video finishes before the song
-            if (player.getPlayerState() === 0 && currentPlaying) {
+            if (player.getPlayerState() === 0 && playing) {
                 player.playVideo();
                 player.mute();
             }

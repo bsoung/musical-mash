@@ -33,7 +33,7 @@ export class SearchContainer extends Component {
 					this.doesMediaExist(songs, 'songs');
 				})
 				.catch(err => {
-					alert("One moment while we catch our breathe!");
+					alert("One moment while we catch our breathe! Try refreshing the page.");
 				});
 
 			searchVideos(searchTerm)
@@ -42,7 +42,7 @@ export class SearchContainer extends Component {
 					this.doesMediaExist(videos, 'videos');
 				})
 				.catch(err => {
-					alert("One moment while we catch our breathe!");
+					alert("One moment while we catch our breathe! Try refreshing the page.");
 				});
 
 		} else {

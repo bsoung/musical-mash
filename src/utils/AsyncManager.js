@@ -2,7 +2,7 @@ import APIManager from './APIManager';
 
 export default {
 	getRequest: (path, params, actionType) => {
-			// no curly brackets after arrow func auto returns dispatch
+		// no curly brackets after arrow func auto returns dispatch
 		return (dispatch) => 
 						APIManager
 							.get(path, params)
