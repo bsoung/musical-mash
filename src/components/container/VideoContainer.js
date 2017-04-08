@@ -7,7 +7,7 @@ export class VideoContainer extends Component {
 
 	componentWillUpdate(nextProps) {
 		const { search, videos } = this.props;
-
+		
 		const nextVideos = nextProps.videos.allVideos;
 		const currentVideos = videos.allVideos;
 
@@ -16,7 +16,7 @@ export class VideoContainer extends Component {
 
 		if (nextVideos !== null) {
 
-			// re-search if same term is entered (every other term is in all caps)
+			// search if first-time searching or triggering the same search 
 			if (currentVideos === null || currentSearch !== nextSearch) {
 				this.grabRandomVideo(nextVideos);
 
@@ -30,7 +30,6 @@ export class VideoContainer extends Component {
 				// update correctly when executing a new search after a previous search returned no results
 			} else if (currentVideos.length < 1 && nextVideos.length > 0) {
 				this.grabRandomVideo(nextVideos);
-
 			} 
 		}
 	}
@@ -39,21 +38,14 @@ export class VideoContainer extends Component {
 		const { songs, videos, setVideoState } = this.props;
 		const player = videos.player;
 
-		// if we play/pause our music, our video plays/pauses as well
+		
 		if (player !== null) {
-
-			if (player.getPlayerState() === 0) {
-				console.log("video ended!")
-				player.playVideo();
-			}
-
+			// if we play/pause our music, our video plays/pauses as well
 			if (songs.isSongPlaying) {
-
-				player.playVideo();
 				player.mute();
+				player.playVideo();
 
 			} else {
-
 				player.pauseVideo();
 			}
 		}

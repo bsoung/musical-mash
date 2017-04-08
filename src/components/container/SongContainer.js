@@ -19,7 +19,7 @@ export class SongContainer extends Component {
 
 		if (nextSongs !== null) {
 
-			// re-search if same term is entered or first time searching
+			// search if first-time searching or triggering the same search
 			if (currentSongs === null || currentSearch !== nextSearch) {
 				this.grabRandomSong(nextSongs);
 

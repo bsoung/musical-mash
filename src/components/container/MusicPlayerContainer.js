@@ -5,7 +5,8 @@ import * as actions from '../../actions';
 export class MusicPlayerContainer extends Component {
 
     componentWillReceiveProps(nextProps) {
-        const { soundCloudAudio, setSongState, playing } = this.props;
+        const { soundCloudAudio, setSongState, playing, videos } = this.props;
+        const player = videos.player;
 
         const currentPlaying = playing;
         const nextPlaying = nextProps.playing;
@@ -14,13 +15,25 @@ export class MusicPlayerContainer extends Component {
         if (currentPlaying && currentPlaying !== nextPlaying) {
             // pause the song if new search is initiated while current song is still playing
             soundCloudAudio.pause();
-
             setSongState(false);
         }
 
         // user pressed play
         if (!currentPlaying && currentPlaying !== nextPlaying) {
             setSongState(true);
+        }
+
+        if (player !== null) {
+            // stop video loop if song is finished playing
+            if (player.getPlayerState() === 1 && !currentPlaying) {
+                player.stopVideo();
+            }
+
+            // loop video if video finishes before the song
+            if (player.getPlayerState() === 0 && currentPlaying) {
+                player.playVideo();
+                player.mute();
+            }
         }
     }
 
@@ -68,7 +81,8 @@ export class MusicPlayerContainer extends Component {
 const mapStateToProps = (state) => {
     return {
         songs: state.songs,
-        search: state.search
+        search: state.search,
+        videos: state.videos
     }
 }
 

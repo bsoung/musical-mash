@@ -22,6 +22,7 @@ export class SearchContainer extends Component {
 			
 			searchSongs(searchTerm);
 			searchVideos(searchTerm);
+			
 		} else {
 			this.props.sameSearchTriggered();
 		}
