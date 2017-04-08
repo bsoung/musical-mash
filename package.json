@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start:watch": "nodemon ./bin/www",
+    "build": "webpack -w",
+    "package": "gulp --watch",
+    "dev": "concurrently --kill-others \"npm run start:watch\" \"npm run build\" \"npm run package\"",
     "test": "jest --coverage || true",
     "test:watch": "jest --watch"
   },
@@ -38,6 +41,7 @@
   "devDependencies": {
     "babel-jest": "^19.0.0",
     "babel-preset-stage-0": "^6.22.0",
+    "concurrently": "^3.4.0",
     "enzyme": "^2.8.0",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-concat": "^2.6.1",
