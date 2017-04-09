@@ -96,8 +96,8 @@ For Zipfile:
 ```
 npm i -g webpack gulp
 ```
-* If the Node_Modules folder is missing, run npm install.
-* If the Node_Modules folder is present, run the following script:
+* Run npm install.
+* Then run the following script:
 ```
 npm run dev
 ```
