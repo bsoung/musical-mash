@@ -7,7 +7,13 @@ export default {
 						APIManager
 							.get(path, params)
 							.then(data => {
-								const payload = data.response;
+								let payload = null;
+
+								if (data === null) {
+									payload = [];
+								} else {
+									payload = data.response;
+								}
 
 								dispatch({
 									type: actionType,
@@ -15,9 +21,7 @@ export default {
 									params: params
 								});
 
-								console.log(data, "data?")
-
-								return data;
+								return data !== null ? data.response : data;
 							})
 							.catch(err => {
 								console.error(err.message);

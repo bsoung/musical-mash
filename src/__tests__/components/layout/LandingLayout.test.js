@@ -18,7 +18,5 @@ describe('LandingLayout', () => {
     const { enzymeWrapper } = setup()
 
     expect(enzymeWrapper.length).toEqual(1);
-    expect(enzymeWrapper.find('h3').hasClass('search-title')).toBe(true);
-    expect(enzymeWrapper.find('div').hasClass('landing-container')).toBe(true);
   });
 });

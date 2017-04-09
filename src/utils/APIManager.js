@@ -13,7 +13,7 @@ export default {
 						return;
 					}
 
-					if (response.body.confirmation !== 'success') {
+					if (response.body && response.body.confirmation !== 'success') {
 						reject(new Error(response.body.message));
 						return;
 					}

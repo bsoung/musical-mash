@@ -10,7 +10,7 @@ export default class SearchView extends Component {
 					className="input input-width border-none h2"
 					id="search_song" 
 					type="text" 
-					placeholder="Type a search word and press enter! You'll get a pair of random song and video related to your search :)" 
+					placeholder="Pop in a search and press enter! Out of ideas? Try your favorite artists, foods, movies, books, or video games. Good luck :)" 
 					/>
 			</div>
 		)

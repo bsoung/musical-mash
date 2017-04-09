@@ -56,7 +56,6 @@ export class MusicPlayerContainer extends Component {
         }
 
         let trackDurationPercent = ((currentTime / songs.songDurationSeconds) * 100).toFixed(2);
-        console.log(trackDurationPercent);
 
         return (
             <div className="song-container animated zoomIn loading-bg">

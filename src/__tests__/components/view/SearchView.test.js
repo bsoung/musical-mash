@@ -21,6 +21,5 @@ describe('SearchView', () => {
 
     expect(enzymeWrapper.length).toEqual(1);
     expect(enzymeWrapper.find('input').hasClass('input')).toBe(true);
-    expect(enzymeWrapper.find('div').hasClass('search-container')).toBe(true);
   });
 });

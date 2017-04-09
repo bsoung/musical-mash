@@ -18,8 +18,5 @@ describe('MusicPlayerContainer', () => {
     const { enzymeWrapper } = setup();
 
     expect(enzymeWrapper.length).toEqual(1);
-    expect(enzymeWrapper.find('div').hasClass('mt3')).toBe(true);
-    expect(enzymeWrapper.find('h2').hasClass('m0')).toBe(true);
-
   });
 });

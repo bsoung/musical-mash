@@ -24,9 +24,6 @@ describe('SongContainer', () => {
   it('should render self and subcomponents', () => {
     const { enzymeWrapper } = setup();
     
-    // console.log(ConnectedSongContainer, "connected component");
-
-    // expect(enzymeWrapper.children().props('onMusicVideoSearch')).toBeDefined();
     expect(enzymeWrapper.length).toEqual(1);
   });
 });

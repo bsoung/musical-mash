@@ -26,19 +26,21 @@ export class SearchContainer extends Component {
 		if (searchTerm !== previousSearchTerm) {
 			setSearchTerm(searchTerm);
 
+			searchVideos(searchTerm);
 			searchSongs(searchTerm)
-				.then(data => {
-					if (data.response.length === 0) {
+				.then(response => {
+					if (response && response.length === 0) {
 						swal({
 						  title: ":(",
 						  text: "Aww - No results were found! Please try again!",
 						  imageUrl: "../../images/sadpanda.jpg"
 						});
 					}
-				});
-
-			searchVideos(searchTerm)
-				
+				})
+				.catch(err => {
+					console.error(err);
+					swal("Oops", "Something went wrong... Try a page refresh!", "error");
+				})
 
 		} else {
 			sameSearchTriggered();
