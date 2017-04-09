@@ -69,9 +69,9 @@ The wireframe is located in the wireframe folder in the root directory of the pr
 
 ## API Reference
 
-* GET /api/music/:term :: consumes a query string and returns 50 songs from SoundCloud's Search API.
+* GET /music/:term :: consumes a query string and returns 50 songs from SoundCloud's Search API.
 
-* GET /api/video/:term :: consumes a query string and returns 50 videos from Youtube's Search API.
+* GET /video/:term :: consumes a query string and returns 50 videos from Youtube's Search API.
 
 
 ## To Develop / Running the App Locally
