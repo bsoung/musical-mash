@@ -40,7 +40,7 @@ The wireframe is located in the wireframe folder in the root directory of the pr
 
 - I chose React and Redux because they are the libraries that I had been currently exploring, and wanted to have the opportunity to build a complete project using the stack from the ground up. Apart from that, Redux gave the opportunity to really dive into complex state management, especially with the nature of this project. I had to make sure I was able to have the listeners listen in at the right times to execute properly.
 
-- I created a Node backend via Express so that I could have a bit more organization in my code, and be able to consume those express routes later on the frontend.
+- The Node backend via Express was created to be able to consume those express routes later on the frontend.
 
 - Webpack and Babel are used to parse the ES6 Javascript that React utilizes. I love Gulp for tidying up messy asset files, especially other JS and SASS files.
 
@@ -88,7 +88,6 @@ npm i -g webpack gulp
 ```
 npm run dev
 ```
-* This will fire up the express local server via nodemon, and also starts webpack and gulp in watch mode. 
 * Visit localhost:3000 
 
 For Zipfile:
@@ -107,13 +106,12 @@ npm run dev
 
 For Testing:
 * All test files are located in a folder in the /src folder, called __tests__
-* The folder is structured similarly to the /src for ease of testing and separating redux counterparts.
 * For more information regarding Redux testing, visit their awesome [documentation.](http://redux.js.org/docs/recipes/WritingTests.html)
 * To start the tests, go to the root directory of the project folder and run:
 ```
 npm run test:watch
 ```
-* This will start the test and update as you go
+* This will start the test watching!
 * Cheers!
 
 
