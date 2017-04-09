@@ -4,9 +4,9 @@ Music is everywhere. From the background elevator tunes to the epic movie scores
 
 ## App Description
 
-* A user enters a search word. If the search is successful, a randomly picked song and video will appear depending on what the search was about. The play button starts both the song and the song, and will also pause both the song and the video. Users can spam the same search for different video/song combinations. 
+* A user enters a search word. If the search is successful, a randomly picked song and video will appear depending on what the search was about. The play button starts both the song and the video, and will also pause both. Users can spam the same search for different video/song combinations. 
 
-* The video is muted, without information, and cannot be interacted with. It serves as a visualizer for the song. If the Song ends before the video, the video ends as well. 
+* The video is muted, does not display information, and cannot be interacted with. It serves as a visualizer for the song. If the Song ends before the video, the video ends as well. 
 
 * If the video ends before the song, it will continue looping until the song ends as well. 
 
@@ -38,7 +38,7 @@ The wireframe is located in the wireframe folder in the root directory of the pr
 
 ## The Process
 
-- I chose React and Redux because they are the libraries that I had been currently exploring, and wanted to have the opportunity to build a complete project using the stack from the ground up. Apart from that, Redux gave the opportunity to really dive into complex state management, especially with the nature of this project. I had to make sure I was able to have the listeners listen in at the right times to execute properly.
+- I chose React and Redux because they were the libraries that I had been currently exploring, and I wanted to have the opportunity to build a complete project using the stack from the ground up. Apart from that, Redux gave the opportunity to really dive into complex state management, especially with the nature of this project. 
 
 - The Node backend via Express was created to be able to consume those express routes later on the frontend.
 

@@ -11,7 +11,7 @@ module.exports = {
           q: searchTerm,
           part: 'snippet',
           maxResults: 50,
-          safeSearch: 'strict',  // strict, moderate, or none 
+          safeSearch: 'strict', 
           type: 'video',
           videoSyndicated: true,
           videoEmbeddable: true,

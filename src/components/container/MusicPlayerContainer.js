@@ -8,15 +8,15 @@ export class MusicPlayerContainer extends Component {
         const player = videos.player;
 
         const nextPlayState = nextProps.playing;
-        const playStateHasChanged = playing !== nextPlayState;
+        const playerStateHasChanged = playing !== nextPlayState;
 
         // user paused song
-        if (playing && playStateHasChanged) {
+        if (playing && playerStateHasChanged) {
             setSongState(false);
         }
 
         // user plays song
-        if (!playing && playStateHasChanged) {
+        if (!playing && playerStateHasChanged) {
             setSongState(true);
         }
 

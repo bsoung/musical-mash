@@ -158,8 +158,6 @@ export class VideoContainer extends Component {
 						  <div className="wait-text">Waiting...</div>
 						</div>
 					</div>
-
-
 				</div>
 			)
 		}
@@ -184,14 +182,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoContainer);
-
-
-
-
-
-
-
-
-
-
-
