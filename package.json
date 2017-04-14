@@ -7,8 +7,10 @@
     "webpack:watch": "webpack -w",
     "gulp:watch": "gulp --watch",
     "dev": "concurrently --kill-others \"npm run start\" \"npm run webpack:watch\" \"npm run gulp:watch\"",
+    "build": "NODE_ENV=production webpack && gulp prod",
     "test": "jest --coverage || true",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "babel-core": "^6.24.0",
