@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start:watch": "nodemon ./bin/www",
+    "start": "nodemon ./bin/www",
     "webpack:watch": "webpack -w",
     "gulp:watch": "gulp --watch",
-    "dev": "concurrently --kill-others \"npm run start:watch\" \"npm run webpack:watch\" \"npm run gulp:watch\"",
+    "dev": "concurrently --kill-others \"npm run start\" \"npm run webpack:watch\" \"npm run gulp:watch\"",
     "test": "jest --coverage || true",
     "test:watch": "jest --watch"
   },
