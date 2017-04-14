@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SoundPlayerContainer } from 'react-soundplayer/addons';
-import secret from '../../secret';
+// import secret from '../../secret';
 import MusicPlayerContainer from './MusicPlayerContainer';
 import _ from 'lodash';
 import * as songActions from '../../actions/song_actions';
@@ -115,7 +115,7 @@ export class SongContainer extends Component {
 		}
 
 		return (
-				<SoundPlayerContainer resolveUrl={resolveUrl} clientId={secret.SC_CLIENT_ID}>
+				<SoundPlayerContainer resolveUrl={resolveUrl} clientId='hV9B533iVncT4sLkGhr72QCYcHmQU99v'>
 	        <MusicPlayerContainer />
 	      </SoundPlayerContainer>
 		)
