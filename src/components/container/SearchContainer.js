@@ -7,8 +7,6 @@ export class SearchContainer extends Component {
 	searchMusicVideo(e) {
 		const { 
 			search, 
-			videos, 
-			songs, 
 			setSearchTerm, 
 			searchSongs, 
 			searchVideos, 

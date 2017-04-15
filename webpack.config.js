@@ -1,5 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
+var Dotenv = require('dotenv-webpack');
+
 
 module.exports = {
 	entry: {
@@ -21,9 +23,20 @@ module.exports = {
 			compress: {
 				warnings: true
 			}
-		})
+		}),
+		new Dotenv({
+      path: './.env', // Path to .env file (this is the default)
+      safe: false // load .env.example (defaults to "false" which does not use dotenv-safe)
+    })
 
-	] : [],
+
+	] : [
+		new Dotenv({
+      path: './.env', // Path to .env file (this is the default)
+      safe: false // load .env.example (defaults to "false" which does not use dotenv-safe)
+    })
+
+	],
 	module: {
 		loaders: [
 			{
