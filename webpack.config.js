@@ -16,7 +16,7 @@ module.exports = {
 		new webpack.DefinePlugin({
 			'process.env': {
 				'NODE_ENV': JSON.stringify('production'),
-				SC_CLIENT_ID: process.env.SC_CLIENT_ID
+				'SC_CLIENT_ID': JSON.stringify(process.env.SC_CLIENT_ID)
 			}
 		}),
 		new webpack.optimize.UglifyJsPlugin({
