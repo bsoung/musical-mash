@@ -15,7 +15,8 @@ module.exports = {
 	plugins: process.env.NODE_ENV === 'production' ? [
 		new webpack.DefinePlugin({
 			'process.env': {
-				'NODE_ENV': JSON.stringify('production')
+				'NODE_ENV': JSON.stringify('production'),
+				SC_CLIENT_ID: process.env.SC_CLIENT_ID
 			}
 		}),
 		new webpack.optimize.UglifyJsPlugin({
@@ -24,7 +25,7 @@ module.exports = {
 				warnings: true
 			}
 		})
-		
+
 	] : [
 		new Dotenv({
       path: './.env', // Path to .env file (this is the default)
