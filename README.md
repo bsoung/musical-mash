@@ -12,6 +12,10 @@ Music is everywhere. From the background elevator tunes to the epic movie scores
 
 * The motivation for this is to have users discover interesting combinations and revisit their old music libraries with an interesting twist.
 
+[Checkout Audio Story here!](musical-mash.herokuapp.com)
+
+If there are any problem, make sure to check if Heroku is having any issues.
+
 ## Technologies
 
 Frontend:
