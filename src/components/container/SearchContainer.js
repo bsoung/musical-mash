@@ -13,7 +13,7 @@ export class SearchContainer extends Component {
 			sameSearchTriggered } = this.props;
 
 		// detect if enter is pressed
-		if (e.keyCode != 13) {
+		if (e.keyCode !== 13) {
 			return;
 		}
 

@@ -7,7 +7,7 @@ export class LandingLayout extends Component {
 
 		swal({
 			title: 'Hey there!',
-		  text: "This project was built as a challenge to do something cool with the SoundCloud API. You'll grab two random but relevant search results and play them in harmoney. Pick something to search for, and discover some <span style='color:#F8BB86'>awesome<span> combinations!",
+		  text: "This project was built as a challenge to do something cool with the SoundCloud API. You'll grab two random but relevant search results and play them in harmony. Pick something to search for, and discover some <span style='color:#F8BB86'>awesome<span> combinations!",
 		  html: true
 		});
 	}
