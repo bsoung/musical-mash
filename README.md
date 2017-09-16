@@ -1,4 +1,4 @@
-# SoundCloud Internship Challenge : Audio Story
+# Audio Story
 
 Music is everywhere. From the background elevator tunes to the epic movie scores, to those passionate individuals humming as they go about their day. We regard the senses of sight and hearing as powerful forces, and continue to experiment, develop, and create new ways of exploring these senses. One particularly effective combination is the pairing between visual and auditory stimuli. We've all experienced it when we've gone to movies. They've captivated us, scared us, and made us laugh so hard we nearly grew abs overnight. When we layer music on top of a visual effect, we have a possibility of connecting to either or both mediums in ways we may not have been aware of. It is truly an awesome feeling to know that the music you love and listen to can sound so different depending on the visual stimuli. This is how the idea of Audio Story started!
 
