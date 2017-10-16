@@ -1,15 +1,18 @@
-@import url('https://fonts.googleapis.com/css?family=Bungee+Shade|Cutive+Mono|Shadows+Into+Light');
+@import url("https://fonts.googleapis.com/css?family=Bungee+Shade|Cutive+Mono|Shadows+Into+Light");
 
 /*
  * Global styles
  */
 
-*, :after, :before {
-    box-sizing: border-box;
+*,
+:after,
+:before {
+  box-sizing: border-box;
 }
 
-html, body {
-  overflow-x: hidden
+html,
+body {
+  overflow-x: hidden;
 }
 
 body {
@@ -17,7 +20,8 @@ body {
   padding: 2px 20px;
 }
 
-input, input:focus {
+input,
+input:focus {
   outline: none;
   background: transparent;
   -webkit-appearance: none;
@@ -29,20 +33,21 @@ button:focus {
   outline: none;
 }
 
-input::-webkit-input-placeholder, input::-moz-placeholder {
-  color: white
+input::-webkit-input-placeholder,
+input::-moz-placeholder {
+  color: white;
 }
 
 a {
-     text-decoration: none;
-     color: black;
+  text-decoration: none;
+  color: black;
 }
 
 a:hover {
-    color:black;
-    text-decoration:none;
-    cursor:pointer;
-  }
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 iframe {
   border: 10px solid #333;
@@ -59,18 +64,15 @@ button {
   padding: 0;
 }
 
-
 /*
  * Buttons
  */
-
 
 .btn.striped-shadow span {
   display: block;
   z-index: 2;
   padding: 2%;
   border: 5px solid;
-
 }
 .btn.striped-shadow.white span {
   position: absolute;
@@ -83,7 +85,7 @@ button {
 }
 
 .btn {
-  font-family: 'Bungee Shade', sans-serif;
+  font-family: "Bungee Shade", sans-serif;
   height: 48px;
   line-height: 38px;
   display: inline-block;
@@ -107,7 +109,7 @@ button {
 
 /*
  * Containers
- */ 
+ */
 
 .video-container {
   position: relative;
@@ -143,15 +145,15 @@ button {
  * Text
  */
 
-
 .input-width {
-	width: 100%;
+  width: 100%;
 }
 
-.title-text, .user-text {
+.title-text,
+.user-text {
   width: 80%;
   color: white;
-  font-family: 'Cutive Mono', monospace;
+  font-family: "Cutive Mono", monospace;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -167,10 +169,10 @@ button {
 
 .wait-text {
   position: absolute;
-  font-family: 'Shadows Into Light', cursive;
+  font-family: "Shadows Into Light", cursive;
   color: white;
   top: 45px;
-  right: -13px;
+  right: -103px;
 }
 
 .ellipsis {
@@ -199,14 +201,14 @@ button {
 }
 
 .search-title {
-  font-family: 'Shadows Into Light', cursive;
+  font-family: "Shadows Into Light", cursive;
 }
 
 .about-link {
   margin-top: 15px;
   width: 100%;
   text-align: center;
-  font-family: 'Shadows Into Light', cursive;
+  font-family: "Shadows Into Light", cursive;
 }
 
 .inner-video-border {
@@ -275,15 +277,25 @@ button {
     margin-top: 18%;
     max-height: 600px;
   }
-  .ui-bar {left: 18.5%;}
+  .ui-bar {
+    left: 18.5%;
+  }
 }
 
-
 @media only screen and (max-width: 640px) {
-  .ui-bar {left: 20%;}
-  .loader {left: 43%;}
-  .user-text {font-size: 0.8em; width: 80%;}
-  .title-text {width: 80%;}
+  .ui-bar {
+    left: 20%;
+  }
+  .loader {
+    left: 43%;
+  }
+  .user-text {
+    font-size: 0.8em;
+    width: 80%;
+  }
+  .title-text {
+    width: 80%;
+  }
   .landing-container {
     margin-top: 14%;
     max-height: 500px;
@@ -291,24 +303,48 @@ button {
 }
 
 @media only screen and (max-width: 568px) {
-  .ui-bar {left: 19%;}
-  .loader {left: 45%;}
-  .inner-video-border {height: 100%;}
-  .btn {font-size: 1em}
-  .btn.striped-shadow.white span {width: 83%; right: 15%}
+  .ui-bar {
+    left: 19%;
+  }
+  .loader {
+    left: 45%;
+  }
+  .inner-video-border {
+    height: 100%;
+  }
+  .btn {
+    font-size: 1em;
+  }
+  .btn.striped-shadow.white span {
+    width: 83%;
+    right: 15%;
+  }
   .landing-container {
     margin-top: 5%;
     max-height: 500px;
   }
-  .video-container {height: 310px};
+  .video-container {
+    height: 310px;
+  }
 }
 
 @media only screen and (max-width: 547px) {
-  .ui-bar {left: 25%;}
-  .loader {left: 45%;}
-  .inner-video-border {height: 100%;}
-  .btn {font-size: 1em}
-  .btn.striped-shadow.white span {width: 83%; right: 15%}
+  .ui-bar {
+    left: 25%;
+  }
+  .loader {
+    left: 45%;
+  }
+  .inner-video-border {
+    height: 100%;
+  }
+  .btn {
+    font-size: 1em;
+  }
+  .btn.striped-shadow.white span {
+    width: 83%;
+    right: 15%;
+  }
   .landing-container {
     margin-top: 5%;
     max-height: 500px;
@@ -316,12 +352,25 @@ button {
 }
 
 @media only screen and (max-width: 427px) {
-  .ui-bar {left: 28%;}
-  .loader {left: 43%;}
-  .title-text {font-size: 0.6em};
-  .user-text {font-size: 0.8em};
-  .btn.striped-shadow.white span {width: 65%; right: 33%};
-  .btn {font-size: 0.8em};
+  .ui-bar {
+    left: 28%;
+  }
+  .loader {
+    left: 43%;
+  }
+  .title-text {
+    font-size: 0.6em;
+  }
+  .user-text {
+    font-size: 0.8em;
+  }
+  .btn.striped-shadow.white span {
+    width: 65%;
+    right: 33%;
+  }
+  .btn {
+    font-size: 0.8em;
+  }
   .landing-container {
     margin: 1px auto 0;
     max-height: 100%;
@@ -329,31 +378,27 @@ button {
 }
 
 @media only screen and (max-width: 328px) {
-  .ui-bar {left: 36%;}
-  .loader {left: 43%;}
-  .title-text {font-size: 0.6em};
-  .user-text {font-size: 0.8em};
-  .btn.striped-shadow.white span {width: 65%; right: 33%};
-  .btn {font-size: 0.8em};
+  .ui-bar {
+    left: 36%;
+  }
+  .loader {
+    left: 43%;
+  }
+  .title-text {
+    font-size: 0.6em;
+  }
+  .user-text {
+    font-size: 0.8em;
+  }
+  .btn.striped-shadow.white span {
+    width: 65%;
+    right: 33%;
+  }
+  .btn {
+    font-size: 0.8em;
+  }
   .landing-container {
     margin: 1px auto 0;
     max-height: 100%;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
